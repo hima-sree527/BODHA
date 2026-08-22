@@ -6,8 +6,8 @@ $requiredElements = @(
   "openingIntroOverlay", "introSkipBtn",
   # Navbar & Brand
   "nav-brand-link", "nav-demo-btn", "nav-signup-btn",
-  # Hero CTAs
-  "hero-demo-cta", "hero-school-cta",
+  # Hero CTAs & Video
+  "hero-demo-cta", "hero-school-cta", "heroBackgroundVideo",
   # Simulator Controls
   "ageSlider", "ageDisplay", "ageBandPill",
   "chip-cricket", "chip-gaming", "chip-space", "chip-animals", "chip-music", "chip-movies",
