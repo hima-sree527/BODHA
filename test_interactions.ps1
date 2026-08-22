@@ -20,7 +20,12 @@ $functionChecks = @(
   "generateSiteHelpResponse",
   "handleHelpQuery",
   "handleHelpFormSubmit",
-  "navigateFromHelp"
+  "navigateFromHelp",
+  "getDiagnosticQuestion",
+  "renderDiagnosticStep",
+  "handleDiagnosticOptionClick",
+  "generateDiagnosticSummary",
+  "resetDiagnostic"
 )
 
 $missingFuncs = @()

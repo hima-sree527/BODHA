@@ -1,4 +1,4 @@
-# Validation Script for Bodha Single Page App with Whole-Site Language Switcher, Video Hero, Pricing & Modal
+# Validation Script for Bodha Single Page App with Whole-Site Language Switcher, Video Hero, Pricing, Modal & Adaptive Diagnostic
 $htmlContent = Get-Content -Path "c:\Users\naren\OneDrive\Documents\Desktop\BODHA\index.html" -Raw
 
 $requiredElements = @(
@@ -16,8 +16,10 @@ $requiredElements = @(
   "aiResponseCard", "thinkingOverlay", "thinkingMascot", "thinkingStatusText",
   "metaConceptBadge", "metaToneBadge", "metaInterestBadge",
   "mascotAvatarContainer", "aiExplanationBody", "fractionVisualContainer",
-  # Socratic Check
-  "understandingCheckBlock", "checkQuestionText", "checkOptionsContainer", "checkFeedbackText",
+  # Socratic & Adaptive Diagnostic Check
+  "understandingCheckBlock", "diagnosticStepPill", "diagnosticStepDots", "diagnosticStepLabel",
+  "diagnosticQuestionBlock", "checkQuestionText", "checkOptionsContainer", "checkFeedbackText",
+  "diagnosticSummaryCard", "summaryBadgeText", "summaryTitleText", "summaryStrengthsText", "summaryGrowthText", "summaryActionNote",
   # Multilingual Tabs
   "lang-en", "lang-hi", "lang-ta", "lang-te", "lang-mr", "langPreviewText",
   # Section 5 Showcase

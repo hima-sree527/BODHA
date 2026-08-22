@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bodha — Learn Through Your World | Adaptive AI Tutor (Ages 3–18)</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <title>Bodha — Learn Through Your World</title>
   <meta name="description" content="Bodha is an adaptive B2B AI tutor for schools (KG to Class 12). It translates core concepts into every child's personal world and interests, solving the 1:50 classroom gap." />
   
   <!-- Preload Section 0 Flat Illustration Art for instant deterministic loading -->
@@ -2404,18 +2409,31 @@
     <div class="container nav-container">
       <a href="#" class="brand-logo" id="nav-brand-link">
         <div class="logo-icon">
-          <!-- Bodhi Guide Icon -->
-          <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
-            <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
-            <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
-            <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
-            <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
-            <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
-            <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-            <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-            <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-            <path d="M18 4 Q18 9 18 9" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
+          <!-- Bodha Brand Logo Icon -->
+          <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+            <defs>
+              <linearGradient id="navBodhaGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#4F46E5"/>
+                <stop offset="100%" stop-color="#3730A3"/>
+              </linearGradient>
+              <linearGradient id="navAmberSpark" x1="24" y1="6" x2="40" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FEF08A"/>
+                <stop offset="50%" stop-color="#F59E0B"/>
+                <stop offset="100%" stop-color="#EA580C"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#navBodhaGrad)"/>
+            <path d="M32 8 L35.5 18 L44 18.5 L37.5 24 L39.5 32 L32 27 L24.5 32 L26.5 24 L20 18.5 L28.5 18 Z" fill="url(#navAmberSpark)"/>
+            <circle cx="32" cy="8.5" r="3.2" fill="#FEF08A"/>
+            <circle cx="23" cy="37" r="5.5" fill="#FFFFFF"/>
+            <circle cx="24.5" cy="36" r="2.8" fill="#1E1B4B"/>
+            <circle cx="26" cy="34.8" r="1.2" fill="#FFFFFF"/>
+            <circle cx="41" cy="37" r="5.5" fill="#FFFFFF"/>
+            <circle cx="42.5" cy="36" r="2.8" fill="#1E1B4B"/>
+            <circle cx="44" cy="34.8" r="1.2" fill="#FFFFFF"/>
+            <ellipse cx="16" cy="41" rx="3.5" ry="2" fill="#FCA5A5" opacity="0.85"/>
+            <ellipse cx="48" cy="41" rx="3.5" ry="2" fill="#FCA5A5" opacity="0.85"/>
+            <path d="M27 45 Q32 50 37 45" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" fill="none"/>
           </svg>
         </div>
         <span class="brand-name">Bodha</span>
@@ -2749,15 +2767,41 @@
 
             <!-- Interactive Understanding Check Question -->
             <div class="understanding-check-card" id="understandingCheckBlock">
-              <div class="check-title">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                <span data-i18n="demo_check_title">Bodha's Quick Understanding Check</span>
+              <div class="check-header-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                <div class="check-title" style="margin-bottom: 0;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  <span id="diagnosticTitleText" data-i18n="demo_check_title">Adaptive 3-Question Diagnostic</span>
+                </div>
+                <div class="diagnostic-step-pill" id="diagnosticStepPill" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #EEF2FF; color: #4F46E5; font-size: 0.75rem; font-weight: 700; border: 1px solid #C7D2FE;">
+                  <span id="diagnosticStepDots">● ○ ○</span>
+                  <span id="diagnosticStepLabel">Question 1 of 3</span>
+                </div>
               </div>
-              <p class="check-question" id="checkQuestionText">Question loading...</p>
-              <div class="check-options" id="checkOptionsContainer">
-                <!-- Options injected via JS -->
+              
+              <!-- Question & Options Block -->
+              <div id="diagnosticQuestionBlock">
+                <p class="check-question" id="checkQuestionText">Question loading...</p>
+                <div class="check-options" id="checkOptionsContainer">
+                  <!-- Options injected via JS -->
+                </div>
+                <div class="check-feedback" id="checkFeedbackText"></div>
               </div>
-              <div class="check-feedback" id="checkFeedbackText"></div>
+
+              <!-- Diagnostic Summary Card (Hidden until step 3 complete) -->
+              <div id="diagnosticSummaryCard" style="display: none; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 18px; margin-top: 6px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                  <span id="summaryBadgeText" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; background: #ECFDF5; color: #047857; font-size: 0.75rem; font-weight: 700; border: 1px solid #A7F3D0;">✨ 3/3 Diagnostic Verified</span>
+                  <span style="font-size: 0.75rem; font-weight: 600; color: #64748B;">Teacher & Parent Insight</span>
+                </div>
+                <h4 id="summaryTitleText" style="font-size: 1.05rem; font-weight: 800; color: #0F172A; margin-bottom: 8px; font-family: var(--font-display);">🌟 Complete Conceptual Mastery!</h4>
+                <div id="summaryStrengthsText" style="font-size: 0.88rem; color: #334155; line-height: 1.55; margin-bottom: 8px;"></div>
+                <div id="summaryGrowthText" style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin-bottom: 10px;"></div>
+                <div id="summaryActionNote" style="font-size: 0.80rem; color: #6366F1; background: #EEF2FF; border-radius: 8px; padding: 8px 12px; margin-bottom: 14px; font-weight: 600;"></div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="resetDiagnostic(true)" style="padding: 6px 14px; font-size: 0.82rem;">↺ Retry Diagnostic</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="btnRandomize.click()" style="padding: 6px 14px; font-size: 0.82rem;">🎲 Try Another Level</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -6701,28 +6745,1285 @@
         fractionVisualContainer.innerHTML = renderVisualFraction(data.visualType, data.visualFraction);
       }
 
-      // Render Check Question & Options
-      if (checkQuestionText && checkOptionsContainer && checkFeedbackText) {
-        checkQuestionText.textContent = data.question;
-        checkFeedbackText.style.display = "none";
-        checkFeedbackText.textContent = "";
-        checkFeedbackText.className = "check-feedback";
+      // Render Adaptive Diagnostic Check
+      renderDiagnosticStep(1);
+    }
 
-        checkOptionsContainer.innerHTML = "";
-        data.options.forEach((optText, idx) => {
-          const btn = document.createElement("button");
-          btn.className = "check-option-btn";
-          btn.textContent = optText;
-          btn.onclick = () => handleQuizOptionClick(btn, idx === data.correctIndex, data.explanation);
-          checkOptionsContainer.appendChild(btn);
-        });
+        // Adaptive 3-Question Diagnostic Decision Trees
+    const DIAGNOSTIC_TREES = {
+      early: {
+        cricket: {
+          q1: {
+            question: "If you have 4 shiny cricket balls and give 2 to a friend, what part did you share?",
+            options: ["Half (1/2)", "All of them (4/4)", "None (0)"],
+            correctIndex: 0,
+            explanation: "Super star! 2 out of 4 is exactly half! 🎈"
+          },
+          q2_up: {
+            question: "What if you start with 4 balls and give 1 ball to your friend? What part did you give?",
+            options: ["1/4 (One quarter)", "1/2 (Half)", "3/4 (Three quarters)"],
+            correctIndex: 0,
+            explanation: "Brilliant! 1 out of 4 is one quarter (1/4)! 🌟"
+          },
+          q2_down: {
+            question: "Let's count together! In your set of 4 balls, what is the TOTAL number of balls you started with?",
+            options: ["4 total balls (the bottom number)", "2 balls", "1 ball"],
+            correctIndex: 0,
+            explanation: "Great job! The total number 4 is the bottom number (denominator)! 🎈"
+          },
+          q3_advanced: {
+            question: "If you keep 3 balls for yourself and give 1 away, what fraction is left with you?",
+            options: ["3/4 (Three out of four)", "1/4", "2/4"],
+            correctIndex: 0,
+            explanation: "Amazing! 3 balls left out of 4 is 3/4! 🏆"
+          },
+          q3_reinforce: {
+            question: "If two friends share 2 balls so each friend gets 1 ball, how are the balls divided?",
+            options: ["Equally in half (1/2 each)", "One gets everything", "None"],
+            correctIndex: 0,
+            explanation: "Spot on! Equal sharing creates halves (1/2)! 🌟"
+          },
+          q3_foundational: {
+            question: "If you hold 1 ball in each hand (2 balls total), are both hands holding equal amounts?",
+            options: ["Yes, equal amounts (half in each hand)", "No, different amounts", "Can't tell"],
+            correctIndex: 0,
+            explanation: "Perfect! Equal sharing is what fractions are all about! 🧸"
+          }
+        },
+        gaming: {
+          q1: {
+            question: "If you had 4 power stars and used 1, what fraction is left in your pouch?",
+            options: ["3/4 (Three quarters)", "1/4", "0/4"],
+            correctIndex: 0,
+            explanation: "Brilliant! You have 3 stars left out of 4! 🏆"
+          },
+          q2_up: {
+            question: "What if you use 2 stars out of the 4 power stars? What fraction did you use?",
+            options: ["2/4 (which is 1/2)", "1/4", "4/4"],
+            correctIndex: 0,
+            explanation: "Level up! 2 out of 4 is half (1/2)! ⭐"
+          },
+          q2_down: {
+            question: "In the fraction 3/4, which number tells us the 3 shiny stars you still have?",
+            options: ["The top number (3)", "The bottom number (4)", "Neither"],
+            correctIndex: 0,
+            explanation: "Nice! The top number (numerator) counts what you have! 🌟"
+          },
+          q3_advanced: {
+            question: "If you collect 4 more stars (making 8 total) and give away 4, what fraction did you give?",
+            options: ["4/8 (which equals 1/2)", "1/8", "8/4"],
+            correctIndex: 0,
+            explanation: "Master gamer! 4 out of 8 is exactly half (1/2)! 🎮"
+          },
+          q3_reinforce: {
+            question: "If your energy bar has 4 blocks and 4 are glowing, what fraction is full?",
+            options: ["4/4 (The whole bar!)", "1/4", "0/4"],
+            correctIndex: 0,
+            explanation: "Full power! 4/4 means the complete whole! ⚡"
+          },
+          q3_foundational: {
+            question: "If you have 2 treasure gems and share 1 with a teammate, what part did you share?",
+            options: ["1/2 (Half)", "2/2", "0"],
+            correctIndex: 0,
+            explanation: "Teamwork victory! 1 out of 2 is half! 💎"
+          }
+        },
+        space: {
+          q1: {
+            question: "When half of the moon glows in the sky, what is the fraction?",
+            options: ["1/2", "2/2", "1/10"],
+            correctIndex: 0,
+            explanation: "Astronaut badge unlocked! 1/2 is half the moon! 🧑‍🚀"
+          },
+          q2_up: {
+            question: "If the moon cookie is divided into 4 quarters and 1 quarter is lit, what fraction is glowing?",
+            options: ["1/4", "1/2", "3/4"],
+            correctIndex: 0,
+            explanation: "Cosmic success! 1 out of 4 is 1/4 (Crescent Moon)! 🌙"
+          },
+          q2_down: {
+            question: "When we split a circle right down the middle into 2 equal halves, how many total parts are there?",
+            options: ["2 equal parts", "1 part", "4 parts"],
+            correctIndex: 0,
+            explanation: "Correct! Splitting down the middle makes 2 equal parts! 🚀"
+          },
+          q3_advanced: {
+            question: "If 3 out of 4 rocket booster engines are firing, what fraction of engine power is active?",
+            options: ["3/4", "1/4", "4/3"],
+            correctIndex: 0,
+            explanation: "Liftoff! 3 out of 4 engines is 3/4 thrust! 🌌"
+          },
+          q3_reinforce: {
+            question: "What is 2 halves of the moon put together (1/2 + 1/2)?",
+            options: ["1 Full Moon (2/2)", "1/2 Moon", "0 Moon"],
+            correctIndex: 0,
+            explanation: "Full Moon glowing bright! 1/2 + 1/2 = 1 whole! 🌕"
+          },
+          q3_foundational: {
+            question: "Does the fraction 1/2 mean both halves are the exact same size?",
+            options: ["Yes, exactly equal", "No, one is bigger", "Depends on the night"],
+            correctIndex: 0,
+            explanation: "Spot on! Fractions always require equal pieces! 🛸"
+          }
+        },
+        animals: {
+          q1: {
+            question: "4 puppies share 4 biscuits equally. How much does each pup get?",
+            options: ["1/4 of the biscuits", "1/2 of the biscuits", "0 biscuits"],
+            correctIndex: 0,
+            explanation: "Woof woof! Exactly right, 1 out of 4! 🐾"
+          },
+          q2_up: {
+            question: "If 2 puppies eat their biscuits, what fraction of the biscuits were eaten?",
+            options: ["2/4 (which is 1/2)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Pawsome! 2 out of 4 biscuits is half (1/2)! 🐶"
+          },
+          q2_down: {
+            question: "How many hungry puppies are sharing the treat treat plate?",
+            options: ["4 puppies (the denominator)", "2 puppies", "1 puppy"],
+            correctIndex: 0,
+            explanation: "Great counting! 4 total puppies is our denominator! 🦴"
+          },
+          q3_advanced: {
+            question: "If 3 of the 4 puppies go for a nap, what fraction is napping?",
+            options: ["3/4", "1/4", "2/4"],
+            correctIndex: 0,
+            explanation: "Sleepy puppies! 3 out of 4 is 3/4! 🐾"
+          },
+          q3_reinforce: {
+            question: "If 2 kittens share 2 fish treats equally, what fraction does each kitten get?",
+            options: ["1/2 (Half the treats)", "2/2", "0"],
+            correctIndex: 0,
+            explanation: "Purr-fect! 1 out of 2 is 1/2! 🐱"
+          },
+          q3_foundational: {
+            question: "If a mama bird feeds 2 chicks equally from 1 worm, each chick gets:",
+            options: ["1/2 of the worm", "All of it", "None"],
+            correctIndex: 0,
+            explanation: "Nature in harmony! 1/2 is equal sharing! 🐦"
+          }
+        },
+        music: {
+          q1: {
+            question: "What is 2 claps out of a 4-clap rhythm?",
+            options: ["Half the song (1/2)", "The whole song", "One tenth"],
+            correctIndex: 0,
+            explanation: "You have natural rhythm! 2 claps is half! 🎶"
+          },
+          q2_up: {
+            question: "If you clap 1 time in a 4-clap beat, what fraction did you clap?",
+            options: ["1/4", "1/2", "3/4"],
+            correctIndex: 0,
+            explanation: "On beat! 1 clap in 4 beats is 1/4! 🎵"
+          },
+          q2_down: {
+            question: "In our 4-clap song (1, 2, 3, 4), how many beats are in the whole pattern?",
+            options: ["4 beats total", "2 beats", "1 beat"],
+            correctIndex: 0,
+            explanation: "Great ear! 4 total beats is the denominator! 👏"
+          },
+          q3_advanced: {
+            question: "What fraction of a 4-beat rhythm is 3 claps?",
+            options: ["3/4 (Three quarters)", "1/4", "2/4"],
+            correctIndex: 0,
+            explanation: "Encore! 3 claps out of 4 is 3/4! 🎼"
+          },
+          q3_reinforce: {
+            question: "When you clap all 4 beats in a 4-beat measure, what is the fraction?",
+            options: ["4/4 (The whole measure)", "1/4", "0/4"],
+            correctIndex: 0,
+            explanation: "Standing ovation! 4/4 is the complete whole! 🎹"
+          },
+          q3_foundational: {
+            question: "If a bell rings 2 times and you count 1 chime, what fraction rang?",
+            options: ["1/2", "2/2", "0"],
+            correctIndex: 0,
+            explanation: "Ding dong! 1 out of 2 chimes is 1/2! 🔔"
+          }
+        },
+        movies: {
+          q1: {
+            question: "Sharing 1 tub between 2 friends gives each friend:",
+            options: ["1/2 (Half)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Yay! Grab your 3D glasses! 1/2 is half! 🍿"
+          },
+          q2_up: {
+            question: "If 4 friends share 1 tub of popcorn equally, how much does each get?",
+            options: ["1/4 of the tub", "1/2 of the tub", "3/4 of the tub"],
+            correctIndex: 0,
+            explanation: "Blockbuster hit! 1 shared across 4 is 1/4! 🎬"
+          },
+          q2_down: {
+            question: "When 2 friends share equally, into how many equal boxes do we split the popcorn?",
+            options: ["2 equal boxes", "1 box", "4 boxes"],
+            correctIndex: 0,
+            explanation: "Cinema smart! 2 equal boxes is the denominator! 🍿"
+          },
+          q3_advanced: {
+            question: "If 3 out of 4 friends finish their popcorn boxes, what fraction finished?",
+            options: ["3/4", "1/4", "2/4"],
+            correctIndex: 0,
+            explanation: "Credits roll! 3 out of 4 is 3/4! 🎥"
+          },
+          q3_reinforce: {
+            question: "Is 1/2 of a popcorn box bigger than 1/4 of the box?",
+            options: ["Yes, 1/2 is larger than 1/4", "No, 1/4 is bigger", "They are the same"],
+            correctIndex: 0,
+            explanation: "Sharp thinking! Fewer splits mean bigger slices! 🌟"
+          },
+          q3_foundational: {
+            question: "If you have 2 movie tickets and give 1 to a friend, what part did you give?",
+            options: ["1/2 (Half the tickets)", "2/2", "0"],
+            correctIndex: 0,
+            explanation: "Enjoy the show! 1 out of 2 is half! 🎟️"
+          }
+        }
+      },
+      primary: {
+        cricket: {
+          q1: {
+            question: "If a bowler bowls 6 balls and 3 are hit for boundaries, what fraction is that?",
+            options: ["3/6 (which equals 1/2)", "6/3", "1/6"],
+            correctIndex: 0,
+            explanation: "Sixer! 3 out of 6 balls simplifies straight down to 1/2! 🏏"
+          },
+          q2_up: {
+            question: "If a batter scores runs on 2 balls out of 6 balls in an over, what is the simplified fraction?",
+            options: ["1/3 (2/6)", "1/2", "2/3"],
+            correctIndex: 0,
+            explanation: "Super strike! 2/6 divided by 2/2 reduces to 1/3! ⚡"
+          },
+          q2_down: {
+            question: "In the fraction 3/6, what does the 6 on the bottom (denominator) represent?",
+            options: ["Total balls in the over", "Number of boundaries", "Wickets taken"],
+            correctIndex: 0,
+            explanation: "Clear concept! The denominator (6) represents the whole set of balls! 🎯"
+          },
+          q3_advanced: {
+            question: "If 4 out of 6 balls are dot balls (no run), what is the simplified fraction of dot balls?",
+            options: ["2/3 (4/6)", "3/4", "1/2"],
+            correctIndex: 0,
+            explanation: "Maiden over mastery! 4/6 divided by 2/2 = 2/3! 🏆"
+          },
+          q3_reinforce: {
+            question: "What number divides both numerator (3) and denominator (6) to simplify 3/6?",
+            options: ["Divide by 3 (gives 1/2)", "Divide by 2", "Divide by 6"],
+            correctIndex: 0,
+            explanation: "Exact math! 3 ÷ 3 = 1 and 6 ÷ 3 = 2, yielding 1/2! 📊"
+          },
+          q3_foundational: {
+            question: "If an over had only 2 balls and 1 was a boundary, what fraction is that?",
+            options: ["1/2 (Half)", "2/2", "1/4"],
+            correctIndex: 0,
+            explanation: "Direct hit! 1 out of 2 is 1/2! 🏏"
+          }
+        },
+        gaming: {
+          q1: {
+            question: "If your 4-bar shield takes 1 bar of damage, what fraction of shield is left?",
+            options: ["3/4", "1/4", "4/3"],
+            correctIndex: 0,
+            explanation: "Level complete! 4/4 minus 1/4 leaves 3/4 shield remaining! 🛡️"
+          },
+          q2_up: {
+            question: "If your shield takes 2 bars of damage from 4 bars, what simplified fraction remains?",
+            options: ["1/2 (2/4)", "3/4", "1/4"],
+            correctIndex: 0,
+            explanation: "Shield holding! 2/4 reduces cleanly to 1/2! 🎮"
+          },
+          q2_down: {
+            question: "If you lost 1 bar out of 4 bars, what fraction represents the DAMAGE taken?",
+            options: ["1/4 lost", "3/4 lost", "4/4 lost"],
+            correctIndex: 0,
+            explanation: "Exact tracking! 1 bar lost out of 4 total is 1/4! 👾"
+          },
+          q3_advanced: {
+            question: "An upgraded shield has 8 bars. If 6 bars are charged, what is the simplified fraction?",
+            options: ["3/4 (6/8)", "2/3", "4/5"],
+            correctIndex: 0,
+            explanation: "Mega shield! 6/8 divided by 2/2 = 3/4 (75% power)! ⚡"
+          },
+          q3_reinforce: {
+            question: "What is 4/4 (full health) minus 3/4 (current health)?",
+            options: ["1/4 health lost", "2/4", "0/4"],
+            correctIndex: 0,
+            explanation: "Clean calculation! 4/4 - 3/4 = 1/4 remaining gap! 🛡️"
+          },
+          q3_foundational: {
+            question: "In the fraction 3/4, is the numerator (3) the top or bottom number?",
+            options: ["Top number (3)", "Bottom number (4)", "Neither"],
+            correctIndex: 0,
+            explanation: "Spot on! Numerator is on TOP, denominator is on the BOTTOM! 🏆"
+          }
+        },
+        space: {
+          q1: {
+            question: "What is 6 out of 8 solar panels reduced to simplest terms?",
+            options: ["3/4", "2/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Thrusters engaged! 6/8 divided by 2/2 equals 3/4! 🚀"
+          },
+          q2_up: {
+            question: "If 2 panels out of 8 are retracted for maintenance, what fraction is retracted?",
+            options: ["1/4 (2/8)", "1/2", "3/8"],
+            correctIndex: 0,
+            explanation: "Docking confirmed! 2/8 reduces down to 1/4! 🛰️"
+          },
+          q2_down: {
+            question: "What common number divides both 6 and 8 evenly?",
+            options: ["2", "3", "4"],
+            correctIndex: 0,
+            explanation: "Exact divisor! 6 ÷ 2 = 3 and 8 ÷ 2 = 4! 🌌"
+          },
+          q3_advanced: {
+            question: "If the probe needs at least 1/2 power (50%) to transmit data, does 3/4 (75%) suffice?",
+            options: ["Yes, 3/4 is greater than 1/2", "No, 3/4 is less", "They are equal"],
+            correctIndex: 0,
+            explanation: "Signal loud and clear! 3/4 (75%) > 2/4 (50%)! 📡"
+          },
+          q3_reinforce: {
+            question: "If a solar array has 4 panels and 3 are deployed, what is the fraction?",
+            options: ["3/4", "1/4", "4/3"],
+            correctIndex: 0,
+            explanation: "Telemetry confirmed! 3 out of 4 is 3/4! 🌟"
+          },
+          q3_foundational: {
+            question: "What fraction of an 8-panel array is 4 panels?",
+            options: ["1/2 (4/8)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Half power! 4/8 = 1/2! 🧑‍🚀"
+          }
+        },
+        animals: {
+          q1: {
+            question: "If 5 out of 10 kittens are adopted, what fraction found homes?",
+            options: ["1/2 (Half)", "5/5", "1/10"],
+            correctIndex: 0,
+            explanation: "Purr-fect! 5 out of 10 simplifies to 1/2! 🐶"
+          },
+          q2_up: {
+            question: "If 8 out of 10 kittens find homes, what is the simplified fraction?",
+            options: ["4/5 (8/10)", "3/4", "1/2"],
+            correctIndex: 0,
+            explanation: "Heartwarming! 8/10 divided by 2/2 = 4/5! 🐾"
+          },
+          q2_down: {
+            question: "To simplify 5/10, what number divides both 5 and 10?",
+            options: ["5 (gives 1/2)", "2", "10"],
+            correctIndex: 0,
+            explanation: "Great deduction! 5 ÷ 5 = 1 and 10 ÷ 5 = 2! 🐱"
+          },
+          q3_advanced: {
+            question: "At another shelter with 20 puppies, 15 are adopted. What is the simplified fraction?",
+            options: ["3/4 (15/20)", "2/3", "4/5"],
+            correctIndex: 0,
+            explanation: "Shelter hero! 15/20 divided by 5/5 = 3/4! 🐕"
+          },
+          q3_reinforce: {
+            question: "If 5 kittens were adopted out of 10, how many kittens are still waiting?",
+            options: ["5 kittens (1/2 remaining)", "2 kittens", "0 kittens"],
+            correctIndex: 0,
+            explanation: "Balanced math! 10/10 - 5/10 = 5/10 (1/2)! 🐾"
+          },
+          q3_foundational: {
+            question: "In 5/10, what is the total number of kittens before adoption?",
+            options: ["10 (the denominator)", "5", "1"],
+            correctIndex: 0,
+            explanation: "Exactly! Total quantity is always the denominator! 🐾"
+          }
+        },
+        music: {
+          q1: {
+            question: "What fraction of an 8-key scale is 4 keys?",
+            options: ["1/2", "1/4", "4/4"],
+            correctIndex: 0,
+            explanation: "In perfect pitch! 4 divided by 8 is 1/2! 🎹"
+          },
+          q2_up: {
+            question: "If a musician plays 6 keys out of 8 keys, what is the simplified fraction?",
+            options: ["3/4 (6/8)", "2/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Harmonious! 6/8 divided by 2/2 = 3/4! 🎼"
+          },
+          q2_down: {
+            question: "In the fraction 4/8, what is the bottom number called?",
+            options: ["Denominator (total notes)", "Numerator", "Tempo"],
+            correctIndex: 0,
+            explanation: "Musical theory master! Denominator represents the whole scale! 🎵"
+          },
+          q3_advanced: {
+            question: "On a 12-key chromatic scale, if you play 9 keys, what is the fraction?",
+            options: ["3/4 (9/12)", "2/3", "5/6"],
+            correctIndex: 0,
+            explanation: "Virtuoso! 9/12 divided by 3/3 = 3/4! 🎶"
+          },
+          q3_reinforce: {
+            question: "What is 4/8 + 4/8 in musical terms?",
+            options: ["8/8 (1 Full Octave)", "4/8", "1/2 Octave"],
+            correctIndex: 0,
+            explanation: "Full symphony! 4/8 + 4/8 = 1 whole octave! 🎹"
+          },
+          q3_foundational: {
+            question: "What fraction of an 8-key scale is 2 keys?",
+            options: ["1/4 (2/8)", "1/2", "3/4"],
+            correctIndex: 0,
+            explanation: "Crisp chord! 2/8 simplifies to 1/4! 🎼"
+          }
+        },
+        movies: {
+          q1: {
+            question: "What fraction of a 120-minute film is 60 minutes?",
+            options: ["1/2 (Half)", "1/3", "2/3"],
+            correctIndex: 0,
+            explanation: "Intermission time! 60/120 equals 1/2! 🎥"
+          },
+          q2_up: {
+            question: "If you watch 90 minutes of a 120-minute movie, what is the simplified fraction?",
+            options: ["3/4 (90/120)", "2/3", "4/5"],
+            correctIndex: 0,
+            explanation: "Climax scene! 90/120 divided by 30/30 = 3/4! 🍿"
+          },
+          q2_down: {
+            question: "What number multiplied by 60 gives 120?",
+            options: ["2 (meaning 60 is half of 120)", "3", "4"],
+            correctIndex: 0,
+            explanation: "Movie math! 60 × 2 = 120, so 60/120 = 1/2! 🎬"
+          },
+          q3_advanced: {
+            question: "If a film is 120 minutes and you watch 30 minutes, what fraction is watched?",
+            options: ["1/4 (30/120)", "1/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Opening scene! 30/120 = 1/4 (25%)! 🎞️"
+          },
+          q3_reinforce: {
+            question: "If you watched 1/2 of the film (60 min), how many minutes are remaining?",
+            options: ["60 minutes (1/2 left)", "30 minutes", "90 minutes"],
+            correctIndex: 0,
+            explanation: "Exact timing! 120 - 60 = 60 minutes remaining! 🍿"
+          },
+          q3_foundational: {
+            question: "In a 10-minute short film, what fraction is 5 minutes?",
+            options: ["1/2 (5/10)", "1/4", "1/10"],
+            correctIndex: 0,
+            explanation: "Classic! 5 out of 10 is 1/2! 📽️"
+          }
+        }
+      },
+      middle: {
+        cricket: {
+          q1: {
+            question: "What is 180/240 simplified by dividing both numerator and denominator by 60?",
+            options: ["3/4", "2/3", "4/5"],
+            correctIndex: 0,
+            explanation: "Masterclass! 180 ÷ 60 = 3, and 240 ÷ 60 = 4, giving 3/4! 🏏"
+          },
+          q2_up: {
+            question: "What fraction of the target runs (60 runs out of 240) remains to be scored?",
+            options: ["1/4 (25%)", "1/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Match awareness! 60/240 = 1/4 remaining! 📊"
+          },
+          q2_down: {
+            question: "Dividing 180 and 240 by 10 gives 18/24. What number divides both 18 and 24?",
+            options: ["6 (giving 3/4)", "4", "8"],
+            correctIndex: 0,
+            explanation: "Step-by-step reduction! 18 ÷ 6 = 3 and 24 ÷ 6 = 4! 🎯"
+          },
+          q3_advanced: {
+            question: "If Team India hits 15 boundaries in 30 overs, what is the boundary frequency per over?",
+            options: ["1/2 boundary/over (15/30)", "1/3", "2/3"],
+            correctIndex: 0,
+            explanation: "Rate calculation mastery! 15/30 = 1/2 per over! ⚡"
+          },
+          q3_reinforce: {
+            question: "What is 1 whole target minus 3/4 completed target (1 - 3/4)?",
+            options: ["1/4 remaining", "2/4", "0"],
+            correctIndex: 0,
+            explanation: "Algebraic precision! 4/4 - 3/4 = 1/4! 🏏"
+          },
+          q3_foundational: {
+            question: "If a target is 200 runs and a team scores 100 runs, what is the fraction?",
+            options: ["1/2 (100/200)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Baseline unlocked! 100/200 reduces to 1/2! 📈"
+          }
+        },
+        gaming: {
+          q1: {
+            question: "If a loot drop occurs in 3 out of 12 chests, what is the decimal probability?",
+            options: ["0.25 (25%)", "0.30 (30%)", "0.50 (50%)"],
+            correctIndex: 0,
+            explanation: "Critical hit! 3/12 = 1/4 = 0.25 probability! 🏆"
+          },
+          q2_up: {
+            question: "What is the probability of NOT receiving a crystal when opening a chest?",
+            options: ["9/12 = 3/4 = 0.75 (75%)", "1/2 = 50%", "1/4 = 25%"],
+            correctIndex: 0,
+            explanation: "Complementary probability mastery! 1 - 0.25 = 0.75 (75%)! 💎"
+          },
+          q2_down: {
+            question: "What is 3 ÷ 12 simplified by dividing numerator and denominator by 3?",
+            options: ["1/4", "1/3", "3/4"],
+            correctIndex: 0,
+            explanation: "Clean division! 3 ÷ 3 = 1 and 12 ÷ 3 = 4! 🎮"
+          },
+          q3_advanced: {
+            question: "If you open 24 chests at a 1/4 drop rate, what is the expected number of crystals?",
+            options: ["6 crystals (24 × 1/4)", "8 crystals", "4 crystals"],
+            correctIndex: 0,
+            explanation: "RNG optimization! 24 × (1/4) = 6 legendary items! 🎲"
+          },
+          q3_reinforce: {
+            question: "What is the fraction 1/4 converted directly to a percentage?",
+            options: ["25% (1/4 × 100%)", "20%", "50%"],
+            correctIndex: 0,
+            explanation: "Statistical conversion! 1/4 = 25%! 📊"
+          },
+          q3_foundational: {
+            question: "If 2 chests out of 8 contain potions, what is the drop fraction?",
+            options: ["1/4 (2/8)", "1/2", "3/4"],
+            correctIndex: 0,
+            explanation: "Foundational mastery! 2/8 = 1/4! 🧪"
+          }
+        },
+        space: {
+          q1: {
+            question: "If 90 tons out of 100 tons is fuel, what fraction is the payload?",
+            options: ["1/10 (10%)", "2/10 (20%)", "9/10 (90%)"],
+            correctIndex: 0,
+            explanation: "Orbit achieved! 100/100 - 90/100 leaves 1/10 payload! 🛰️"
+          },
+          q2_up: {
+            question: "If 60 tons of the 90-ton fuel is consumed during stage 1, what fraction of fuel was used?",
+            options: ["2/3 (60/90)", "3/4", "1/2"],
+            correctIndex: 0,
+            explanation: "Stage separation confirmed! 60/90 divided by 30/30 = 2/3! 🚀"
+          },
+          q2_down: {
+            question: "What is 100 minus 90 to find the payload weight in tons?",
+            options: ["10 tons (out of 100 = 1/10)", "20 tons", "5 tons"],
+            correctIndex: 0,
+            explanation: "Rocket mass balance verified! 10/100 = 1/10! 🌌"
+          },
+          q3_advanced: {
+            question: "In the mass ratio m_0 / m_f, if initial mass m_0 = 100 and final payload m_f = 10, the ratio is:",
+            options: ["10 (100 ÷ 10)", "9", "0.1"],
+            correctIndex: 0,
+            explanation: "Tsiolkovsky ratio calculated! 100/10 = 10! 🌠"
+          },
+          q3_reinforce: {
+            question: "What is the fuel fraction 90/100 simplified by dividing by 10?",
+            options: ["9/10 (0.90)", "9/100", "1/10"],
+            correctIndex: 0,
+            explanation: "Propellant ratio locked! 90/100 = 9/10! 🛰️"
+          },
+          q3_foundational: {
+            question: "If a satellite has 50 tons fuel out of 100 tons total mass, what is the fuel fraction?",
+            options: ["1/2 (50/100)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Stable orbit! 50/100 = 1/2! 🧑‍🚀"
+          }
+        },
+        animals: {
+          q1: {
+            question: "What is 45/60 simplified to its lowest fractional terms?",
+            options: ["3/4", "3/5", "2/3"],
+            correctIndex: 0,
+            explanation: "Spot on! 45/15 = 3 and 60/15 = 4, giving 3/4! 🐾"
+          },
+          q2_up: {
+            question: "What fraction of the 60 apex predators are leopards (15 leopards total)?",
+            options: ["1/4 (15/60 = 25%)", "1/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Ecosystem balance! 15/60 = 1/4 of apex predators! 🐆"
+          },
+          q2_down: {
+            question: "What greatest common factor divides both 45 and 60 evenly?",
+            options: ["15 (giving 3/4)", "5 (giving 9/12)", "10"],
+            correctIndex: 0,
+            explanation: "GCF mastery! 45 ÷ 15 = 3 and 60 ÷ 15 = 4! 🌿"
+          },
+          q3_advanced: {
+            question: "If the tiger population increases from 45 to 60 in a total group of 75, what is the new fraction?",
+            options: ["4/5 (60/75 = 80%)", "3/4", "5/6"],
+            correctIndex: 0,
+            explanation: "Conservation surge! 60/75 divided by 15/15 = 4/5! 🐅"
+          },
+          q3_reinforce: {
+            question: "What is 3/4 (tigers) + 1/4 (leopards)?",
+            options: ["4/4 = 1 (Total apex predators)", "3/4", "2/4"],
+            correctIndex: 0,
+            explanation: "Whole population accounting! 3/4 + 1/4 = 1! 🐾"
+          },
+          q3_foundational: {
+            question: "If there are 30 tigers in a reserve of 60 animals, what is the tiger fraction?",
+            options: ["1/2 (30/60)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Reserve census verified! 30/60 = 1/2! 🌲"
+          }
+        },
+        music: {
+          q1: {
+            question: "In 3/4 time, what fraction of a measure has passed after 2 beats?",
+            options: ["2/3 of the measure", "3/2 of the measure", "1/3 of the measure"],
+            correctIndex: 0,
+            explanation: "Flawless tempo! 2 beats out of 3 beats is 2/3! 🎶"
+          },
+          q2_up: {
+            question: "What fraction of the 3/4 measure remains unplayed after 2 beats?",
+            options: ["1/3 (1 beat remaining)", "2/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Rhythm precision! 3/3 - 2/3 = 1/3 remaining! 🎼"
+          },
+          q2_down: {
+            question: "In a 3/4 time signature, how many quarter-note beats are in a full measure?",
+            options: ["3 beats (the numerator)", "4 beats", "2 beats"],
+            correctIndex: 0,
+            explanation: "Meter notation unlocked! 3 beats per measure is the whole! 🎵"
+          },
+          q3_advanced: {
+            question: "In 4/4 time, if you play 6 eighth-notes (where 8 eighth-notes = 1 measure), what is the fraction?",
+            options: ["3/4 (6/8)", "2/3", "5/8"],
+            correctIndex: 0,
+            explanation: "Syncopation mastery! 6/8 reduces to 3/4! 🎹"
+          },
+          q3_reinforce: {
+            question: "What is 2/3 + 1/3 in musical measure terms?",
+            options: ["3/3 = 1 Full Measure", "2/3", "1/3"],
+            correctIndex: 0,
+            explanation: "Measure completed! 2/3 + 1/3 = 1 whole! 🎼"
+          },
+          q3_foundational: {
+            question: "In 2/4 time (March tempo), what fraction of a measure is 1 beat?",
+            options: ["1/2 (1 out of 2)", "2/2", "1/4"],
+            correctIndex: 0,
+            explanation: "March in step! 1 out of 2 is 1/2! 🥁"
+          }
+        },
+        movies: {
+          q1: {
+            question: "What is 48/60 converted into a simplified fraction?",
+            options: ["4/5", "3/4", "5/6"],
+            correctIndex: 0,
+            explanation: "Director's cut! 48 ÷ 12 = 4 and 60 ÷ 12 = 5, yielding 4/5! 🎥"
+          },
+          q2_up: {
+            question: "What fraction of frames were dropped (12 dropped out of 60 frames)?",
+            options: ["1/5 (12/60 = 20%)", "1/4", "1/10"],
+            correctIndex: 0,
+            explanation: "Frame analytics verified! 12/60 reduces to 1/5! 📽️"
+          },
+          q2_down: {
+            question: "What number divides both 48 and 60 to give 4 and 5?",
+            options: ["12 (giving 4/5)", "6 (giving 8/10)", "10"],
+            correctIndex: 0,
+            explanation: "Render pipeline math! 48/12 = 4, 60/12 = 5! 🎬"
+          },
+          q3_advanced: {
+            question: "At 120 FPS high-frame-rate rendering, if 90 frames process smoothly, what is the fraction?",
+            options: ["3/4 (90/120 = 75%)", "4/5", "2/3"],
+            correctIndex: 0,
+            explanation: "Next-gen cinematography! 90/120 divided by 30/30 = 3/4! 🍿"
+          },
+          q3_reinforce: {
+            question: "What is the fraction 4/5 expressed as a percentage?",
+            options: ["80% (4/5 × 100%)", "75%", "85%"],
+            correctIndex: 0,
+            explanation: "High throughput! 4/5 = 80%! 🎞️"
+          },
+          q3_foundational: {
+            question: "If 30 frames render out of 60 frames per second, what fraction is that?",
+            options: ["1/2 (30/60 = 50%)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Steady playback! 30/60 = 1/2! 📽️"
+          }
+        }
+      },
+      high: {
+        cricket: {
+          q1: {
+            question: "If a team retains a DLS resource fraction of 11/20, what is its decimal value?",
+            options: ["0.55", "0.50", "0.60"],
+            correctIndex: 0,
+            explanation: "Statistical rigor! 11 ÷ 20 = 0.55 (55% resources)! 🏏"
+          },
+          q2_up: {
+            question: "What fraction of match resources have been consumed (1 - 11/20)?",
+            options: ["9/20 (0.45 = 45%)", "10/20", "8/20"],
+            correctIndex: 0,
+            explanation: "Complementary resource decay verified! 20/20 - 11/20 = 9/20! 📈"
+          },
+          q2_down: {
+            question: "Convert 11/20 to hundredths by multiplying top and bottom by 5:",
+            options: ["55/100 = 0.55", "50/100", "60/100"],
+            correctIndex: 0,
+            explanation: "Exact rational conversion! 11 × 5 = 55, 20 × 5 = 100! 🏏"
+          },
+          q3_advanced: {
+            question: "If adjusted target T = S × (R2 / R1) with R2 = 18/20 and R1 = 20/20, what is R2/R1?",
+            options: ["9/10 = 0.90", "18/20 = 0.85", "1.10"],
+            correctIndex: 0,
+            explanation: "DLS target ratio calculated! 18/20 = 9/10 = 0.90! 📊"
+          },
+          q3_reinforce: {
+            question: "What is 11/20 + 9/20 in resource balance accounting?",
+            options: ["20/20 = 1 (100% Total match capacity)", "19/20", "0"],
+            correctIndex: 0,
+            explanation: "Closed system conservation! 11/20 + 9/20 = 1! 🏏"
+          },
+          q3_foundational: {
+            question: "What is 10/20 expressed in simplified decimal format?",
+            options: ["0.50 (Half)", "0.20", "0.75"],
+            correctIndex: 0,
+            explanation: "Exact midpoint! 10/20 = 0.50! 📈"
+          }
+        },
+        gaming: {
+          q1: {
+            question: "What percentage is represented by the fractional efficiency ratio 18/25?",
+            options: ["72%", "75%", "68%"],
+            correctIndex: 0,
+            explanation: "GPU Optimized! 18 ÷ 25 = 0.72 = 72% utilization! 🖥️"
+          },
+          q2_up: {
+            question: "What is the remaining headroom fraction in the 16.6ms frame budget (1 - 18/25)?",
+            options: ["7/25 (28% headroom)", "8/25", "6/25"],
+            correctIndex: 0,
+            explanation: "Thermal & compute headroom verified! 25/25 - 18/25 = 7/25 (28%)! ⚡"
+          },
+          q2_down: {
+            question: "Multiply 18/25 by 4/4 to express the fraction over 100:",
+            options: ["72/100 = 72%", "70/100", "75/100"],
+            correctIndex: 0,
+            explanation: "Scaling factor! 18 × 4 = 72, 25 × 4 = 100! 🎮"
+          },
+          q3_advanced: {
+            question: "If render time drops to 12.5ms out of 16.66ms (3/4 budget), what is the pipeline efficiency?",
+            options: ["75% (3/4)", "80%", "70%"],
+            correctIndex: 0,
+            explanation: "Ultra-high FPS achieved! 12.5 / 16.66 = 3/4 = 75%! 🏆"
+          },
+          q3_reinforce: {
+            question: "What is the decimal equivalent of 18/25?",
+            options: ["0.72", "0.75", "0.68"],
+            correctIndex: 0,
+            explanation: "Frame-time precision! 18 ÷ 25 = 0.72! 🖥️"
+          },
+          q3_foundational: {
+            question: "What is half (1/2) of a 16.6ms frame budget?",
+            options: ["8.3ms", "10.0ms", "4.2ms"],
+            correctIndex: 0,
+            explanation: "Target latency verified! 16.6 ÷ 2 = 8.3ms! ⚡"
+          }
+        },
+        space: {
+          q1: {
+            question: "At velocity v = 0.8c (4/5 c), what is the fractional value of (v/c)²?",
+            options: ["16/25", "9/25", "4/5"],
+            correctIndex: 0,
+            explanation: "Einstein-level precision! (4/5)² = 16/25, and 1 - 16/25 = 9/25! 🌌"
+          },
+          q2_up: {
+            question: "Calculate the square root radical term: sqrt(1 - 16/25) = sqrt(9/25):",
+            options: ["3/5 (0.60)", "4/5", "9/25"],
+            correctIndex: 0,
+            explanation: "Relativistic radical simplified! sqrt(9/25) = 3/5! 🚀"
+          },
+          q2_down: {
+            question: "What is (4/5) squared ((4/5) × (4/5))?",
+            options: ["16/25", "8/10", "4/25"],
+            correctIndex: 0,
+            explanation: "Exponent rule! (4 × 4) / (5 × 5) = 16/25! 🌌"
+          },
+          q3_advanced: {
+            question: "Calculate the Lorentz factor gamma = 1 / (3/5):",
+            options: ["5/3 approx 1.67", "3/5 = 0.60", "1.25"],
+            correctIndex: 0,
+            explanation: "Time dilation constant! 1 ÷ (3/5) = 5/3 approx 1.67! 🌠"
+          },
+          q3_reinforce: {
+            question: "What is 1 whole minus 16/25 (25/25 - 16/25)?",
+            options: ["9/25", "7/25", "16/25"],
+            correctIndex: 0,
+            explanation: "Radical radicand confirmed! 25/25 - 16/25 = 9/25! 🛸"
+          },
+          q3_foundational: {
+            question: "At velocity v = 0.6c (3/5 c), what does (v/c)² become?",
+            options: ["9/25 (0.36)", "16/25", "3/25"],
+            correctIndex: 0,
+            explanation: "Exact calculation! (3/5)² = 9/25! 🌌"
+          }
+        },
+        animals: {
+          q1: {
+            question: "If p = 3/5 and q = 2/5, what is the heterozygous carrier fraction 2pq?",
+            options: ["12/25 (48%)", "6/25 (24%)", "9/25 (36%)"],
+            correctIndex: 0,
+            explanation: "Genetics mastery! 2 × (3/5) × (2/5) = 12/25 = 48%! 🧬"
+          },
+          q2_up: {
+            question: "What is the homozygous dominant genotype frequency p^2 = (3/5)^2?",
+            options: ["9/25 (36%)", "6/25", "12/25"],
+            correctIndex: 0,
+            explanation: "Hardy-Weinberg equilibrium confirmed! (3/5)² = 9/25 (36%)! 🐅"
+          },
+          q2_down: {
+            question: "Multiply the parts: 2 × (3/5) × (2/5):",
+            options: ["12/25", "6/10", "6/25"],
+            correctIndex: 0,
+            explanation: "Algebraic steps: 2 × 3 × 2 = 12, 5 × 5 = 25! 🐾"
+          },
+          q3_advanced: {
+            question: "Verify equilibrium sum: p^2 + 2pq + q^2 = 9/25 + 12/25 + 4/25 =",
+            options: ["25/25 = 1 (100% population)", "24/25", "0"],
+            correctIndex: 0,
+            explanation: "Population genetics theorem verified! 9 + 12 + 4 = 25/25 = 1! 🧬"
+          },
+          q3_reinforce: {
+            question: "If p + q = 1 and recessive allele q = 2/5 (0.4), what is dominant allele p?",
+            options: ["3/5 (0.6)", "2/5", "1/5"],
+            correctIndex: 0,
+            explanation: "Allelic frequency balance! 1 - 2/5 = 3/5! 🌿"
+          },
+          q3_foundational: {
+            question: "What is the homozygous recessive frequency q^2 = (2/5)^2?",
+            options: ["4/25 (16%)", "2/25", "8/25"],
+            correctIndex: 0,
+            explanation: "Recessive frequency locked! (2/5)² = 4/25 = 16%! 🐾"
+          }
+        },
+        music: {
+          q1: {
+            question: "What is (3/2) divided by (4/3) simplified as a rational fraction?",
+            options: ["9/8 (1.125 Whole Tone)", "12/6", "7/5"],
+            correctIndex: 0,
+            explanation: "Acoustic resonance! (3/2) ÷ (4/3) = (3/2) × (3/4) = 9/8! 🎶"
+          },
+          q2_up: {
+            question: "Multiplying two whole tones (9/8 × 9/8) gives the Pythagorean Major Third ratio of:",
+            options: ["81/64 approx 1.2656", "18/16", "9/4"],
+            correctIndex: 0,
+            explanation: "Harmonic tuning theorem! (9 × 9) / (8 × 8) = 81/64! 🎹"
+          },
+          q2_down: {
+            question: "When dividing fractions, (3/2) ÷ (4/3) is computed as (3/2) multiplied by:",
+            options: ["3/4 (the reciprocal)", "4/3", "1/2"],
+            correctIndex: 0,
+            explanation: "Reciprocal rule! Invert second fraction and multiply: (3/2) × (3/4)! 🎼"
+          },
+          q3_advanced: {
+            question: "An octave ratio is 2/1. Dividing out a Perfect Fifth (2/1 ÷ 3/2) leaves what interval?",
+            options: ["4/3 (Perfect Fourth)", "3/4", "5/4"],
+            correctIndex: 0,
+            explanation: "Pythagorean interval complementary closure! (2/1) × (2/3) = 4/3! 🎵"
+          },
+          q3_reinforce: {
+            question: "What is (3/2) × (3/4)?",
+            options: ["9/8", "6/6", "9/6"],
+            correctIndex: 0,
+            explanation: "Multiplication check! 3 × 3 = 9 and 2 × 4 = 8! 🎶"
+          },
+          q3_foundational: {
+            question: "What is the standard rational fraction for a musical Perfect Fifth?",
+            options: ["3/2", "2/3", "4/3"],
+            correctIndex: 0,
+            explanation: "Acoustic foundation! 3/2 represents the 3:2 frequency ratio! 🎹"
+          }
+        },
+        movies: {
+          q1: {
+            question: "What fraction of a full 360-degree rotation is a standard 180-degree cinema shutter?",
+            options: ["1/2 (Half)", "1/4", "3/4"],
+            correctIndex: 0,
+            explanation: "Picture wrap! 180/360 reduces cleanly to 1/2! 🍿"
+          },
+          q2_up: {
+            question: "For a narrow 90-degree action shutter angle, what is the exposure fraction?",
+            options: ["1/4 (90/360 = 25%)", "1/2", "1/8"],
+            correctIndex: 0,
+            explanation: "Crisp action shutter! 90/360 reduces to 1/4! 🎬"
+          },
+          q2_down: {
+            question: "Dividing 180 and 360 by 180 gives:",
+            options: ["1/2", "1/4", "2/3"],
+            correctIndex: 0,
+            explanation: "Direct common factor reduction! 180/360 = 1/2! 🎥"
+          },
+          q3_advanced: {
+            question: "At 24 FPS with a 180-degree shutter, exposure time is 1 / (2 × 24) =",
+            options: ["1/48 second", "1/24 second", "1/96 second"],
+            correctIndex: 0,
+            explanation: "Cinematography rule verified! 1/48 sec creates authentic motion blur! 🎞️"
+          },
+          q3_reinforce: {
+            question: "What is the fraction 180/360 expressed as a percentage?",
+            options: ["50%", "25%", "75%"],
+            correctIndex: 0,
+            explanation: "Shutter timing confirmed! 180/360 = 50%! 🍿"
+          },
+          q3_foundational: {
+            question: "If a camera shutter is fully open at 360 degrees, what is the fraction?",
+            options: ["1 (Whole rotation = 360/360)", "1/2", "0"],
+            correctIndex: 0,
+            explanation: "Full sensor exposure! 360/360 = 1! 🎬"
+          }
+        }
+      }
+    };
+
+    // Adaptive Diagnostic State
+    let diagnosticStep = 1;
+    let diagnosticAnswers = [];
+    let currentDiagnosticQData = null;
+
+    function getDiagnosticQuestion(bandKey, interestKey, step, prevAnswers = [], lang = "en") {
+      const bandTree = DIAGNOSTIC_TREES[bandKey] || DIAGNOSTIC_TREES.primary;
+      const interestTree = bandTree[interestKey] || bandTree.gaming;
+
+      if (isCustomInterest && customInterestName) {
+        return generateCustomDiagnosticQuestion(bandKey, customInterestName, step, prevAnswers, lang);
+      }
+
+      if (step === 1) {
+        return interestTree.q1;
+      } else if (step === 2) {
+        const q1Correct = prevAnswers[0] && prevAnswers[0].isCorrect;
+        return q1Correct ? interestTree.q2_up : interestTree.q2_down;
+      } else if (step === 3) {
+        const q1Correct = prevAnswers[0] && prevAnswers[0].isCorrect;
+        const q2Correct = prevAnswers[1] && prevAnswers[1].isCorrect;
+        if (q1Correct && q2Correct) {
+          return interestTree.q3_advanced;
+        } else if (!q1Correct && !q2Correct) {
+          return interestTree.q3_foundational;
+        } else {
+          return interestTree.q3_reinforce;
+        }
+      }
+      return interestTree.q1;
+    }
+
+    function generateCustomDiagnosticQuestion(bandKey, customTopic, step, prevAnswers = [], lang = "en") {
+      const topic = customTopic.trim();
+      if (step === 1) {
+        return {
+          question: "If you divide a whole " + topic + " into 4 equal portions and focus on 3 parts, what is the fraction?",
+          options: ["3/4 (" + topic + " parts)", "1/4", "4/3"],
+          correctIndex: 0,
+          explanation: "Brilliant! 3 parts out of 4 is exactly 3/4 of your " + topic + "! ✨"
+        };
+      } else if (step === 2) {
+        const q1Correct = prevAnswers[0] && prevAnswers[0].isCorrect;
+        if (q1Correct) {
+          return {
+            question: "What if you share 2 portions of your " + topic + " equally with a friend (2 out of 4)?",
+            options: ["1/2 (2/4 simplified)", "3/4", "1/4"],
+            correctIndex: 0,
+            explanation: "Great deduction! 2/4 reduces down to 1/2 of your " + topic + "! 🌟"
+          };
+        } else {
+          return {
+            question: "In the fraction 3/4 for " + topic + ", which number tells you the total equal portions?",
+            options: ["Bottom number (4)", "Top number (3)", "Neither"],
+            correctIndex: 0,
+            explanation: "Nice! The bottom number (denominator) is always the total parts! 🎯"
+          };
+        }
+      } else {
+        const correctCount = prevAnswers.filter(a => a.isCorrect).length;
+        if (correctCount === 2) {
+          return {
+            question: "If you double the " + topic + " pieces to 8 and take 6 pieces, what is the fraction?",
+            options: ["3/4 (6/8)", "1/2", "4/8"],
+            correctIndex: 0,
+            explanation: "Advanced mastery! 6/8 simplifies cleanly to 3/4! 🏆"
+          };
+        } else {
+          return {
+            question: "What is 4/4 of your " + topic + " minus 1/4 of your " + topic + "?",
+            options: ["3/4", "2/4", "1/4"],
+            correctIndex: 0,
+            explanation: "Spot on! 4/4 - 1/4 = 3/4! ✨"
+          };
+        }
       }
     }
 
-    // Quiz Interaction Handler
-    function handleQuizOptionClick(clickedBtn, isCorrect, explanationText) {
+    function generateDiagnosticSummary(bandKey, interestKey, answers = [], lang = "en") {
+      const correctCount = answers.filter(a => a.isCorrect).length;
+      const topicName = isCustomInterest && customInterestName ? customInterestName : (interestKey.charAt(0).toUpperCase() + interestKey.slice(1));
+
+      const summaries = {
+        en: [
+          {
+            title: "🤝 Encouraging Start on the Learning Path!",
+            badge: "✨ Diagnostic Complete (Foundations)",
+            strengths: "<strong>Key Strength:</strong> Enthusiastic engagement connecting real-world " + topicName + " analogies to mathematical thinking.",
+            growth: "<strong>Focus Area:</strong> Reinforce counting equal parts and distinguishing parts from total quantities.",
+            actionNote: "Bodha will scaffold friendly, visual object-based puzzles to build confidence with zero pressure."
+          },
+          {
+            title: "🌱 Foundation Developing Well!",
+            badge: "✨ 1/3 Diagnostic Complete",
+            strengths: "<strong>Key Strength:</strong> Intuitive grasp of concrete physical sharing and counting equal parts in " + topicName + ".",
+            growth: "<strong>Focus Area:</strong> Strengthening the relationship between total parts (denominator) and selected portions (numerator).",
+            actionNote: "Bodha will provide visual grid models to build strong numeric connections before stepping up."
+          },
+          {
+            title: "🎯 Strong Intuition & Clear Progress!",
+            badge: "✨ 2/3 Diagnostic Verified",
+            strengths: "<strong>Key Strength:</strong> Confidently identifies numerators, denominators, and basic fractional relationships in " + topicName + ".",
+            growth: "<strong>Focus Area:</strong> Benefits from additional practice when simplifying fractions involving larger common factors.",
+            actionNote: "Bodha will calibrate future lessons to reinforce step-by-step common factor reduction."
+          },
+          {
+            title: "🌟 Complete Conceptual Mastery!",
+            badge: "✨ 3/3 Diagnostic Verified",
+            strengths: "<strong>Key Strength:</strong> Demonstrated rock-solid grasp of fraction parts, equivalent scaling, and proportional reasoning through " + topicName + ".",
+            growth: "<strong>Next Milestone:</strong> Ready to advance to multi-step fraction operations and mixed numbers with complete confidence.",
+            actionNote: "Bodha has logged this skill as 'Mastered' with zero misconceptions."
+          }
+        ],
+        hi: [
+          {
+            title: "🤝 सीखने की सकारात्मक शुरुआत!",
+            badge: "✨ डायग्नोस्टिक पूर्ण (बुनियाद)",
+            strengths: "<strong>मजबूत पक्ष:</strong> " + topicName + " के उदाहरणों के माध्यम से सीखने में उत्साह और जिज्ञासा।",
+            growth: "<strong>सुधार का क्षेत्र:</strong> बराबर टुकड़ों को गिनने और कुल हिस्सों की पहचान का अभ्यास।",
+            actionNote: "बोध बिना किसी दबाव के दृश्य-आधारित सरल पहेलियों से आत्मविश्वास बढ़ाएगा।"
+          },
+          {
+            title: "🌱 वैचारिक नींव मजबूत हो रही है!",
+            badge: "✨ 1/3 डायग्नोस्टिक पूर्ण",
+            strengths: "<strong>मजबूत पक्ष:</strong> " + topicName + " में वस्तुओं के प्रत्यक्ष बंटवारे की सहज समझ।",
+            growth: "<strong>सुधार का क्षेत्र:</strong> कुल हिस्सों (हर) और लिए गए हिस्सों (अंश) के अंतर को मजबूत करना।",
+            actionNote: "बोध अधिक दृश्य मॉडलों के साथ अवधारणा को स्पष्ट बनाए रखेगा।"
+          },
+          {
+            title: "🎯 मजबूत समझ और स्पष्ट प्रगति!",
+            badge: "✨ 2/3 डायग्नोस्टिक पूर्ण",
+            strengths: "<strong>मजबूत पक्ष:</strong> " + topicName + " में अंश और हर के संबंधों की सटीक पहचान।",
+            growth: "<strong>सुधार का क्षेत्र:</strong> बड़ी संख्याओं के साथ भिन्नों को सरल करने का थोड़ा और अभ्यास।",
+            actionNote: "बोध चरण-दर-चरण सरलीकरण पर अधिक अभ्यास प्रदान करेगा।"
+          },
+          {
+            title: "🌟 उत्कृष्ट वैचारिक महारत!",
+            badge: "✨ 3/3 डायग्नोस्टिक पूर्ण",
+            strengths: "<strong>मजबूत पक्ष:</strong> " + topicName + " के माध्यम से भिन्नों, तुल्य अनुपातों और गणनाओं की संपूर्ण समझ।",
+            growth: "<strong>अगला कदम:</strong> मिश्रित भिन्नों और उन्नत व्यावहारिक प्रश्नों के लिए पूरी तरह तैयार।",
+            actionNote: "बोध ने इस अवधारणा को 'दक्षता प्राप्त' के रूप में दर्ज किया है।"
+          }
+        ],
+        te: [
+          {
+            title: "🤝 అభ్యాసంలో మంచి ఆరంభం!",
+            badge: "✨ ప్రాథమిక నిర్ధారణ పూర్తయింది",
+            strengths: "<strong>ముఖ్య బలం:</strong> " + topicName + " ద్వారా భావనలను నేర్చుకోవడంలో ఆసక్తి.",
+            growth: "<strong>మెరుగుదల అంశం:</strong> సమాన భాగాలను లెక్కించడం మరియు మొత్తం భాగాలను గుర్తించడం.",
+            actionNote: "బోధ దృశ్య రూపాల ద్వారా సులభంగా అర్థమయ్యేలా చేస్తుంది."
+          },
+          {
+            title: "🌱 అవగాహన బలపడుతోంది!",
+            badge: "✨ 1/3 నిర్ధారణ పూర్తయింది",
+            strengths: "<strong>ముఖ్య బలం:</strong> " + topicName + " లో భాగాలను సులభంగా అర్థం చేసుకోవడం.",
+            growth: "<strong>మెరుగుదల అంశం:</strong> లవం మరియు హారం మధ్య సంబంధాన్ని మరింత స్పష్టంగా తెలుసుకోవడం.",
+            actionNote: "బోధ స్పష్టమైన దృశ్య ఉదాహరణలతో ముందుకు సాగుతుంది."
+          },
+          {
+            title: "🎯 మంచి ప్రతిభ మరియు ప్రగతి!",
+            badge: "✨ 2/3 నిర్ధారణ పూర్తయింది",
+            strengths: "<strong>ముఖ్య బలం:</strong> " + topicName + " లో భిన్నాల ప్రాథమిక సూత్రాలపై మంచి పట్టు.",
+            growth: "<strong>మెరుగుదల అంశం:</strong> పెద్ద సంఖ్యలతో భిన్నాలను సులభతరం చేసే అభ్యాసం.",
+            actionNote: "బోధ దశలవారీగా సులభతరం చేసే పద్ధతులను అందిస్తుంది."
+          },
+          {
+            title: "🌟 సంపూర్ణ నైపుణ్యం!",
+            badge: "✨ 3/3 పూర్తి నైపుణ్యం",
+            strengths: "<strong>ముఖ్య బలం:</strong> " + topicName + " ద్వారా భిన్నాలు, నిష్పత్తులపై అత్యుత్తమ పట్టు.",
+            growth: "<strong>తదుపరి లక్ష్యం:</strong> మిశ్రమ భిన్నాలు మరియు తదుపరి స్థాయి పాఠాలకు సిద్ధం.",
+            actionNote: "బోధ ఈ అంశంలో పూర్తి నైపుణ్యం సాధించినట్లు నమోదు చేసింది."
+          }
+        ],
+        ta: [
+          {
+            title: "🤝 கற்றலில் நல்ல தொடக்கம்!",
+            badge: "✨ தொடக்க நிலை முடிந்தது",
+            strengths: "<strong>முக்கிய வலிமை:</strong> " + topicName + " வழியே கருத்துகளை கற்கும் ஆர்வம்.",
+            growth: "<strong>மேம்படுத்த வேண்டியவை:</strong> சம பாகங்களை எண்ணுதல் மற்றும் மொத்த பகுதிகளை அறிதல்.",
+            actionNote: "போதா எளிய காட்சிப் புதிர்கள் மூலம் நம்பிக்கையை வளர்க்கும்."
+          },
+          {
+            title: "🌱 புரிதல் வலுப்பெறுகிறது!",
+            badge: "✨ 1/3 முடிந்தது",
+            strengths: "<strong>முக்கிய வலிமை:</strong> " + topicName + " பகிர்வு முறைகளை எளிதாகப் புரிந்து கொள்ளுதல்.",
+            growth: "<strong>மேம்படுத்த வேண்டியவை:</strong> தொகுதி மற்றும் பகுதி எண்களின் தொடர்பை உறுதிப்படுத்துதல்.",
+            actionNote: "போதா கூடுதல் காட்சி விளக்கங்களை வழங்கும்."
+          },
+          {
+            title: "🎯 சிறந்த முன்னேற்றம்!",
+            badge: "✨ 2/3 முடிந்தது",
+            strengths: "<strong>முக்கிய வலிமை:</strong> " + topicName + " பின்னங்களின் அடிப்படை விதிகளில் தெளிவான அறிவு.",
+            growth: "<strong>மேம்படுத்த வேண்டியவை:</strong> பின்னங்களை சுருக்கும் முறைகளில் கூடுதல் பயிற்சி.",
+            actionNote: "போதா எளிய படிநிலை பயிற்சிகளை வழங்கும்."
+          },
+          {
+            title: "🌟 முழுமையான தேர்ச்சி!",
+            badge: "✨ 3/3 முழு தேர்ச்சி",
+            strengths: "<strong>முக்கிய வலிமை:</strong> " + topicName + " வழியே பின்னங்கள் மற்றும் விகிதங்களில் முழுமையான ஆளுமை.",
+            growth: "<strong>அடுத்த நிலை:</strong> கலப்பு பின்னங்கள் மற்றும் உயர்நிலை கணக்குகளுக்கு தயார்.",
+            actionNote: "போதா இந்த பாடப்பிரிவை 'முழு தேர்ச்சி' என பதிவு செய்துள்ளது."
+          }
+        ],
+        kn: [
+          {
+            title: "🤝 ಕಲಿಕೆಯಲ್ಲಿ ಉತ್ತಮ ಆರಂಭ!",
+            badge: "✨ ರೋಗನಿರ್ಣಯ ಪೂರ್ಣಗೊಂಡಿದೆ",
+            strengths: "<strong>ಪ್ರಮುಖ ಸಾಮರ್ಥ್ಯ:</strong> " + topicName + " ಮೂಲಕ ಕಲಿಯುವ ಉತ್ಸಾಹ ಮತ್ತು ಆಸಕ್ತಿ.",
+            growth: "<strong>ಸುಧಾರಣೆಯ ಕ್ಷೇತ್ರ:</strong> ಸಮಾನ ಭಾಗಗಳನ್ನು ಎಣಿಸುವುದು ಮತ್ತು ಒಟ್ಟು ಭಾಗಗಳನ್ನು ಗುರುತಿಸುವುದು.",
+            actionNote: "ಬೋಧ ಸರಳ ದೃಶ್ಯ ಆಧಾರಿತ ಒಗಟುಗಳೊಂದಿಗೆ ಆತ್ಮವಿಶ್ವಾಸ ಹೆಚ್ಚಿಸುತ್ತದೆ."
+          },
+          {
+            title: "🌱 ಅಡಿಪಾಯ ಬಲಗೊಳ್ಳುತ್ತಿದೆ!",
+            badge: "✨ 1/3 ಪೂರ್ಣಗೊಂಡಿದೆ",
+            strengths: "<strong>ಪ್ರಮುಖ ಸಾಮರ್ಥ್ಯ:</strong> " + topicName + " ನಲ್ಲಿ ಭಾಗಗಳನ್ನು ಸುಲಭವಾಗಿ ಗ್ರಹಿಸುವುದು.",
+            growth: "<strong>ಸುಧಾರಣೆಯ ಕ್ಷೇತ್ರ:</strong> ಅಂಶ ಮತ್ತು ಛೇದಗಳ ಸಂಬಂಧವನ್ನು ದೃಢಪಡಿಸುವುದು.",
+            actionNote: "ಬೋಧ ಸ್ಪಷ್ಟ ದೃಶ್ಯ ಮಾದರಿಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ."
+          },
+          {
+            title: "🎯 ಉತ್ತಮ ಪ್ರಗತಿ ಮತ್ತು ಕೌಶಲ್ಯ!",
+            badge: "✨ 2/3 ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+            strengths: "<strong>ಪ್ರಮುಖ ಸಾಮರ್ಥ್ಯ:</strong> " + topicName + " ನಲ್ಲಿ ಭಿನ್ನರಾಶಿಗಳ ನಿಯಮಗಳಲ್ಲಿ ಸ್ಪಷ್ಟ ತಿಳುವಳಿಕೆ.",
+            growth: "<strong>ಸುಧಾರಣೆಯ ಕ್ಷೇತ್ರ:</strong> ದೊಡ್ಡ ಸಂಖ್ಯೆಗಳ ಭಿನ್ನರಾಶಿಗಳನ್ನು ಸರಳಗೊಳಿಸುವ ಅಭ್ಯಾಸ.",
+            actionNote: "ಬೋಧ ಹಂತ-ಹಂತದ ಸರಳೀಕರಣದ ಮೇಲೆ ಗಮನ ಹರಿಸುತ್ತದೆ."
+          },
+          {
+            title: "🌟 ಪರಿಪೂರ್ಣ ಪರಿಕಲ್ಪನಾ ಪ್ರಾವೀಣ್ಯತೆ!",
+            badge: "✨ 3/3 ಪರಿಪೂರ್ಣ ಪ್ರಾವೀಣ್ಯತೆ",
+            strengths: "<strong>ಪ್ರಮುಖ ಸಾಮರ್ಥ್ಯ:</strong> " + topicName + " ಮೂಲಕ ಭಿನ್ನರಾಶಿಗಳ ಎಲ್ಲಾ ಪರಿಕಲ್ಪನೆಗಳ ಸಂಪೂರ್ಣ ಹಿಡಿತ.",
+            growth: "<strong>ಮುಂದಿನ ಹಂತ:</strong> ಮಿಶ್ರ ಭಿನ್ನರಾಶಿಗಳು ಮತ್ತು ಸುಧಾರಿತ ಲೆಕ್ಕಾಚಾರಗಳಿಗೆ ಸಿದ್ಧ.",
+            actionNote: "ಬೋಧ ಇದನ್ನು 'ಸಂಪೂರ್ಣ ಪ್ರಾವೀಣ್ಯತೆ' ಎಂದು ದಾಖಲಿಸಿದೆ."
+          }
+        ],
+        mr: [
+          {
+            title: "🤝 शिक्षणाची सकारात्मक सुरुवात!",
+            badge: "✨ डायग्नोस्टिक पूर्ण (पायाभूत)",
+            strengths: "<strong>मुख्य ताकद:</strong> " + topicName + " च्या उदाहरणांतून शिकण्याची आवड आणि उत्सुकता.",
+            growth: "<strong>सुधारणेचे क्षेत्र:</strong> समान भाग मोजणे आणि एकूण भागांची ओळख.",
+            actionNote: "बोध सोप्या दृश्य कोडींद्वारे आत्मविश्वास वाढवेल."
+          },
+          {
+            title: "🌱 पाया भक्कम होत आहे!",
+            badge: "✨ 1/3 पूर्ण",
+            strengths: "<strong>मुख्य ताकद:</strong> " + topicName + " मधील वस्तूंच्या वाटणीची उत्तम समज.",
+            growth: "<strong>सुधारणेचे क्षेत्र:</strong> अंश आणि छेद यातील संबंध पक्का करणे.",
+            actionNote: "बोध अधिक व्हिज्युअल मॉडेल्सद्वारे संकल्पना स्पष्ट करेल."
+          },
+          {
+            title: "🎯 उत्तम प्रगती आणि अचूकता!",
+            badge: "✨ 2/3 पडताळणी पूर्ण",
+            strengths: "<strong>मुख्य ताकद:</strong> " + topicName + " मधील अपूर्णांकांच्या नियमांची स्पष्ट समज.",
+            growth: "<strong>सुधारणेचे क्षेत्र:</strong> मोठ्या संख्यांचे अपूर्णांक संक्षिप्त करण्याचा सराव.",
+            actionNote: "बोध टप्प्याटप्प्याने संक्षिप्त करण्याच्या पद्धतींवर भर देईल."
+          },
+          {
+            title: "🌟 परिपूर्ण संकल्पनात्मक प्रभुत्व!",
+            badge: "✨ 3/3 परिपूर्ण प्रभुत्व",
+            strengths: "<strong>मुख्य ताकद:</strong> " + topicName + " च्या माध्यमातून अपूर्णांक आणि प्रमाणांची उत्कृष्ट समज.",
+            growth: "<strong>पुढील टप्पा:</strong> मिश्र अपूर्णांक आणि प्रगत गणितांसाठी पूर्णपणे सज्ज.",
+            actionNote: "बोधने या संकल्पनेवर 'पूर्ण प्रभुत्व' नोंदवले आहे."
+          }
+        ]
+      };
+
+      const langList = summaries[lang] || summaries.en;
+      return langList[Math.min(correctCount, 3)];
+    }
+
+    function renderDiagnosticStep(step) {
+      diagnosticStep = step;
+      const bandKey = getAgeBandKey(currentAge);
+      const questionBlock = document.getElementById("diagnosticQuestionBlock");
+      const summaryCard = document.getElementById("diagnosticSummaryCard");
+      const stepPill = document.getElementById("diagnosticStepPill");
+      const stepDots = document.getElementById("diagnosticStepDots");
+      const stepLabel = document.getElementById("diagnosticStepLabel");
+      const checkQuestionText = document.getElementById("checkQuestionText");
+      const checkOptionsContainer = document.getElementById("checkOptionsContainer");
+      const checkFeedbackText = document.getElementById("checkFeedbackText");
+
+      if (step <= 3) {
+        if (questionBlock) questionBlock.style.display = "block";
+        if (summaryCard) summaryCard.style.display = "none";
+        if (stepPill) stepPill.style.display = "inline-flex";
+
+        const dots = step === 1 ? "● ○ ○" : (step === 2 ? "● ● ○" : "● ● ●");
+        const labels = {
+          en: "Question " + step + " of 3",
+          hi: "प्रश्न " + step + " / 3",
+          te: "ప్రశ్న " + step + " / 3",
+          ta: "கேள்வி " + step + " / 3",
+          kn: "ಪ್ರಶ್ನೆ " + step + " / 3",
+          mr: "प्रश्न " + step + " / 3"
+        };
+        if (stepDots) stepDots.textContent = dots;
+        if (stepLabel) stepLabel.textContent = labels[currentSiteLang] || labels.en;
+
+        const qData = getDiagnosticQuestion(bandKey, currentInterest, step, diagnosticAnswers, currentSiteLang);
+        currentDiagnosticQData = qData;
+
+        if (checkQuestionText && checkOptionsContainer && checkFeedbackText) {
+          checkQuestionText.textContent = qData.question;
+          checkFeedbackText.style.display = "none";
+          checkFeedbackText.textContent = "";
+          checkFeedbackText.className = "check-feedback";
+
+          checkOptionsContainer.innerHTML = "";
+          qData.options.forEach((optText, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "check-option-btn";
+            btn.textContent = optText;
+            btn.onclick = () => handleDiagnosticOptionClick(btn, idx === qData.correctIndex, qData.explanation);
+            checkOptionsContainer.appendChild(btn);
+          });
+        }
+      } else {
+        // Step 4: Render Diagnostic Summary
+        if (questionBlock) questionBlock.style.display = "none";
+        if (summaryCard) summaryCard.style.display = "block";
+        if (stepPill) stepPill.style.display = "none";
+
+        const summary = generateDiagnosticSummary(bandKey, currentInterest, diagnosticAnswers, currentSiteLang);
+        const badgeEl = document.getElementById("summaryBadgeText");
+        const titleEl = document.getElementById("summaryTitleText");
+        const strEl = document.getElementById("summaryStrengthsText");
+        const groEl = document.getElementById("summaryGrowthText");
+        const actEl = document.getElementById("summaryActionNote");
+
+        if (badgeEl) badgeEl.textContent = summary.badge;
+        if (titleEl) titleEl.textContent = summary.title;
+        if (strEl) strEl.innerHTML = summary.strengths;
+        if (groEl) groEl.innerHTML = summary.growth;
+        if (actEl) actEl.textContent = summary.actionNote;
+
+        const correctCount = diagnosticAnswers.filter(a => a.isCorrect).length;
+        if (mascotAvatarContainer) {
+          mascotAvatarContainer.innerHTML = getMascotSvg(correctCount >= 2 ? "celebrate" : "neutral");
+        }
+      }
+    }
+
+    function handleDiagnosticOptionClick(clickedBtn, isCorrect, explanationText) {
       const allBtns = checkOptionsContainer.querySelectorAll(".check-option-btn");
       allBtns.forEach((b) => (b.disabled = true));
+
+      diagnosticAnswers.push({
+        step: diagnosticStep,
+        isCorrect: isCorrect,
+        explanation: explanationText
+      });
 
       if (isCorrect) {
         clickedBtn.classList.add("correct");
@@ -6732,23 +8033,45 @@
         if (mascotAvatarContainer) mascotAvatarContainer.innerHTML = getMascotSvg("celebrate");
       } else {
         clickedBtn.classList.add("incorrect");
-        const tryAgainTexts = {
-          en: "Almost! Bodha recommends looking at how the total pieces are shared. Try another selection!",
-          hi: "लगभग सही! बोध कुल टुकड़ों के बंटवारे को देखने की सलाह देता है। पुनः प्रयास करें!",
-          te: "దాదాపు దగ్గరగా వచ్చారు! మొత్తం భాగాలు ఎలా పంచబడ్డాయో గమనించండి. మళ్ళీ ప్రయత్నించండి!",
-          ta: "கிட்டத்தட்ட சரி! மொத்த பகுதிகள் எவ்வாறு பகிரப்பட்டுள்ளன என்பதைப் பாருங்கள். மீண்டும் முயற்சிக்கவும்!",
-          kn: "ಬಹುತೇಕ ಸರಿ! ಒಟ್ಟು ಭಾಗಗಳನ್ನು ಹೇಗೆ ಹಂಚಲಾಗಿದೆ ಗಮನಿಸಿ. ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ!",
-          mr: "जवळपास बरोबर! एकूण भाग कसे वाटले आहेत ते पहा. पुन्हा प्रयत्न करा!"
+        const correctiveHints = {
+          en: "Good attempt! Bodha is analyzing this pattern to adapt the next diagnostic question.",
+          hi: "अच्छा प्रयास! बोध अगले प्रश्न को अनुकूलित करने के लिए इस पैटर्न का विश्लेषण कर रहा है।",
+          te: "మంచి ప్రయత్నం! తదుపరి ప్రశ్నను రూపొందించడానికి బోధ దీనిని విశ్లేషిస్తోంది.",
+          ta: "நல்ல முயற்சி! அடுத்த கேள்வியை வடிவமைக்க போதா இதை பகுப்பாய்வு செய்கிறது.",
+          kn: "ಉತ್ತಮ ಪ್ರಯತ್ನ! ಮುಂದಿನ ಪ್ರಶ್ನೆಯನ್ನು ಹೊಂದಿಸಲು ಬೋಧ ಇದನ್ನು ವಿಶ್ಲೇಷಿಸುತ್ತಿದೆ.",
+          mr: "चांगला प्रयत्न! पुढील प्रश्न अनुकूल करण्यासाठी बोध याचे विश्लेषण करत आहे."
         };
-        checkFeedbackText.textContent = tryAgainTexts[currentSiteLang] || tryAgainTexts.en;
+        checkFeedbackText.textContent = correctiveHints[currentSiteLang] || correctiveHints.en;
         checkFeedbackText.className = "check-feedback warning";
         checkFeedbackText.style.display = "block";
         if (mascotAvatarContainer) mascotAvatarContainer.innerHTML = getMascotSvg("thinking");
-
-        setTimeout(() => {
-          allBtns.forEach((b) => (b.disabled = false));
-        }, 1200);
       }
+
+      // Smooth step transition (~550ms) using existing thinking character state
+      setTimeout(() => {
+        if (mascotAvatarContainer) mascotAvatarContainer.innerHTML = getMascotSvg("thinking");
+        setTimeout(() => {
+          renderDiagnosticStep(diagnosticStep + 1);
+          if (mascotAvatarContainer && diagnosticStep <= 3) {
+            mascotAvatarContainer.innerHTML = getMascotSvg("neutral");
+          }
+        }, 320);
+      }, 580);
+    }
+
+    // Reset Diagnostic Sequence back to Step 1
+    function resetDiagnostic(reRender = true) {
+      diagnosticStep = 1;
+      diagnosticAnswers = [];
+      currentDiagnosticQData = null;
+      if (reRender) {
+        renderDiagnosticStep(1);
+      }
+    }
+
+    // Maintain alias for quiz compatibility
+    function handleQuizOptionClick(clickedBtn, isCorrect, explanationText) {
+      handleDiagnosticOptionClick(clickedBtn, isCorrect, explanationText);
     }
 
     // Conversational Follow-up Thread Handler
@@ -7153,6 +8476,7 @@
 
     // Reset Demo
     btnResetDemo.addEventListener("click", () => {
+      resetDiagnostic(false);
       currentAge = 9;
       ageSlider.value = 9;
       currentInterest = "gaming";
