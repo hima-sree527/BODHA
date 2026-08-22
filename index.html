@@ -348,8 +348,21 @@
     .hero-grid {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
-      gap: var(--space-5);
-      align-items: center;
+      gap: var(--space-4);
+      align-items: stretch;
+    }
+
+    .hero-content-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-4);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
     }
 
     /* Staggered Hero Sequence */
@@ -359,7 +372,6 @@
       font-weight: 800;
       margin-bottom: var(--space-2);
       color: var(--primary-dark);
-      animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
     }
 
     .hero-title .tagline-highlight {
@@ -375,7 +387,6 @@
       margin-bottom: var(--space-4);
       max-width: 560px;
       line-height: 1.65;
-      animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
     }
 
     .hero-subtitle strong {
@@ -386,8 +397,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: var(--space-2);
-      margin-bottom: var(--space-5);
-      animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      margin-bottom: var(--space-4);
     }
 
     .trust-strip {
@@ -399,7 +409,6 @@
       color: var(--text-muted);
       border-top: 1px solid var(--border-subtle);
       padding-top: var(--space-3);
-      animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
     }
 
     .trust-item {
@@ -417,13 +426,15 @@
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: var(--space-4);
+      padding: var(--space-5) var(--space-4);
       box-shadow: var(--shadow-card);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      height: 100%;
       animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
       transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
       will-change: transform;
@@ -560,10 +571,23 @@
     .demo-controls-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
+      gap: var(--space-3);
       margin-bottom: var(--space-4);
       padding-bottom: var(--space-4);
       border-bottom: 1px solid var(--border-subtle);
+      align-items: stretch;
+    }
+
+    .demo-control-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
 
     .control-block-title {
@@ -846,25 +870,27 @@
     .ai-dialogue-grid {
       display: grid;
       grid-template-columns: 1.4fr 1fr;
-      gap: var(--space-4);
-      align-items: center;
+      gap: var(--space-3);
+      align-items: stretch;
     }
 
     .speech-with-mascot {
       display: flex;
       gap: var(--space-2);
       align-items: flex-start;
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-3);
+      height: 100%;
     }
 
     .ai-speech-bubble {
       font-size: 1.05rem;
       line-height: 1.68;
       color: #1E293B;
-      background: #F8FAFC;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-card);
-      border-top-left-radius: 4px;
-      padding: var(--space-3);
+      background: transparent;
+      padding: var(--space-1);
       flex: 1;
     }
 
@@ -896,6 +922,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100%;
     }
 
     .visual-caption {
@@ -909,7 +936,7 @@
     .understanding-check-card {
       margin-top: var(--space-3);
       background: #F8FAFC;
-      border: 1.5px dashed #CBD5E1;
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
       padding: var(--space-3);
     }
@@ -935,6 +962,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: var(--space-1);
+    }
+
     .check-btn {
       font-size: var(--text-sm);
       font-weight: 600;
@@ -998,15 +1027,20 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-3);
+      align-items: stretch;
     }
 
     .problem-card {
       background: #FFFFFF;
-      border: 1px solid rgba(226, 232, 240, 0.7);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: var(--space-4) var(--space-3);
+      padding: var(--space-4);
       transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
       box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
     }
 
     .problem-card:hover {
@@ -1050,16 +1084,21 @@
       grid-template-columns: repeat(5, 1fr);
       gap: var(--space-2);
       margin-bottom: var(--space-5);
+      align-items: stretch;
     }
 
     .flow-step-card {
       background: #FAF8F5;
       border: 1px solid #E9D5C3;
       border-radius: var(--radius-card);
-      padding: var(--space-3) var(--space-2);
+      padding: var(--space-3);
       position: relative;
       box-shadow: var(--shadow-card);
       transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
     }
 
     .flow-step-card:hover {
@@ -1490,21 +1529,45 @@
 
     .b2b-grid {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: var(--space-6);
-      align-items: start;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-4);
+      align-items: stretch;
+    }
+
+    .school-features-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-5) var(--space-4);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
 
     .school-features-list {
       display: flex;
       flex-direction: column;
-      gap: var(--space-3);
+      gap: var(--space-2);
       margin-top: var(--space-3);
     }
 
     .school-feat-item {
       display: flex;
       gap: var(--space-2);
+      align-items: flex-start;
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-3);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .school-feat-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      border-color: #CBD5E1;
     }
 
     .feat-icon-box {
@@ -1536,8 +1599,12 @@
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: var(--space-5);
+      padding: var(--space-5) var(--space-4);
       box-shadow: var(--shadow-card);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .form-card h3 {
@@ -1845,11 +1912,18 @@
     }
 
     @media (max-width: 768px) {
-      .hero-title { font-size: 2.5rem; }
-      .demo-controls-grid { grid-template-columns: 1fr; gap: 20px; }
-      .ai-dialogue-grid { grid-template-columns: 1fr; }
-      .cards-grid-4 { grid-template-columns: 1fr; }
-      .age-showcase-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .hero-title { font-size: 2.2rem; }
+      .hero-content-card, .hero-graphic-card { padding: var(--space-4) var(--space-3); }
+      .demo-wrapper { padding: var(--space-3); }
+      .demo-controls-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .ai-dialogue-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .cards-grid-4 { grid-template-columns: 1fr; gap: var(--space-3); }
+      .flow-steps-grid { grid-template-columns: 1fr; gap: var(--space-2); }
+      .age-showcase-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .pricing-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+      .b2b-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .school-features-box, .form-card { padding: var(--space-4) var(--space-3); }
       .form-row { grid-template-columns: 1fr; }
       .card-inputs-row { grid-template-columns: 1fr; }
       .nav-links { display: none; }
@@ -1945,7 +2019,7 @@
   <!-- Section 1: Hero Section -->
   <header class="hero-section" id="hero">
     <div class="container hero-grid">
-      <div>
+      <div class="hero-content-card">
         <h1 class="hero-title">
           Every child's mind is unique.
           <span class="tagline-highlight">Learn Through Your World.</span>
@@ -2067,10 +2141,10 @@
           </div>
         </div>
 
-        <!-- Controls: Age + Interest -->
+        <!-- Controls: Age + Interest in Clean Boxed Cards -->
         <div class="demo-controls-grid">
-          <!-- Control 1: Age Slider -->
-          <div>
+          <!-- Control 1: Age Slider Box -->
+          <div class="demo-control-card">
             <div class="control-block-title">
               <span>How old is the student?</span>
             </div>
@@ -2102,8 +2176,8 @@
             </div>
           </div>
 
-          <!-- Control 2: Interest Selection -->
-          <div>
+          <!-- Control 2: Interest Selection Box -->
+          <div class="demo-control-card">
             <div class="control-block-title">
               <span>What do they love?</span>
             </div>
@@ -2542,12 +2616,14 @@
   <section class="b2b-section" id="schools">
     <div class="container">
       <div class="b2b-grid">
-        <div>
-          <span class="section-tag">For Schools</span>
-          <h2 class="section-title" style="font-size: 2.2rem;">Built for School Leaders</h2>
-          <p class="section-description">
-            Empower teachers with real-time insight into student misconceptions before exams.
-          </p>
+        <div class="school-features-box">
+          <div>
+            <span class="section-tag">For Schools</span>
+            <h2 class="section-title" style="font-size: 2.2rem;">Built for School Leaders</h2>
+            <p class="section-description">
+              Empower teachers with real-time insight into student misconceptions before exams.
+            </p>
+          </div>
 
           <div class="school-features-list">
             <div class="school-feat-item">
