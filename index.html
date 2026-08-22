@@ -1498,13 +1498,13 @@
       .b2b-grid { grid-template-columns: 1fr; }
     }
 
-    /* Section 0: Full-Screen Opening Animation with Synced Dynamic Background & Flat High-Five Art */
+    /* Section 0: Full-Screen Opening Animation with Multi-Tone Palette Journey & Contact Spark */
     .intro-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 40%, #FAF5FF 0%, #EEF2FF 45%, #E0E7FF 100%);
+      background: radial-gradient(circle at 50% 40%, #EEF2FF 0%, #E0E7FF 55%, #C7D2FE 100%);
       background-size: 200% 200%;
-      animation: bgSyncedDriftAndPulse 3.0s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation: brandPaletteJourney 3.0s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -1518,58 +1518,38 @@
       overflow: hidden;
     }
 
-    /* Dynamic Synced Full-Screen Background Pulse */
-    @keyframes bgSyncedDriftAndPulse {
+    /* Multi-Tone Palette Journey: Calm Primary -> Secondary In-Between Tone -> Warm Accent Peak at Contact -> Ease back to Calm Primary */
+    @keyframes brandPaletteJourney {
       0% {
-        background: radial-gradient(circle at 50% 40%, #FAF5FF 0%, #EEF2FF 45%, #E0E7FF 100%);
+        /* Starts on Calm Primary */
+        background: radial-gradient(circle at 50% 40%, #EEF2FF 0%, #E0E7FF 55%, #C7D2FE 100%);
         background-position: 0% 0%;
       }
       25% {
-        /* Mid-transition while illustration scales into view */
-        background: radial-gradient(circle at 52% 38%, #F5F3FF 0%, #EEF2FF 40%, #E0E7FF 100%);
-        background-position: 50% 30%;
+        /* Gently shifts through secondary lavender/teal in-between tone */
+        background: radial-gradient(circle at 52% 38%, #F5F3FF 0%, #EEF2FF 45%, #CCFBF1 100%);
+        background-position: 40% 30%;
       }
-      38% {
-        /* Exactly when hands meet: radiant bright warm pulse */
-        background: radial-gradient(circle at 52% 38%, #FFFBEB 0%, #FEF3C7 35%, #FDE68A 65%, #EEF2FF 100%);
+      40% {
+        /* Arrives at Warm Accent tone exactly as the spark effect fires at the high-five moment */
+        background: radial-gradient(circle at 52% 38%, #FFFBEB 0%, #FEF3C7 35%, #FDE68A 70%, #EEF2FF 100%);
         background-position: 52% 38%;
       }
-      50% {
-        /* Soft warm afterglow */
-        background: radial-gradient(circle at 52% 38%, #FFF7ED 0%, #FEF3C7 30%, #EEF2FF 60%, #E0E7FF 100%);
+      55% {
+        /* Warm sunny glow */
+        background: radial-gradient(circle at 52% 38%, #FEF3C7 0%, #FDE68A 30%, #EEF2FF 65%, #FAF5FF 100%);
         background-position: 60% 45%;
       }
       75% {
-        /* Settling back into calm primary/ambient drift */
-        background: radial-gradient(circle at 50% 40%, #FAF5FF 0%, #EEF2FF 45%, #E0E7FF 100%);
+        /* Easing smoothly back toward Calm Primary */
+        background: radial-gradient(circle at 50% 40%, #FAF5FF 0%, #EEF2FF 50%, #E0E7FF 100%);
         background-position: 80% 60%;
       }
       100% {
-        background: radial-gradient(circle at 50% 40%, #F8FAFC 0%, #EEF2FF 50%, #FAF5FF 100%);
+        /* Settled on Calm Primary */
+        background: radial-gradient(circle at 50% 40%, #F8FAFC 0%, #EEF2FF 55%, #FAF5FF 100%);
         background-position: 100% 100%;
       }
-    }
-
-    /* Synced Radiant Bloom centered right behind the high-five point of contact */
-    .bg-contact-bloom {
-      position: absolute;
-      left: 52%;
-      top: 38%;
-      transform: translate(-50%, -50%);
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(254, 243, 199, 0.3) 40%, transparent 70%);
-      pointer-events: none;
-      opacity: 0;
-      animation: bloomPulse 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
-      z-index: 1;
-    }
-
-    @keyframes bloomPulse {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-      40% { opacity: 1; transform: translate(-50%, -50%) scale(1.4); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
     }
 
     .intro-overlay.fade-out {
@@ -1637,6 +1617,53 @@
       max-height: 52vh;
       object-fit: cover;
       display: block;
+    }
+
+    /* Spark / Burst Effect positioned exactly at the high-five point of contact */
+    .contact-spark-layer {
+      position: absolute;
+      left: 52%;
+      top: 38%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .sparkle-flash {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      box-shadow: 0 0 35px 18px #FEF08A, 0 0 60px 30px #F59E0B;
+      opacity: 0;
+      transform: scale(0);
+      animation: flashPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards;
+    }
+
+    .sparkle-stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: starScatter 0.65s ease-out 0.85s forwards;
+    }
+
+    @keyframes flashPop {
+      0% { opacity: 0; transform: scale(0); }
+      40% { opacity: 1; transform: scale(1.4); }
+      100% { opacity: 0; transform: scale(2.0); }
+    }
+
+    @keyframes starScatter {
+      0% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      30% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.5) rotate(45deg); }
     }
 
     @keyframes illustrationEntrance {
@@ -1707,14 +1734,14 @@
     @media (prefers-reduced-motion: reduce) {
       .intro-overlay {
         animation: none !important;
-        background: #F8FAFC !important;
+        background: #EEF2FF !important;
       }
       .intro-img-frame, .intro-brand-title, .intro-tagline, .intro-progress-fill {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
       }
-      .bg-contact-bloom {
+      .contact-spark-layer {
         display: none !important;
       }
     }
@@ -1737,19 +1764,28 @@
 </head>
 <body>
 
-  <!-- Section 0: Full-Screen Opening Animation (Flat Illustration + Synced Dynamic Background Pulse) -->
+  <!-- Section 0: Full-Screen Opening Animation (Flat Illustration + Contact Spark + Multi-Tone Background Journey) -->
   <div id="openingIntroOverlay" class="intro-overlay" onclick="skipOpeningIntro()">
     <button class="intro-skip-btn" id="introSkipBtn" onclick="skipOpeningIntro()">
       Skip <span>✕</span>
     </button>
 
-    <!-- Synced Radiant Bloom Behind Hand Contact -->
-    <div class="bg-contact-bloom"></div>
-
     <div class="intro-stage" onclick="event.stopPropagation()">
       <!-- Flat-Style Teacher & Student High-Five Illustration (Chalkboard, books, pencil cup, apple) -->
       <div class="intro-img-frame">
         <img src="intro_flat_highfive.jpg" alt="Teacher and student celebrating with a high-five in classroom" class="intro-highfive-img" />
+
+        <!-- Quick, Light Spark / Burst Effect positioned exactly where hands meet -->
+        <div class="contact-spark-layer">
+          <div class="sparkle-flash"></div>
+          <svg class="sparkle-stars" viewBox="0 0 100 100" fill="none">
+            <path class="star-spark s1" d="M50 35 Q50 50 35 50 Q50 50 50 65 Q50 50 65 50 Q50 50 50 35 Z" fill="#F59E0B"/>
+            <path class="star-spark s2" d="M70 30 Q70 40 60 40 Q70 40 70 50 Q70 40 80 40 Q70 40 70 30 Z" fill="#FEF08A"/>
+            <path class="star-spark s3" d="M30 30 Q30 40 20 40 Q30 40 30 50 Q30 40 40 40 Q30 40 30 30 Z" fill="#10B981"/>
+            <path class="star-spark s4" d="M50 15 Q50 25 40 25 Q50 25 50 35 Q50 25 60 25 Q50 25 50 15 Z" fill="#EA580C"/>
+            <circle class="star-spark s5" cx="50" cy="50" r="8" fill="#FFFFFF" opacity="0.95"/>
+          </svg>
+        </div>
       </div>
 
       <!-- Wordmark & Tagline -->
