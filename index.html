@@ -874,15 +874,91 @@
       align-items: stretch;
     }
 
-    .speech-with-mascot {
+    /* Conversational Live Tutor Demo Chat Styles */
+    .tutor-chat-container {
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       gap: var(--space-2);
-      align-items: flex-start;
       background: #F8FAFC;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
       padding: var(--space-3);
       height: 100%;
+    }
+
+    .tutor-chat-thread {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      max-height: 380px;
+      min-height: 200px;
+      overflow-y: auto;
+      padding-right: 6px;
+      scroll-behavior: smooth;
+    }
+
+    .tutor-chat-thread::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .tutor-chat-thread::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 999px;
+    }
+
+    .tutor-chat-thread::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 999px;
+    }
+
+    .chat-msg-row {
+      display: flex;
+      gap: var(--space-2);
+      align-items: flex-start;
+      animation: chatMsgFade 0.22s ease-out;
+    }
+
+    @keyframes chatMsgFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-msg-row.msg-user {
+      flex-direction: row-reverse;
+    }
+
+    .user-speech-bubble {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: var(--radius-card);
+      border-top-right-radius: 4px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 82%;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.18);
+    }
+
+    .user-avatar-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #E0E7FF;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      border: 1px solid #C7D2FE;
+    }
+
+    .speech-with-mascot {
+      display: flex;
+      gap: var(--space-2);
+      align-items: flex-start;
+      width: 100%;
     }
 
     .ai-speech-bubble {
@@ -909,6 +985,239 @@
       padding: 2px 6px;
       border-radius: 4px;
       font-family: var(--font-mono);
+    }
+
+    .followup-quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .quick-chip {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-btn);
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-chip:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .tutor-followup-form {
+      display: flex;
+      gap: var(--space-1);
+      margin-top: 4px;
+    }
+
+    /* Floating Site-Wide Help Chatbot */
+    .floating-help-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 990;
+    }
+
+    .floating-help-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid #C7D2FE;
+      border-radius: var(--radius-btn);
+      padding: 6px 16px 6px 8px;
+      box-shadow: 0 8px 24px -4px rgba(79, 70, 229, 0.25), 0 2px 6px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+      animation: floatingHelpPulse 3s ease-in-out infinite;
+    }
+
+    .floating-help-trigger:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px -4px rgba(79, 70, 229, 0.35);
+      border-color: var(--primary);
+    }
+
+    @keyframes floatingHelpPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .guide-avatar-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .help-btn-badge {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    .floating-help-panel {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      right: 0;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: helpPanelSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: bottom right;
+    }
+
+    @keyframes helpPanelSlideUp {
+      from { opacity: 0; transform: scale(0.92) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .help-panel-header {
+      background: #FAF8F5;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .help-panel-close {
+      background: transparent;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 2px 6px;
+      line-height: 1;
+      border-radius: 50%;
+      transition: all 0.15s ease;
+    }
+
+    .help-panel-close:hover {
+      color: var(--text-main);
+      background: #E2E8F0;
+    }
+
+    .help-chat-messages {
+      padding: 14px;
+      max-height: 280px;
+      min-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #FFFFFF;
+    }
+
+    .help-chat-messages::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .help-chat-messages::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 999px;
+    }
+
+    .help-chat-messages::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 999px;
+    }
+
+    .help-msg {
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      animation: chatMsgFade 0.2s ease-out;
+    }
+
+    .help-msg p {
+      margin-bottom: 6px;
+    }
+    .help-msg p:last-child {
+      margin-bottom: 0;
+    }
+
+    .help-msg-assistant {
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      align-self: flex-start;
+      border-top-left-radius: 4px;
+      max-width: 92%;
+    }
+
+    .help-msg-user {
+      background: var(--primary);
+      color: #FFFFFF;
+      align-self: flex-end;
+      border-top-right-radius: 4px;
+      max-width: 85%;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.15);
+    }
+
+    .help-msg-action-btn {
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .help-suggestions {
+      padding: 8px 12px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .help-chip {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: var(--radius-btn);
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .help-chip:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .help-input-row {
+      padding: 10px 12px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-xs {
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      border-radius: var(--radius-btn);
     }
 
     /* Dynamic Visual Fraction Box */
@@ -1918,6 +2227,7 @@
       .demo-wrapper { padding: var(--space-3); }
       .demo-controls-grid { grid-template-columns: 1fr; gap: var(--space-3); }
       .ai-dialogue-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .tutor-chat-thread { max-height: 280px; }
       .cards-grid-4 { grid-template-columns: 1fr; gap: var(--space-3); }
       .flow-steps-grid { grid-template-columns: 1fr; gap: var(--space-2); }
       .age-showcase-grid { grid-template-columns: 1fr; gap: var(--space-3); }
@@ -1931,6 +2241,8 @@
       .intro-img-frame { max-height: 40vh; }
       .intro-brand-title { font-size: 2.2rem; }
       .intro-tagline { font-size: 0.98rem; }
+      .floating-help-widget { bottom: 16px; right: 16px; }
+      .floating-help-panel { width: calc(100vw - 32px); right: 0; bottom: calc(100% + 8px); }
     }
   </style>
 </head>
@@ -2247,28 +2559,46 @@
               <span class="meta-tag meta-tag-lens" id="metaInterestBadge">Lens: Gaming</span>
             </div>
 
-            <!-- Dialogue with Animated Mascot & Dynamic Visual Grid -->
+            <!-- Conversational Dialogue with Animated Mascot & Dynamic Visual Grid -->
             <div class="ai-dialogue-grid">
-              <div class="speech-with-mascot">
-                <!-- Anime Guide Character (Mascot) in Demo -->
-                <div class="mascot-avatar" id="mascotAvatarContainer">
-                  <svg width="64" height="64" viewBox="0 0 36 36" class="anim-bounce" id="activeMascotSvg">
-                    <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
-                    <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
-                    <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
-                    <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
-                    <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
-                    <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                    <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-                    <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-                    <path d="M18 4 Q18 9 18 9" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
-                  </svg>
+              <div class="tutor-chat-container">
+                <div class="tutor-chat-thread" id="tutorChatThread">
+                  <div class="chat-msg-row msg-assistant" id="initialAiMsgRow">
+                    <!-- Anime Guide Character (Mascot) in Demo -->
+                    <div class="mascot-avatar" id="mascotAvatarContainer">
+                      <svg width="64" height="64" viewBox="0 0 36 36" class="anim-bounce" id="activeMascotSvg">
+                        <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
+                        <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
+                        <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
+                        <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
+                        <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
+                        <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+                        <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
+                        <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
+                        <path d="M18 4 Q18 9 18 9" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
+                      </svg>
+                    </div>
+
+                    <div class="ai-speech-bubble" id="aiExplanationBody">
+                      <!-- Dynamically injected explanation -->
+                    </div>
+                  </div>
                 </div>
 
-                <div class="ai-speech-bubble" id="aiExplanationBody">
-                  <!-- Dynamically injected explanation -->
+                <!-- Follow-up suggestion quick chips -->
+                <div class="followup-quick-chips">
+                  <button type="button" class="quick-chip" onclick="sendQuickFollowup('Explain more')">💡 Explain more</button>
+                  <button type="button" class="quick-chip" onclick="sendQuickFollowup('Give another example')">✨ Another example</button>
+                  <button type="button" class="quick-chip" onclick="sendQuickFollowup('I don\'t understand, make it simpler')">🌱 Simpler</button>
+                  <button type="button" class="quick-chip" onclick="sendQuickFollowup('Make it harder')">⚡ Harder</button>
                 </div>
+
+                <!-- Follow-up input form -->
+                <form class="tutor-followup-form" id="tutorFollowupForm" onsubmit="handleTutorFollowup(event)">
+                  <input type="text" class="custom-input" id="tutorFollowupInput" placeholder="Ask Bodha a follow-up (e.g. 'why?', 'another example')..." aria-label="Ask Bodha a follow-up" />
+                  <button type="submit" class="btn btn-warm btn-sm" id="btnSendFollowup" style="padding: 0 16px;">Send</button>
+                </form>
               </div>
 
               <!-- Dynamic Visual Fraction Box -->
@@ -2846,6 +3176,72 @@
     </div>
   </footer>
 
+  <!-- Floating Site-Wide Help Chat Assistant -->
+  <div class="floating-help-widget" id="floatingHelpWidget">
+    <!-- Floating Circular Trigger Button -->
+    <button class="floating-help-trigger" id="floatingHelpTrigger" aria-label="Open Bodha AI Site Assistant" onclick="toggleFloatingHelp()">
+      <div class="guide-avatar-icon">
+        <svg width="34" height="34" viewBox="0 0 36 36">
+          <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
+          <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
+          <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
+          <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
+          <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
+          <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
+          <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
+          <path d="M18 4 Q18 9 18 9" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
+        </svg>
+      </div>
+      <span class="help-btn-badge">AI Help</span>
+    </button>
+
+    <!-- Floating Help Panel -->
+    <div class="floating-help-panel" id="floatingHelpPanel" style="display: none;">
+      <div class="help-panel-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="logo-icon" style="width: 30px; height: 30px; border-radius: 8px;">
+            <svg width="18" height="18" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
+              <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
+              <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
+              <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
+              <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
+              <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin: 0;">Bodha Site Guide</h4>
+            <span style="font-size: 0.72rem; color: #10B981; font-weight: 600;">● Online • Instant Helper</span>
+          </div>
+        </div>
+        <button class="help-panel-close" onclick="closeFloatingHelp()" aria-label="Close Help">&times;</button>
+      </div>
+
+      <div class="help-chat-messages" id="helpChatMessages">
+        <!-- Initial Welcome Message -->
+        <div class="help-msg help-msg-assistant">
+          <p>👋 Hi! I'm <strong>Bodha Guide</strong>. How can I help you explore our 1-on-1 personalized AI learning platform?</p>
+        </div>
+      </div>
+
+      <!-- Quick Suggestion Chips -->
+      <div class="help-suggestions" id="helpSuggestions">
+        <button type="button" class="help-chip" onclick="handleHelpQuery('What is Bodha?')">💡 What is Bodha?</button>
+        <button type="button" class="help-chip" onclick="handleHelpQuery('How much does it cost?')">🏷️ How much does it cost?</button>
+        <button type="button" class="help-chip" onclick="handleHelpQuery('Is this safe for kids?')">🛡️ Is this safe for kids?</button>
+        <button type="button" class="help-chip" onclick="handleHelpQuery('How do I book a demo?')">🏫 How do I book a demo?</button>
+      </div>
+
+      <!-- Free-text input row -->
+      <form class="help-input-row" id="helpQueryForm" onsubmit="handleHelpFormSubmit(event)">
+        <input type="text" class="custom-input" id="helpQueryInput" placeholder="Ask about Bodha, safety, pricing..." aria-label="Ask about Bodha" />
+        <button type="submit" class="btn btn-primary btn-sm" id="helpSendBtn">Send</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Simulation Data Matrix & Frontend Logic -->
   <script>
     // Concept Matrix: Fractions across 4 Age Bands × 6 Interests (+ Custom Generator)
@@ -3172,6 +3568,8 @@
     const aiExplanationBody = document.getElementById("aiExplanationBody");
     const fractionVisualContainer = document.getElementById("fractionVisualContainer");
     const mascotAvatarContainer = document.getElementById("mascotAvatarContainer");
+    const tutorChatThread = document.getElementById("tutorChatThread");
+    const tutorFollowupInput = document.getElementById("tutorFollowupInput");
     
     const checkQuestionText = document.getElementById("checkQuestionText");
     const checkOptionsContainer = document.getElementById("checkOptionsContainer");
@@ -3189,6 +3587,11 @@
     const modalPlanBadge = document.getElementById("modalPlanBadge");
     const modalFormContent = document.getElementById("modalFormContent");
     const modalSuccessState = document.getElementById("modalSuccessState");
+
+    // Floating Help Widget Elements
+    const floatingHelpPanel = document.getElementById("floatingHelpPanel");
+    const helpChatMessages = document.getElementById("helpChatMessages");
+    const helpQueryInput = document.getElementById("helpQueryInput");
 
     // Helper: Map Age to Age Band Key
     function getAgeBandKey(age) {
@@ -3246,6 +3649,86 @@
       }
     }
 
+    // Dynamic Follow-up Response Generator for Conversational Demo
+    function generateTutorFollowupResponse(userMsg, bandKey, interest) {
+      const q = (userMsg || "").toLowerCase().trim();
+      const cleanInterest = isCustomInterest && customInterestName 
+        ? customInterestName 
+        : (interest ? (interest.charAt(0).toUpperCase() + interest.slice(1)) : "your passion");
+
+      // 1. "why" / "explain more" / "tell me more" / "how" / "elaborate"
+      if (q.includes("why") || q.includes("explain more") || q.includes("tell me more") || q.includes("how") || q.includes("elaborate") || q.includes("detail")) {
+        if (bandKey === "early") {
+          return {
+            text: `<p>Great question! 🌟 Why is it <strong>2/4</strong>? Because the <strong>bottom number (4)</strong> tells us how many total items we started with on our play rug.</p><p>The <strong>top number (2)</strong> tells us how many we shared with our friend! When top and bottom are split evenly, that's what makes it <strong>half (1/2)</strong>! 🎈</p>`,
+            visualFraction: "2/4 = 1/2 Balanced"
+          };
+        } else if (bandKey === "primary") {
+          return {
+            text: `<p>Here is why fractions work this way in <strong>${cleanInterest}</strong>! 💡 A fraction is simply a division that hasn't finished yet.</p><p>When you write <span class='highlight-math'>3/4</span>, the denominator (4) sets the scale of the whole game stage, while the numerator (3) counts your current progress points. If you multiply both top and bottom by 2, you get <span class='highlight-math'>6/8</span> — exactly the same fraction!</p>`,
+            visualFraction: "3/4 = 6/8 Equivalent"
+          };
+        } else if (bandKey === "middle") {
+          return {
+            text: `<p>Diving deeper into the math of <strong>${cleanInterest}</strong>: fractions preserve ratios under scaling. 📊</p><p>When calculating <span class='highlight-math'>3/4</span>, you are solving for the proportion $x$ where <span class='highlight-math'>\frac{3}{4} = \frac{x}{100} \implies x = 75\%</span>. In physics and data science, this dimensionless ratio allows you to scale up experiments from miniature prototypes to full stadiums.</p>`,
+            visualFraction: "3/4 = 75% Scale Ratio"
+          };
+        } else {
+          return {
+            text: `<p>Theoretical derivation: In analytical modeling of <strong>${cleanInterest}</strong>, rational fractions $\mathbb{Q}$ form a field quotient $\frac{a}{b}$ where $b \neq 0$.</p><p>The fraction represents the exact value of the integral over the domain divided by the total measure: <span class='highlight-math'>\text{Ratio} = \frac{\int_0^T f(t)dt}{T_{total}}</span>. This ensures conservation of energy across relativistic or computational transformations.</p>`,
+            visualFraction: "Exact Rational Field ℚ"
+          };
+        }
+      }
+
+      // 2. "give another example" / "another example" / "more examples" / "new example"
+      if (q.includes("another") || q.includes("example") || q.includes("different") || q.includes("new")) {
+        if (bandKey === "early") {
+          return {
+            text: `<p>Here is another fun example! 🍪 Imagine you bake <strong>4 yummy cookies</strong> with ${cleanInterest} shapes on top.</p><p>If you eat <strong>1 cookie</strong> for snack, you ate <span class='highlight-math'>1/4</span> (one quarter) of the cookie plate! <strong>3/4</strong> are still waiting for tomorrow! 🌟</p>`,
+            visualFraction: "1/4 Cookie Snack"
+          };
+        } else if (bandKey === "primary") {
+          return {
+            text: `<p>Let's look at another scenario in <strong>${cleanInterest}</strong>! 🎮</p><p>Suppose a challenge map has <strong>8 mystery treasure chests</strong>. If your team discovers <strong>6 chests</strong>, your team's fraction is <span class='highlight-math'>6/8</span>. When you simplify by dividing top and bottom by 2, <span class='highlight-math'>6/8 = 3/4</span>! You've conquered three-quarters of the island!</p>`,
+            visualFraction: "6/8 = 3/4 Chests"
+          };
+        } else if (bandKey === "middle") {
+          return {
+            text: `<p>Another real-world application in <strong>${cleanInterest}</strong>: 🏎️</p><p>Consider a 500-meter race circuit. If a vehicle completes <strong>375 meters</strong> before refueling, its completed fraction is <span class='highlight-math'>\frac{375}{500} = \frac{3 \times 125}{4 \times 125} = \frac{3}{4}</span>. Simplifying common factors reveals the clean underlying ratio instantly.</p>`,
+            visualFraction: "375/500 = 3/4 Lap"
+          };
+        } else {
+          return {
+            text: `<p>Alternative high-level formulation in <strong>${cleanInterest}</strong>: 🔬</p><p>In quantum spin state probability, a qubit in superposition $|\psi\rangle = \frac{\sqrt{3}}{2}|0\rangle + \frac{1}{2}|1\rangle$ yields a state $|0\rangle$ measurement probability equal to the square of its amplitude: <span class='highlight-math'>P(|0\rangle) = (\frac{\sqrt{3}}{2})^2 = \frac{3}{4} = 75\%</span>.</p>`,
+            visualFraction: "P(|0⟩) = (√3/2)² = 3/4"
+          };
+        }
+      }
+
+      // 3. "i don't understand" / "confused" / "simpler" / "help" / "hard" / "simplify"
+      if (q.includes("don't understand") || q.includes("dont understand") || q.includes("confused") || q.includes("simpler") || q.includes("simple") || q.includes("help") || q.includes("hard") || q.includes("easy")) {
+        return {
+          text: `<p>No worries at all! That's what Bodha is here for — let's break it down super gently! 🌱</p><p>Imagine a single big pizza or pie 🍕 cut right down the middle into <strong>2 equal slices</strong>. If you take <strong>1 slice</strong>, you have exactly <span class='highlight-math'>1/2</span> (half).</p><p>Fractions are just counting equal pieces. Does looking at 1 out of 2 pieces make more sense?</p>`,
+          visualFraction: "1/2 Simple Half"
+        };
+      }
+
+      // 4. "harder" / "more advanced" / "complex" / "step it up" / "challenge"
+      if (q.includes("harder") || q.includes("advanced") || q.includes("complex") || q.includes("challenge") || q.includes("level up") || q.includes("more")) {
+        return {
+          text: `<p>Ready for a level-up challenge? ⚡ Let's look at <strong>unlike denominators & addition</strong>!</p><p>What happens if you combine <span class='highlight-math'>1/2 + 1/4</span>? Because the bottom numbers are different, we first convert <span class='highlight-math'>1/2</span> into <span class='highlight-math'>2/4</span>. Now both have 4 on the bottom:</p><p><span class='highlight-math'>2/4 + 1/4 = 3/4 = 0.75 (75%)</span>! You've mastered common denominators! 🏆</p>`,
+          visualFraction: "2/4 + 1/4 = 3/4"
+        };
+      }
+
+      // 5. Fallback for unmatched questions
+      return {
+        text: `<p>That's an interesting question about <strong>${cleanInterest}</strong>! 💡</p><p>Whenever we explore math through what you love, the golden rule is connecting every number to something you can visualize. Would you like to try <strong>another example</strong>, explore a <strong>deeper challenge</strong>, or test yourself with the <strong>quick quiz</strong> below?</p>`,
+        visualFraction: "Interactive Exploration"
+      };
+    }
+
     // Render Dynamic Visual SVG inside Demo Card
     function renderVisualFraction(visualType, fractionLabel) {
       let svgContent = "";
@@ -3297,7 +3780,9 @@
         `;
       }
 
-      fractionVisualContainer.innerHTML = svgContent + `<div class="visual-caption">Concept Visualization</div>`;
+      if (fractionVisualContainer) {
+        fractionVisualContainer.innerHTML = svgContent + `<div class="visual-caption">Concept Visualization</div>`;
+      }
     }
 
     // Main Update Function
@@ -3306,8 +3791,8 @@
       const bandData = SIMULATION_MATRIX[bandKey];
 
       // Update Slider Label & Pill
-      ageDisplay.textContent = `Age ${currentAge}`;
-      ageBandPill.textContent = bandData.bandName;
+      if (ageDisplay) ageDisplay.textContent = `Age ${currentAge}`;
+      if (ageBandPill) ageBandPill.textContent = bandData.bandName;
 
       // Determine Data payload
       let payload;
@@ -3322,78 +3807,275 @@
       }
 
       // Update Status in overlay
-      thinkingStatusText.textContent = `Bodha is tailoring explanation for Age ${currentAge} + ${activeLensName}...`;
+      if (thinkingStatusText) {
+        thinkingStatusText.textContent = `Bodha is tailoring explanation for Age ${currentAge} + ${activeLensName}...`;
+      }
 
-      if (showThinkingAnimation) {
+      if (showThinkingAnimation && thinkingOverlay) {
         thinkingOverlay.style.display = "flex";
         thinkingOverlay.style.opacity = "1";
-        mascotAvatarContainer.innerHTML = getMascotSvgHtml("thinking");
+        if (mascotAvatarContainer) mascotAvatarContainer.innerHTML = getMascotSvgHtml("thinking");
       }
 
       setTimeout(() => {
         // Update Badges
-        metaToneBadge.textContent = `Tone: ${bandData.tone}`;
-        metaInterestBadge.textContent = `Lens: ${activeLensName}`;
+        if (metaToneBadge) metaToneBadge.textContent = `Tone: ${bandData.tone}`;
+        if (metaInterestBadge) metaInterestBadge.textContent = `Lens: ${activeLensName}`;
 
-        // Inject Text
-        aiExplanationBody.innerHTML = payload.text;
+        // Reset chat thread and inject initial message
+        if (tutorChatThread) {
+          tutorChatThread.innerHTML = `
+            <div class="chat-msg-row msg-assistant" id="initialAiMsgRow">
+              <div class="mascot-avatar" id="mascotAvatarContainer">
+                ${getMascotSvgHtml("happy")}
+              </div>
+              <div class="ai-speech-bubble" id="aiExplanationBody">
+                ${payload.text}
+              </div>
+            </div>
+          `;
+          tutorChatThread.scrollTop = 0;
+        } else if (aiExplanationBody) {
+          aiExplanationBody.innerHTML = payload.text;
+        }
 
         // Render Visual
         renderVisualFraction(payload.visualType, payload.visualFraction);
 
-        // Mascot celebrates!
-        mascotAvatarContainer.innerHTML = getMascotSvgHtml("celebrate");
-        setTimeout(() => {
-          mascotAvatarContainer.innerHTML = getMascotSvgHtml("happy");
-        }, 500);
+        // Render Understanding Check
+        if (checkQuestionText) checkQuestionText.textContent = payload.question;
+        if (checkOptionsContainer) {
+          checkOptionsContainer.innerHTML = "";
+          if (checkFeedbackText) checkFeedbackText.style.display = "none";
 
-        // Render Understanding Check with clear feedback & correct/incorrect indicator
-        checkQuestionText.textContent = payload.question;
-        checkOptionsContainer.innerHTML = "";
-        checkFeedbackText.style.display = "none";
-
-        payload.options.forEach((opt, idx) => {
-          const btn = document.createElement("button");
-          btn.className = "check-btn";
-          btn.textContent = opt;
-          btn.onclick = () => {
-            const allBtns = checkOptionsContainer.querySelectorAll(".check-btn");
-            allBtns.forEach(b => {
-              b.classList.remove("selected-correct", "selected-incorrect", "indicated-correct");
-              b.disabled = true;
-            });
-            checkFeedbackText.style.display = "block";
-            if (idx === payload.correctIndex) {
-              btn.classList.add("selected-correct");
-              btn.textContent = `✓ ${opt}`;
-              checkFeedbackText.style.background = "#ECFDF5";
-              checkFeedbackText.style.color = "#047857";
-              checkFeedbackText.style.border = "1px solid #A7F3D0";
-              checkFeedbackText.innerHTML = `✓ <strong>Spot on!</strong> ${payload.explanation}`;
-              mascotAvatarContainer.innerHTML = getMascotSvgHtml("celebrate");
-            } else {
-              btn.classList.add("selected-incorrect");
-              btn.textContent = `✕ ${opt}`;
-              if (allBtns[payload.correctIndex]) {
-                allBtns[payload.correctIndex].classList.add("indicated-correct");
-                allBtns[payload.correctIndex].textContent = `✓ ${payload.options[payload.correctIndex]}`;
+          payload.options.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "check-btn";
+            btn.textContent = opt;
+            btn.onclick = () => {
+              const allBtns = checkOptionsContainer.querySelectorAll(".check-btn");
+              allBtns.forEach(b => {
+                b.classList.remove("selected-correct", "selected-incorrect", "indicated-correct");
+                b.disabled = true;
+              });
+              if (checkFeedbackText) checkFeedbackText.style.display = "block";
+              if (idx === payload.correctIndex) {
+                btn.classList.add("selected-correct");
+                btn.textContent = `✓ ${opt}`;
+                if (checkFeedbackText) {
+                  checkFeedbackText.style.background = "#ECFDF5";
+                  checkFeedbackText.style.color = "#047857";
+                  checkFeedbackText.style.border = "1px solid #A7F3D0";
+                  checkFeedbackText.innerHTML = `✓ <strong>Spot on!</strong> ${payload.explanation}`;
+                }
+                const curMascot = document.getElementById("mascotAvatarContainer");
+                if (curMascot) curMascot.innerHTML = getMascotSvgHtml("celebrate");
+              } else {
+                btn.classList.add("selected-incorrect");
+                btn.textContent = `✕ ${opt}`;
+                if (allBtns[payload.correctIndex]) {
+                  allBtns[payload.correctIndex].classList.add("indicated-correct");
+                  allBtns[payload.correctIndex].textContent = `✓ ${payload.options[payload.correctIndex]}`;
+                }
+                if (checkFeedbackText) {
+                  checkFeedbackText.style.background = "#FEF2F2";
+                  checkFeedbackText.style.color = "#991B1B";
+                  checkFeedbackText.style.border = "1px solid #FECACA";
+                  checkFeedbackText.innerHTML = `💡 <strong>Good try!</strong> The correct answer is <em>${payload.options[payload.correctIndex]}</em>. ${payload.explanation}`;
+                }
               }
-              checkFeedbackText.style.background = "#FEF2F2";
-              checkFeedbackText.style.color = "#991B1B";
-              checkFeedbackText.style.border = "1px solid #FECACA";
-              checkFeedbackText.innerHTML = `💡 <strong>Good try!</strong> The correct answer is <em>${payload.options[payload.correctIndex]}</em>. ${payload.explanation}`;
-            }
-          };
-          checkOptionsContainer.appendChild(btn);
-        });
+            };
+            checkOptionsContainer.appendChild(btn);
+          });
+        }
 
-        if (showThinkingAnimation) {
+        if (showThinkingAnimation && thinkingOverlay) {
           thinkingOverlay.style.opacity = "0";
           setTimeout(() => {
             thinkingOverlay.style.display = "none";
           }, 140);
         }
       }, showThinkingAnimation ? 450 : 0);
+    }
+
+    // Conversational Demo: Handle Follow-up Submissions
+    function handleTutorFollowup(e) {
+      if (e) e.preventDefault();
+      const inputEl = document.getElementById("tutorFollowupInput");
+      if (!inputEl) return;
+      const userText = inputEl.value.trim();
+      if (!userText) return;
+
+      inputEl.value = "";
+      inputEl.blur();
+
+      // Append User message to chat thread
+      if (tutorChatThread) {
+        const userMsgRow = document.createElement("div");
+        userMsgRow.className = "chat-msg-row msg-user";
+        userMsgRow.innerHTML = `
+          <div class="user-avatar-badge">👤</div>
+          <div class="user-speech-bubble">${userText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+        `;
+        tutorChatThread.appendChild(userMsgRow);
+        tutorChatThread.scrollTop = tutorChatThread.scrollHeight;
+      }
+
+      // Show temporary thinking state
+      if (thinkingOverlay) {
+        thinkingStatusText.textContent = "Bodha is formulating follow-up response...";
+        thinkingOverlay.style.display = "flex";
+        thinkingOverlay.style.opacity = "1";
+      }
+
+      const bandKey = getAgeBandKey(currentAge);
+      const followupResponse = generateTutorFollowupResponse(userText, bandKey, currentInterest);
+
+      setTimeout(() => {
+        if (thinkingOverlay) {
+          thinkingOverlay.style.opacity = "0";
+          setTimeout(() => { thinkingOverlay.style.display = "none"; }, 140);
+        }
+
+        if (tutorChatThread) {
+          const aiMsgRow = document.createElement("div");
+          aiMsgRow.className = "chat-msg-row msg-assistant";
+          aiMsgRow.innerHTML = `
+            <div class="mascot-avatar">${getMascotSvgHtml("happy")}</div>
+            <div class="ai-speech-bubble">${followupResponse.text}</div>
+          `;
+          tutorChatThread.appendChild(aiMsgRow);
+          tutorChatThread.scrollTop = tutorChatThread.scrollHeight;
+        }
+
+        if (followupResponse.visualFraction) {
+          renderVisualFraction(SIMULATION_MATRIX[bandKey][currentInterest]?.visualType || "custom-grid", followupResponse.visualFraction);
+        }
+      }, 520);
+    }
+
+    function sendQuickFollowup(queryText) {
+      const inputEl = document.getElementById("tutorFollowupInput");
+      if (inputEl) {
+        inputEl.value = queryText;
+        handleTutorFollowup();
+      }
+    }
+
+    // Floating Site-Wide Help Chatbot Logic
+    function toggleFloatingHelp() {
+      if (!floatingHelpPanel) return;
+      if (floatingHelpPanel.style.display === "none" || !floatingHelpPanel.style.display) {
+        floatingHelpPanel.style.display = "flex";
+        if (helpQueryInput) helpQueryInput.focus();
+      } else {
+        floatingHelpPanel.style.display = "none";
+      }
+    }
+
+    function closeFloatingHelp() {
+      if (floatingHelpPanel) floatingHelpPanel.style.display = "none";
+    }
+
+    function generateSiteHelpResponse(query) {
+      const q = (query || "").toLowerCase().trim();
+
+      // 1. "what is bodha" / "about" / "overview"
+      if (q.includes("what is") || q.includes("about") || q.includes("who") || q.includes("overview") || q.includes("product")) {
+        return {
+          text: `<p><strong>Bodha</strong> is an adaptive AI 1-on-1 tutor for students aged 3–18 (KG to Class 12). Instead of generic rote drills, Bodha translates core math & science concepts through what each student genuinely loves (cricket, gaming, space, and more)!</p>`,
+          actionHtml: `<button class="btn btn-warm btn-xs help-msg-action-btn" onclick="navigateFromHelp('demo')">⚡ Try the Live Demo</button>`
+        };
+      }
+
+      // 2. "cost" / "pricing" / "price" / "plans"
+      if (q.includes("cost") || q.includes("price") || q.includes("pricing") || q.includes("plan") || q.includes("how much") || q.includes("fee") || q.includes("subscription")) {
+        return {
+          text: `<p>Bodha offers 3 institutional & family tiers:</p><ul style="padding-left:16px; margin:4px 0 6px;"><li><strong>Starter Pilot:</strong> 30-Day Zero Cost Classroom Trial</li><li><strong>School Plan:</strong> ₹180 / student / month</li><li><strong>Enterprise:</strong> District-wide custom SLA</li></ul>`,
+          actionHtml: `<button class="btn btn-primary btn-xs help-msg-action-btn" onclick="navigateFromHelp('pricing')">View Pricing Plans</button>`
+        };
+      }
+
+      // 3. "safe" / "safety" / "kids" / "hallucination" / "curriculum"
+      if (q.includes("safe") || q.includes("safety") || q.includes("kid") || q.includes("child") || q.includes("hallucinat") || q.includes("privacy") || q.includes("board") || q.includes("cbse") || q.includes("icse")) {
+        return {
+          text: `<p><strong>100% Child-Safe & Sandboxed:</strong> Bodha adheres strictly to CBSE, ICSE, and State Board standards with zero open-web hallucinations, student anxiety alerts, and continuous teacher-in-the-loop oversight.</p>`,
+          actionHtml: `<button class="btn btn-secondary btn-xs help-msg-action-btn" onclick="navigateFromHelp('schools')">Explore Safety Features</button>`
+        };
+      }
+
+      // 4. "demo" / "pilot" / "book" / "schools" / "contact" / "trial"
+      if (q.includes("book") || q.includes("pilot") || q.includes("trial") || q.includes("contact") || q.includes("school") || q.includes("demo")) {
+        return {
+          text: `<p>Schools can deploy Bodha in computer labs or smart classrooms with our <strong>30-Day Zero-Cost Institutional Pilot</strong>. We provide curriculum mapping and teacher onboarding.</p>`,
+          actionHtml: `<button class="btn btn-warm btn-xs help-msg-action-btn" onclick="navigateFromHelp('schools')">Request School Pilot</button>`
+        };
+      }
+
+      // 5. "age" / "classes" / "grades" / "levels" / "pedagogy"
+      if (q.includes("age") || q.includes("class") || q.includes("grade") || q.includes("level") || q.includes("kg") || q.includes("how it adapts") || q.includes("pedagogy")) {
+        return {
+          text: `<p>Bodha covers 4 developmental stages from <strong>Age 3 to 18</strong>: Early Years (Ages 3–6), Primary (Class 3–5), Middle School (Class 6–9), and Senior Secondary (Class 10–12).</p>`,
+          actionHtml: `<button class="btn btn-secondary btn-xs help-msg-action-btn" onclick="navigateFromHelp('lessons')">View Lessons by Age</button>`
+        };
+      }
+
+      // 6. Fallback
+      return {
+        text: `<p>Thank you for asking! Bodha is designed to make learning intuitive and personally meaningful for every student.</p><p>Would you like to try our interactive AI simulator or schedule a classroom pilot for your school?</p>`,
+        actionHtml: `<div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;"><button class="btn btn-warm btn-xs" onclick="navigateFromHelp('demo')">⚡ Try Demo</button><button class="btn btn-secondary btn-xs" onclick="navigateFromHelp('schools')">Book Pilot</button></div>`
+      };
+    }
+
+    function handleHelpQuery(queryText) {
+      if (!helpChatMessages) return;
+      
+      // User message
+      const userMsg = document.createElement("div");
+      userMsg.className = "help-msg help-msg-user";
+      userMsg.textContent = queryText;
+      helpChatMessages.appendChild(userMsg);
+      helpChatMessages.scrollTop = helpChatMessages.scrollHeight;
+
+      // Temporary typing indicator
+      const typingIndicator = document.createElement("div");
+      typingIndicator.className = "help-msg help-msg-assistant";
+      typingIndicator.innerHTML = `<em>Bodha is answering...</em>`;
+      helpChatMessages.appendChild(typingIndicator);
+      helpChatMessages.scrollTop = helpChatMessages.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.remove();
+        const resp = generateSiteHelpResponse(queryText);
+        const aiMsg = document.createElement("div");
+        aiMsg.className = "help-msg help-msg-assistant";
+        aiMsg.innerHTML = resp.text + (resp.actionHtml || "");
+        helpChatMessages.appendChild(aiMsg);
+        helpChatMessages.scrollTop = helpChatMessages.scrollHeight;
+      }, 350);
+    }
+
+    function handleHelpFormSubmit(e) {
+      if (e) e.preventDefault();
+      if (!helpQueryInput) return;
+      const val = helpQueryInput.value.trim();
+      if (val) {
+        helpQueryInput.value = "";
+        handleHelpQuery(val);
+      }
+    }
+
+    function navigateFromHelp(sectionId) {
+      closeFloatingHelp();
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+        if (sectionId === "demo") {
+          setTimeout(() => {
+            if (ageSlider) ageSlider.focus();
+          }, 400);
+        }
+      }
     }
 
     // Event Listeners for Age Slider
@@ -3464,6 +4146,7 @@
       currentInterest = "gaming";
       isCustomInterest = false;
       customInterestInput.value = "";
+      if (tutorFollowupInput) tutorFollowupInput.value = "";
 
       interestChips.forEach((c) => {
         if (c.getAttribute("data-interest") === "gaming") {
@@ -3580,8 +4263,13 @@
       if (!introDismissed && (e.key === "Escape" || e.key === " " || e.key === "Enter")) {
         skipOpeningIntro();
       }
-      if (e.key === "Escape" && signUpModal.classList.contains("open")) {
-        closeSignUpModal();
+      if (e.key === "Escape") {
+        if (signUpModal && signUpModal.classList.contains("open")) {
+          closeSignUpModal();
+        }
+        if (floatingHelpPanel && floatingHelpPanel.style.display === "flex") {
+          closeFloatingHelp();
+        }
       }
     });
 

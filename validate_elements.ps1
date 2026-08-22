@@ -28,7 +28,11 @@ $requiredElements = @(
   "mockCardNum", "mockExpiry", "mockCvc", "modalSubmitBtn", "modalSuccessState",
   # Section 7 B2B School Form
   "schools", "demoFormCard", "schoolPilotForm", "adminName", "schoolName", "adminEmail",
-  "studentCount", "boardAffiliation", "submitPilotBtn", "formSuccessBlock"
+  "studentCount", "boardAffiliation", "submitPilotBtn", "formSuccessBlock",
+  # Conversational Demo Chat
+  "tutorChatThread", "initialAiMsgRow", "tutorFollowupForm", "tutorFollowupInput", "btnSendFollowup",
+  # Floating Site-Wide Help Widget
+  "floatingHelpWidget", "floatingHelpTrigger", "floatingHelpPanel", "helpChatMessages", "helpSuggestions", "helpQueryForm", "helpQueryInput", "helpSendBtn"
 )
 
 $missing = @()

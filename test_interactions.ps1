@@ -11,7 +11,16 @@ $functionChecks = @(
   "resetFormState",
   "updateTutorSimulation",
   "renderVisualFraction",
-  "getMascotSvgHtml"
+  "getMascotSvgHtml",
+  "generateTutorFollowupResponse",
+  "handleTutorFollowup",
+  "sendQuickFollowup",
+  "toggleFloatingHelp",
+  "closeFloatingHelp",
+  "generateSiteHelpResponse",
+  "handleHelpQuery",
+  "handleHelpFormSubmit",
+  "navigateFromHelp"
 )
 
 $missingFuncs = @()
