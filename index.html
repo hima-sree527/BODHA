@@ -1579,38 +1579,63 @@
     .success-check-icon {
       width: 60px;
       height: 60px;
-    /* Multi-Tone Palette Journey: Calm Primary -> Secondary In-Between Tone -> Warm Accent Peak at Contact -> Ease back to Calm Primary */
-    @keyframes brandPaletteJourney {
-      0% {
-        background: radial-gradient(circle at 50% 40%, #EEF2FF 0%, #E0E7FF 55%, #C7D2FE 100%);
-        background-position: 0% 0%;
-      }
-      25% {
-        background: radial-gradient(circle at 52% 38%, #F5F3FF 0%, #EEF2FF 45%, #CCFBF1 100%);
-        background-position: 40% 30%;
-      }
-      40% {
-        background: radial-gradient(circle at 52% 38%, #FFFBEB 0%, #FEF3C7 35%, #FDE68A 70%, #EEF2FF 100%);
-        background-position: 52% 38%;
-      }
-      55% {
-        background: radial-gradient(circle at 52% 38%, #FEF3C7 0%, #FDE68A 30%, #EEF2FF 65%, #FAF5FF 100%);
-        background-position: 60% 45%;
-      }
-      75% {
-        background: radial-gradient(circle at 50% 40%, #FAF5FF 0%, #EEF2FF 50%, #E0E7FF 100%);
-        background-position: 80% 60%;
-      }
-      100% {
-        background: radial-gradient(circle at 50% 40%, #F8FAFC 0%, #EEF2FF 55%, #FAF5FF 100%);
-        background-position: 100% 100%;
-      }
+      border-radius: 50%;
+      background: #ECFDF5;
+      color: #10B981;
+      border: 2px solid #10B981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-2);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
     }
 
-    .intro-overlay.fade-out {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: var(--space-4) 0;
+      font-size: var(--text-sm);
+      color: var(--text-dim);
+      background: #FFFFFF;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .cards-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .flow-steps-grid { grid-template-columns: 1fr; }
+      .flow-step-card::after { display: none; }
+      .age-showcase-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .b2b-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Section 0: Full-Screen Opening Animation with Multi-Tone Palette Journey & Contact Spark */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, #EEF2FF 0%, #E0E7FF 55%, #C7D2FE 100%);
+      background-size: 200% 200%;
+      animation: brandPaletteJourney 3.0s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      cursor: pointer;
+      padding: var(--space-3);
+      overflow: hidden;
     }
 
     .intro-skip-btn {
