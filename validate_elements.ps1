@@ -2,6 +2,8 @@
 $htmlContent = Get-Content -Path "c:\Users\naren\OneDrive\Documents\Desktop\BODHA\index.html" -Raw
 
 $requiredElements = @(
+  # Section 0 Opening Animation
+  "openingIntroOverlay", "introSkipBtn",
   # Navbar & Brand
   "nav-brand-link", "nav-demo-btn", "nav-signup-btn",
   # Hero CTAs

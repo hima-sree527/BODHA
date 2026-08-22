@@ -2,6 +2,7 @@
 $html = Get-Content -Path "c:\Users\naren\OneDrive\Documents\Desktop\BODHA\index.html" -Raw
 
 $functionChecks = @(
+  "skipOpeningIntro",
   "openSignUpModal",
   "closeSignUpModal",
   "handleBackdropClick",
