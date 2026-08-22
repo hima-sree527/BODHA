@@ -168,12 +168,39 @@
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
+      font-weight: 600;
+      padding: 6px 2px;
+      position: relative;
+      transition: color 0.25s ease;
     }
 
-    .nav-links a:hover {
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--primary), var(--warm-accent));
+      border-radius: 999px;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
       color: var(--primary);
+      outline: none;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      font-weight: 700;
     }
 
     .nav-actions {
@@ -3415,9 +3442,50 @@
       }
     });
 
+    // Active Section Tracking on Scroll (ScrollSpy)
+    function setupScrollSpy() {
+      const sectionIds = ['hero', 'demo', 'why', 'pedagogy', 'lessons', 'pricing', 'schools'];
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      function updateActiveNav() {
+        const scrollPosition = window.scrollY + 140;
+        let currentSectionId = '';
+
+        for (let i = 0; i < sectionIds.length; i++) {
+          const el = document.getElementById(sectionIds[i]);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              currentSectionId = sectionIds[i];
+              break;
+            }
+          }
+        }
+
+        if (!currentSectionId && window.scrollY < 250) {
+          currentSectionId = 'hero';
+        }
+
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === `#${currentSectionId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
+      window.addEventListener('resize', updateActiveNav, { passive: true });
+      updateActiveNav();
+    }
+
     // Initial Load
     document.addEventListener("DOMContentLoaded", () => {
       updateTutorSimulation(false);
+      setupScrollSpy();
     });
   </script>
 </body>
