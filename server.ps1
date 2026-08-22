@@ -26,6 +26,10 @@ while ($listener.IsListening) {
             $res.ContentType = "text/css"
         } elseif ($fullPath.EndsWith(".js")) {
             $res.ContentType = "application/javascript"
+        } elseif ($fullPath.EndsWith(".jpg") -or $fullPath.EndsWith(".jpeg")) {
+            $res.ContentType = "image/jpeg"
+        } elseif ($fullPath.EndsWith(".png")) {
+            $res.ContentType = "image/png"
         } else {
             $res.ContentType = "text/plain"
         }
