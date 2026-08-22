@@ -240,12 +240,28 @@
       font-size: 0.88rem;
     }
 
-    /* Hero Section */
+    /* Hero Section with Subtle Ambient Living Gradient */
     .hero-section {
-      padding: 64px 0 50px;
-      background: var(--bg-hero);
+      padding: 64px 0 56px;
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 30%, #FAF5FF 65%, #FEF3C7 100%);
+      background-size: 300% 300%;
+      animation: heroAmbientGradient 16s ease infinite alternate;
       border-bottom: 1px solid var(--border-subtle);
       position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes heroAmbientGradient {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-section {
+        animation: none !important;
+        background: #F8FAFC !important;
+      }
     }
 
     .hero-grid {
@@ -1823,14 +1839,10 @@
             <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
           </svg>
         </div>
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="brand-name">Bodha</span>
-            <span class="brand-tag">B2B EdTech</span>
-          </div>
-        </div>
+        <span class="brand-name">Bodha</span>
       </a>
 
+      <!-- Plain Text Nav Links in required order -->
       <ul class="nav-links">
         <li><a href="#demo">Live Demo</a></li>
         <li><a href="#why">Why It Matters</a></li>
@@ -1840,9 +1852,10 @@
         <li><a href="#schools">For Schools</a></li>
       </ul>
 
+      <!-- Distinct Filled CTA Button & Sign Up -->
       <div class="nav-actions">
-        <a href="#demo" class="btn btn-secondary btn-sm" id="nav-demo-btn">⚡ Try AI Demo</a>
-        <button class="btn btn-primary btn-sm" id="nav-signup-btn" onclick="openSignUpModal('School Plan (Whole School)')">Sign Up / Get Started</button>
+        <a href="#demo" class="btn btn-warm btn-sm" id="nav-demo-btn" style="box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); font-weight: 700;">⚡ Try AI Demo</a>
+        <button class="btn btn-primary btn-sm" id="nav-signup-btn" onclick="openSignUpModal('School Plan (Whole School)')">Sign Up</button>
       </div>
     </div>
   </nav>
@@ -1851,11 +1864,6 @@
   <header class="hero-section" id="hero">
     <div class="container hero-grid">
       <div>
-        <div class="hero-tag">
-          <span>✨</span>
-          <span>Adaptive 1-on-1 AI Tutor for Schools (Ages 3–18)</span>
-        </div>
-
         <h1 class="hero-title">
           Every child's mind is unique.
           <span class="tagline-highlight">Learn Through Your World.</span>
