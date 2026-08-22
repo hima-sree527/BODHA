@@ -144,6 +144,66 @@
       color: var(--primary);
     }
 
+    /* Top Announcement Bar */
+    .top-announcement-bar {
+      background: #1E1B4B;
+      color: #FFFFFF;
+      font-size: 0.82rem;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 101;
+    }
+
+    .announcement-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .announcement-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .announcement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-btn);
+      padding: 2px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #FEF3C7;
+    }
+
+    .announcement-text {
+      color: #E2E8F0;
+      font-weight: 500;
+    }
+
+    .announcement-link {
+      color: #FDBA74;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      transition: color 0.15s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .announcement-link:hover {
+      color: #FFFFFF;
+      transform: translateX(2px);
+    }
+
     /* Navbar */
     .navbar {
       position: sticky;
@@ -163,10 +223,10 @@
       justify-content: space-between;
     }
 
-    .brand-logo {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: var(--space-1);
+      gap: 10px;
       text-decoration: none;
       color: var(--text-main);
     }
@@ -181,13 +241,27 @@
       justify-content: center;
       color: #FFFFFF;
       box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      flex-shrink: 0;
+    }
+
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
     }
 
     .brand-name {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 800;
       font-family: var(--font-display);
       color: var(--primary-dark);
+    }
+
+    .brand-subtext {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     .nav-links {
@@ -323,7 +397,7 @@
 
     /* Hero Section with Subtle Ambient Living Gradient */
     .hero-section {
-      padding: var(--space-10) 0 var(--space-8);
+      padding: var(--space-8) 0 var(--space-8);
       background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 30%, #FAF5FF 65%, #FEF3C7 100%);
       background-size: 300% 300%;
       animation: heroAmbientGradient 16s ease infinite alternate;
@@ -347,7 +421,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: var(--space-4);
       align-items: stretch;
     }
@@ -365,6 +439,25 @@
       animation: heroFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
     }
 
+    /* Hero Eyebrow Pill */
+    .hero-eyebrow {
+      margin-bottom: var(--space-2);
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: var(--radius-btn);
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.08);
+    }
+
     /* Staggered Hero Sequence */
     .hero-title {
       font-size: var(--text-hero);
@@ -378,11 +471,11 @@
       background: linear-gradient(135deg, #4F46E5 0%, #EA580C 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: block;
+      display: inline;
     }
 
     .hero-subtitle {
-      font-size: 1.125rem;
+      font-size: 1.08rem;
       color: var(--text-muted);
       margin-bottom: var(--space-4);
       max-width: 560px;
@@ -421,23 +514,20 @@
       color: var(--accent-emerald);
     }
 
-    /* Hero Anime Visual Graphic Card & Mascot Parallax */
-    .hero-graphic-card {
+    /* Right Column: Dashboard Card Component */
+    .hero-dashboard-card {
       background: #FFFFFF;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: var(--space-5) var(--space-4);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
+      padding: var(--space-4);
+      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      gap: 12px;
       height: 100%;
-      animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
-      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-      will-change: transform;
+      justify-content: space-between;
+      animation: heroFadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+      position: relative;
     }
 
     @keyframes heroFadeUp {
@@ -445,11 +535,295 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .svg-container {
-      width: 100%;
-      height: auto;
-      max-width: 440px;
+    .dash-window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .dash-window-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #EF4444; }
+    .dot-amber { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+
+    .dash-window-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-left: 8px;
+    }
+
+    .dash-status-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #047857;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 3px 10px;
+      border-radius: var(--radius-btn);
+    }
+
+    .dash-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .dash-stat-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dash-stat-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.1;
+      font-family: var(--font-display);
+    }
+
+    .text-emerald { color: #047857; }
+    .text-amber { color: #D97706; }
+    .text-primary { color: var(--primary); }
+
+    .dash-stat-lbl {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .dash-alert-banner {
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .dash-alert-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dash-alert-icon {
+      font-size: 1.1rem;
+    }
+
+    .dash-alert-btn {
+      background: #EA580C;
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-btn);
+      padding: 4px 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .dash-alert-btn:hover {
+      background: #C2410C;
+      transform: scale(1.04);
+    }
+
+    .dash-students-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dash-student-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 8px 12px;
+      transition: all 0.15s ease;
+    }
+
+    .dash-student-row:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    .student-avatar-wrap {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #EEF2FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .student-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+
+    .student-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      color: var(--text-main);
+    }
+
+    .student-interest-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: var(--text-main);
+    }
+
+    .student-status-text {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .student-score-badge {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .score-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #047857;
       display: block;
+      line-height: 1;
+    }
+
+    .score-lbl {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .dash-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .dash-footer-link {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.15s ease, transform 0.15s ease;
+    }
+
+    .dash-footer-link:hover {
+      color: var(--primary-dark);
+      transform: translateX(2px);
+    }
+
+    /* Persona Switcher Strip */
+    .hero-persona-strip {
+      margin-top: var(--space-4);
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: 16px 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .persona-strip-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .persona-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .persona-pill {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-btn);
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .persona-pill:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .persona-pill.active {
+      background: var(--warm-accent);
+      border-color: var(--warm-accent);
+      color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+    }
+
+    .persona-pill-cta {
+      background: linear-gradient(135deg, #4F46E5, #6366F1);
+      border: none;
+      color: #FFFFFF;
+      font-weight: 700;
+      margin-left: auto;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+
+    .persona-pill-cta:hover {
+      background: linear-gradient(135deg, #4338CA, #4F46E5);
+      color: #FFFFFF;
+      transform: translateY(-1px) scale(1.02);
     }
 
     /* Anime Guide Mascot Animations */
@@ -2221,9 +2595,12 @@
     }
 
     @media (max-width: 768px) {
+      .top-announcement-bar { display: none; }
       .hero-grid { grid-template-columns: 1fr; gap: var(--space-3); }
       .hero-title { font-size: 2.2rem; }
-      .hero-content-card, .hero-graphic-card { padding: var(--space-4) var(--space-3); }
+      .hero-content-card, .hero-dashboard-card { padding: var(--space-4) var(--space-3); }
+      .dash-stats-row { grid-template-columns: 1fr; }
+      .persona-pill-cta { margin-left: 0; width: 100%; text-align: center; }
       .demo-wrapper { padding: var(--space-3); }
       .demo-controls-grid { grid-template-columns: 1fr; gap: var(--space-3); }
       .ai-dialogue-grid { grid-template-columns: 1fr; gap: var(--space-3); }
@@ -2300,6 +2677,39 @@
             <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
             <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
             <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement-bar">
+    <div class="container announcement-inner">
+      <div class="announcement-left">
+        <span class="announcement-badge">
+          <svg width="14" height="14" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
+            <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
+            <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
+            <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
+            <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
+            <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>✨ AI Learning Assistant</span>
+        </span>
+        <span class="announcement-text">Personalizing learning for every child, while teachers stay in full control.</span>
+      </div>
+      <a href="#schools" class="announcement-link">Request School Demo →</a>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" aria-label="Main Navigation">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-group" id="nav-brand-link">
+        <div class="logo-icon">
+          <!-- Guide mascot logo icon -->
+          <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
+            <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
+            <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
+            <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
+            <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
             <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
             <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
             <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
@@ -2307,7 +2717,10 @@
             <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
           </svg>
         </div>
-        <span class="brand-name">Bodha</span>
+        <div class="brand-text-block">
+          <span class="brand-name">Bodha</span>
+          <span class="brand-subtext">Learn Through Your World</span>
+        </div>
       </a>
 
       <!-- Plain Text Nav Links in required order -->
@@ -2323,110 +2736,159 @@
       <!-- Distinct Prominent Filled Call-To-Action Button & Sign Up -->
       <div class="nav-actions">
         <a href="#demo" class="btn-demo-nav-cta" id="nav-demo-btn">⚡ Try AI Demo</a>
-        <button class="btn btn-primary btn-sm" id="nav-signup-btn" onclick="openSignUpModal('School Plan (Whole School)')">Sign Up</button>
+        <button class="btn btn-warm btn-sm" id="nav-signup-btn" onclick="openSignUpModal('School Plan (Whole School)')">Request a Demo →</button>
       </div>
     </div>
   </nav>
 
-  <!-- Section 1: Hero Section -->
+  <!-- Section 1: Hero Section (Dashboard-Style Two-Column Layout) -->
   <header class="hero-section" id="hero">
-    <div class="container hero-grid">
-      <div class="hero-content-card">
-        <h1 class="hero-title">
-          Every child's mind is unique.
-          <span class="tagline-highlight">Learn Through Your World.</span>
-        </h1>
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left Column: Copy & Actions -->
+        <div class="hero-content-card">
+          <div>
+            <div class="hero-eyebrow">
+              <span class="eyebrow-pill">✨ Next-Gen Adaptive Learning</span>
+            </div>
 
-        <p class="hero-subtitle">
-          One teacher cannot build 50 personal explanations. 
-          <strong>Bodha</strong> meets each student at their real level, translating core curricula through what they love.
-        </p>
+            <h1 class="hero-title">
+              Teach Every Concept <span class="tagline-highlight">Through What They Love.</span>
+            </h1>
 
-        <div class="hero-cta-group">
-          <a href="#demo" class="btn btn-warm" id="hero-demo-cta">
-            <span>Try the Interactive Demo</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-          </a>
-          <button class="btn btn-secondary" id="hero-school-cta" onclick="openSignUpModal('Starter Plan (Pilot)')">
-            <span>Get Started / Sign Up</span>
-          </button>
+            <p class="hero-subtitle">
+              One teacher cannot build 50 personal explanations. <strong>Bodha</strong> dynamically translates K–12 math and science into your child's passions — from cricket and space to gaming — making deep mastery intuitive.
+            </p>
+
+            <div class="hero-cta-group">
+              <button class="btn btn-warm" id="hero-school-cta" onclick="openSignUpModal('School Plan (Pilot)')">
+                <span>Request a Demo →</span>
+              </button>
+              <a href="#demo" class="btn btn-secondary" id="hero-demo-cta">
+                <span>Explore Platform</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="trust-strip">
+            <div class="trust-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Ages 3–18 (KG–12)</span>
+            </div>
+            <div class="trust-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Zero Rote Cramming</span>
+            </div>
+            <div class="trust-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Teacher In Full Control</span>
+            </div>
+            <div class="trust-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>5 Regional Languages</span>
+            </div>
+          </div>
         </div>
 
-        <div class="trust-strip">
-          <div class="trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Ages 3–18 (KG–12)</span>
+        <!-- Right Column: Clean White Dashboard-Style Card -->
+        <div class="hero-dashboard-card" id="heroDashboardCard">
+          <!-- Window Header with 3 Colored Dots & Status Pill -->
+          <div class="dash-window-header">
+            <div class="dash-window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-amber"></span>
+              <span class="dot dot-green"></span>
+              <span class="dash-window-title" id="dashHeaderTitle">Class Insights • Grade 5 Math</span>
+            </div>
+            <span class="dash-status-pill" id="dashStatusPill">● 48 Active Learners</span>
           </div>
-          <div class="trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Zero Rote Cramming</span>
+
+          <!-- 3 Stat Boxes Row inside Card -->
+          <div class="dash-stats-row">
+            <div class="dash-stat-box">
+              <span class="dash-stat-val text-emerald" id="dashStatVal1">94%</span>
+              <span class="dash-stat-lbl">Concept Mastery</span>
+            </div>
+            <div class="dash-stat-box">
+              <span class="dash-stat-val text-amber" id="dashStatVal2">3 Students</span>
+              <span class="dash-stat-lbl">Need Attention</span>
+            </div>
+            <div class="dash-stat-box">
+              <span class="dash-stat-val text-primary" id="dashStatVal3">1:1 Live</span>
+              <span class="dash-stat-lbl">AI Tutor Support</span>
+            </div>
           </div>
-          <div class="trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Teacher-in-the-Loop</span>
+
+          <!-- Highlighted Alert Row -->
+          <div class="dash-alert-banner" id="dashAlertBanner">
+            <div class="dash-alert-left">
+              <span class="dash-alert-icon">⚠️</span>
+              <div>
+                <strong style="color: #9A3412; font-size: 0.85rem; display: block;" id="dashAlertTitle">Fraction Bar Overlap Alert</strong>
+                <span style="color: #C2410C; font-size: 0.78rem;" id="dashAlertDesc">3 students struggling with unlike denominators</span>
+              </div>
+            </div>
+            <button class="dash-alert-btn" onclick="scrollToSection('demo')">Review</button>
           </div>
-          <div class="trust-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>5 Languages</span>
+
+          <!-- 2 Example Student Rows (Rahul Sharma & Ananya Patel) -->
+          <div class="dash-students-list" id="dashStudentsList">
+            <!-- Student 1: Rahul -->
+            <div class="dash-student-row">
+              <div class="student-avatar-wrap">👦</div>
+              <div class="student-meta">
+                <div class="student-name-row">
+                  <strong>Rahul Sharma</strong>
+                  <span class="student-interest-badge">🏏 Cricket</span>
+                </div>
+                <span class="student-status-text">Fractions via Over Rates & Run Rates</span>
+              </div>
+              <div class="student-score-badge">
+                <span class="score-val">92%</span>
+                <span class="score-lbl">Mastery</span>
+              </div>
+            </div>
+
+            <!-- Student 2: Ananya -->
+            <div class="dash-student-row">
+              <div class="student-avatar-wrap">👧</div>
+              <div class="student-meta">
+                <div class="student-name-row">
+                  <strong>Ananya Patel</strong>
+                  <span class="student-interest-badge">🚀 Space</span>
+                </div>
+                <span class="student-status-text">Fractions via Orbital Stages & Thruster Ratios</span>
+              </div>
+              <div class="student-score-badge">
+                <span class="score-val">88%</span>
+                <span class="score-lbl">Mastery</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Footer -->
+          <div class="dash-card-footer">
+            <span style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Teacher controls all active assignments
+            </span>
+            <a href="#schools" class="dash-footer-link">Full Dashboard View →</a>
           </div>
         </div>
       </div>
 
-      <!-- Hero Graphic: Anime Guide Character + Branching Personalized Lenses -->
-      <div class="hero-graphic-card">
-        <svg class="svg-container" viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Branching Pathways -->
-          <path d="M 230 170 Q 155 120 80 75" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 4"/>
-          <path d="M 230 170 Q 305 120 380 75" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 4"/>
-          <path d="M 230 170 Q 155 220 80 265" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 4"/>
-          <path d="M 230 170 Q 305 220 380 265" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 4"/>
-
-          <!-- Learner Lens 1 (Top Left): Early Years • Animals -->
-          <g transform="translate(80, 75)">
-            <circle cx="0" cy="0" r="32" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
-            <text x="0" y="3" text-anchor="middle" font-size="18">🐾</text>
-            <text x="0" y="46" text-anchor="middle" fill="#475569" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans'">Age 4 • Story</text>
-          </g>
-
-          <!-- Learner Lens 2 (Top Right): High School • Space -->
-          <g transform="translate(380, 75)">
-            <circle cx="0" cy="0" r="32" fill="#EEF2FF" stroke="#4F46E5" stroke-width="2"/>
-            <text x="0" y="3" text-anchor="middle" font-size="18">🚀</text>
-            <text x="0" y="46" text-anchor="middle" fill="#475569" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans'">Age 17 • Physics</text>
-          </g>
-
-          <!-- Learner Lens 3 (Bottom Left): Primary • Gaming -->
-          <g transform="translate(80, 265)">
-            <circle cx="0" cy="0" r="32" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
-            <text x="0" y="3" text-anchor="middle" font-size="18">🎮</text>
-            <text x="0" y="46" text-anchor="middle" fill="#475569" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans'">Age 9 • Gaming</text>
-          </g>
-
-          <!-- Learner Lens 4 (Bottom Right): Middle • Cricket -->
-          <g transform="translate(380, 265)">
-            <circle cx="0" cy="0" r="32" fill="#FFF7ED" stroke="#EA580C" stroke-width="2"/>
-            <text x="0" y="3" text-anchor="middle" font-size="18">🏏</text>
-            <text x="0" y="46" text-anchor="middle" fill="#475569" font-size="11" font-weight="700" font-family="'Plus Jakarta Sans'">Age 14 • Cricket</text>
-          </g>
-
-          <!-- Central Guide Figure: Bodhi (Anime Style with Interactive Eye Tracking) -->
-          <g transform="translate(230, 170)" id="heroGuideSvg">
-            <circle cx="0" cy="0" r="46" fill="#4F46E5" stroke="#EEF2FF" stroke-width="4"/>
-            <path d="M 0 -46 Q 0 -58 0 -58" stroke="#FEF3C7" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="0" cy="-58" r="4.5" fill="#F59E0B"/>
-            
-            <ellipse cx="-14" cy="-4" rx="6" ry="8" fill="#FFFFFF"/>
-            <ellipse cx="14" cy="-4" rx="6" ry="8" fill="#FFFFFF"/>
-            <circle id="heroPupilL" cx="-12" cy="-4" r="4" fill="#1E1B4B"/>
-            <circle id="heroPupilR" cx="16" cy="-4" r="4" fill="#1E1B4B"/>
-            <circle id="heroCatchL" cx="-10" cy="-6" r="1.5" fill="#FFFFFF"/>
-            <circle id="heroCatchR" cx="18" cy="-6" r="1.5" fill="#FFFFFF"/>
-            
-            <path d="M -6 10 Q 0 16 6 10" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <ellipse cx="-20" cy="6" rx="4" ry="2" fill="#FCA5A5" opacity="0.8"/>
-            <ellipse cx="20" cy="6" rx="4" ry="2" fill="#FCA5A5" opacity="0.8"/>
-          </g>
-        </svg>
+      <!-- Persona-Switcher Strip Beneath Hero Body -->
+      <div class="hero-persona-strip">
+        <p class="persona-strip-label">Tailored interfaces for every stakeholder in the learning journey:</p>
+        <div class="persona-pill-group" id="personaPillGroup">
+          <button class="persona-pill" onclick="switchHeroPersona('leader', this)">✨ School Leader</button>
+          <button class="persona-pill active" onclick="switchHeroPersona('teacher', this)">👨‍🏫 Teacher Console</button>
+          <button class="persona-pill" onclick="switchHeroPersona('student', this)">🧒 Student Live Tutor</button>
+          <button class="persona-pill" onclick="switchHeroPersona('parent', this)">🏡 Parent Companion</button>
+          <button class="persona-pill" onclick="switchHeroPersona('diagnostic', this)">📊 Diagnostic Insights</button>
+          <button class="persona-pill persona-pill-cta" onclick="openSignUpModal('Starter Plan (30-Day Trial)')">🚀 Start 30-Day Free Trial</button>
+        </div>
       </div>
     </div>
   </header>
@@ -4074,6 +4536,131 @@
           setTimeout(() => {
             if (ageSlider) ageSlider.focus();
           }, 400);
+        }
+      }
+    }
+
+    // Persona Switcher Data & Interaction for Hero Dashboard
+    const PERSONA_DATA = {
+      teacher: {
+        title: "Class Insights • Grade 5 Math",
+        status: "● 48 Active Learners",
+        stat1: { val: "94%", lbl: "Concept Mastery", cls: "text-emerald" },
+        stat2: { val: "3 Students", lbl: "Need Attention", cls: "text-amber" },
+        stat3: { val: "1:1 Live", lbl: "AI Tutor Support", cls: "text-primary" },
+        alertTitle: "Fraction Bar Overlap Alert",
+        alertDesc: "3 students struggling with unlike denominators",
+        students: [
+          { avatar: "👦", name: "Rahul Sharma", interest: "🏏 Cricket", status: "Fractions via Over Rates & Run Rates", score: "92%" },
+          { avatar: "👧", name: "Ananya Patel", interest: "🚀 Space", status: "Fractions via Orbital Stages & Thruster Ratios", score: "88%" }
+        ]
+      },
+      leader: {
+        title: "Campus Analytics • 1,240 Enrolled",
+        status: "● 100% On-Track",
+        stat1: { val: "+28%", lbl: "Exam Score Boost", cls: "text-emerald" },
+        stat2: { val: "98.4%", lbl: "Attendance Retention", cls: "text-emerald" },
+        stat3: { val: "CBSE/ICSE", lbl: "Curriculum Aligned", cls: "text-primary" },
+        alertTitle: "Curriculum Pacing Milestone",
+        alertDesc: "Term 2 Math & Science coverage ahead by 14 days campus-wide",
+        students: [
+          { avatar: "🏫", name: "Class 5-A Cohort", interest: "📐 Geometry", status: "Spatial reasoning & area partitioning", score: "96%" },
+          { avatar: "🏫", name: "Class 8-B Cohort", interest: "⚡ Physics", status: "Vectors, velocity & dimensional analysis", score: "91%" }
+        ]
+      },
+      student: {
+        title: "Bodha 1-on-1 Live Session",
+        status: "● Active Lesson",
+        stat1: { val: "450 XP", lbl: "Earned Today", cls: "text-amber" },
+        stat2: { val: "Level 4", lbl: "Math Adventurer", cls: "text-primary" },
+        stat3: { val: "5 Days", lbl: "Daily Streak 🔥", cls: "text-emerald" },
+        alertTitle: "Bonus Quest Unlocked! ⭐",
+        alertDesc: "Solve 3 gaming health-bar fractions for bonus power stars!",
+        students: [
+          { avatar: "🎮", name: "Current Mission", interest: "🎮 Gaming", status: "Shield Bar: 3 out of 4 segments remaining", score: "3/4" },
+          { avatar: "🎬", name: "Side Quest", interest: "🎬 Movies", status: "Frame rates: 24 frames per 1 second", score: "24/1" }
+        ]
+      },
+      parent: {
+        title: "Parent Daily Learning Digest",
+        status: "● Today's Progress",
+        stat1: { val: "22 Mins", lbl: "Engaged Today", cls: "text-primary" },
+        stat2: { val: "Zero", lbl: "Frustration Tears", cls: "text-emerald" },
+        stat3: { val: "100%", lbl: "Concept Retention", cls: "text-emerald" },
+        alertTitle: "Celebration Milestone 🎉",
+        alertDesc: "Your child mastered equivalent fractions today with zero prompting!",
+        students: [
+          { avatar: "👦", name: "Rahul's Session", interest: "🏏 Cricket", status: "Understood 3/4 over rates with high confidence", score: "95%" },
+          { avatar: "📘", name: "Weekly Skills", interest: "✨ 4 Concepts", status: "Fractions, Decimals, Equivalent Ratios, LCM", score: "Mastered" }
+        ]
+      },
+      diagnostic: {
+        title: "ZPD Diagnostic Engine",
+        status: "● Zero Latency",
+        stat1: { val: "99.2%", lbl: "Zone Precision", cls: "text-emerald" },
+        stat2: { val: "0.00%", lbl: "Hallucination Rate", cls: "text-emerald" },
+        stat3: { val: "38ms", lbl: "Adaptation Cycle", cls: "text-primary" },
+        alertTitle: "Dynamic Scaffolding Adjusted",
+        alertDesc: "Reduced visual aids as student answered 3 consecutive checks correctly",
+        students: [
+          { avatar: "🧠", name: "Cognitive Load", interest: "📊 Metric", status: "Optimal flow state maintained (Index: 0.22)", score: "Optimal" },
+          { avatar: "📈", name: "Retention Decay", interest: "⏳ 30 Days", status: "Spaced repetition scheduled for day 7 & 14", score: "94%" }
+        ]
+      }
+    };
+
+    function switchHeroPersona(personaKey, btnElement) {
+      const data = PERSONA_DATA[personaKey];
+      if (!data) return;
+
+      const pills = document.querySelectorAll(".persona-pill");
+      pills.forEach(p => p.classList.remove("active"));
+      if (btnElement) btnElement.classList.add("active");
+
+      const titleEl = document.getElementById("dashHeaderTitle");
+      const statusEl = document.getElementById("dashStatusPill");
+      const sVal1 = document.getElementById("dashStatVal1");
+      const sVal2 = document.getElementById("dashStatVal2");
+      const sVal3 = document.getElementById("dashStatVal3");
+      const aTitle = document.getElementById("dashAlertTitle");
+      const aDesc = document.getElementById("dashAlertDesc");
+      const listEl = document.getElementById("dashStudentsList");
+
+      if (titleEl) titleEl.textContent = data.title;
+      if (statusEl) statusEl.textContent = data.status;
+      if (sVal1) { sVal1.textContent = data.stat1.val; sVal1.className = `dash-stat-val ${data.stat1.cls}`; }
+      if (sVal2) { sVal2.textContent = data.stat2.val; sVal2.className = `dash-stat-val ${data.stat2.cls}`; }
+      if (sVal3) { sVal3.textContent = data.stat3.val; sVal3.className = `dash-stat-val ${data.stat3.cls}`; }
+      if (aTitle) aTitle.textContent = data.alertTitle;
+      if (aDesc) aDesc.textContent = data.alertDesc;
+
+      if (listEl) {
+        listEl.innerHTML = data.students.map(st => `
+          <div class="dash-student-row">
+            <div class="student-avatar-wrap">${st.avatar}</div>
+            <div class="student-meta">
+              <div class="student-name-row">
+                <strong>${st.name}</strong>
+                <span class="student-interest-badge">${st.interest}</span>
+              </div>
+              <span class="student-status-text">${st.status}</span>
+            </div>
+            <div class="student-score-badge">
+              <span class="score-val">${st.score}</span>
+              <span class="score-lbl">Mastery</span>
+            </div>
+          </div>
+        `).join("");
+      }
+    }
+
+    // Helper: Scroll to section smoothly
+    function scrollToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        if (sectionId === "demo" && ageSlider) {
+          setTimeout(() => { ageSlider.focus(); }, 350);
         }
       }
     }

@@ -6,8 +6,9 @@ $requiredElements = @(
   "openingIntroOverlay", "introSkipBtn",
   # Navbar & Brand
   "nav-brand-link", "nav-demo-btn", "nav-signup-btn",
-  # Hero CTAs
-  "hero-demo-cta", "hero-school-cta",
+  # Hero Section Dashboard & Actions
+  "hero-demo-cta", "hero-school-cta", "heroDashboardCard", "dashHeaderTitle", "dashStatusPill",
+  "dashStatVal1", "dashStatVal2", "dashStatVal3", "dashAlertBanner", "dashAlertTitle", "dashAlertDesc", "dashStudentsList", "personaPillGroup",
   # Simulator Controls
   "ageSlider", "ageDisplay", "ageBandPill",
   "chip-cricket", "chip-gaming", "chip-space", "chip-animals", "chip-music", "chip-movies",

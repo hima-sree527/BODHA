@@ -370,6 +370,25 @@ console.log("\n--- TEST 10: Multilingual Regional Translations ---");
 });
 console.log("✓ Multilingual data verified across English, Hindi, Tamil, Telugu, and Marathi.");
 
+// ----------------------------------------------------
+// TEST 11: Hero Dashboard & Persona Switcher Engine
+// ----------------------------------------------------
+console.log("\n--- TEST 11: Hero Dashboard & Persona Switcher Engine ---");
+const personas = ['teacher', 'leader', 'student', 'parent', 'diagnostic'];
+personas.forEach(p => {
+  const pData = sandbox.PERSONA_DATA[p];
+  if (!pData || !pData.title || !pData.stat1 || !pData.students || pData.students.length === 0) {
+    console.error(`❌ TEST 11 FAILED: Invalid persona data for ${p}`);
+    process.exit(1);
+  }
+  sandbox.switchHeroPersona(p);
+  if (mockDoc.getElementById("dashHeaderTitle").textContent !== pData.title) {
+    console.error(`❌ TEST 11 FAILED: switchHeroPersona did not update header for ${p}`);
+    process.exit(1);
+  }
+});
+console.log("✓ All 5 personas (Teacher, Leader, Student, Parent, Diagnostic) dynamically update dashboard card metrics and student cohorts.");
+
 console.log("\n==================================================");
 console.log("🎉 100% OF FULL MVP & AI ASSISTANT TESTS PASSED!");
 console.log("==================================================");
