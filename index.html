@@ -160,47 +160,64 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 8px;
       list-style: none;
     }
 
+    /* Pill-Shaped Navigation Buttons */
     .nav-links a {
-      color: var(--text-muted);
+      color: #475569;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      padding: 6px 2px;
-      position: relative;
-      transition: color 0.25s ease;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0%;
-      height: 2.5px;
-      background: linear-gradient(90deg, var(--primary), var(--warm-accent));
+      padding: 6px 14px;
       border-radius: 999px;
-      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(241, 245, 249, 0.85);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
     }
 
     .nav-links a:hover,
     .nav-links a:focus-visible {
+      background: #EEF2FF;
       color: var(--primary);
+      border-color: #C7D2FE;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.12);
       outline: none;
     }
 
-    .nav-links a:hover::after,
-    .nav-links a:focus-visible::after,
-    .nav-links a.active::after {
-      width: 100%;
+    .nav-links a.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 3px 12px rgba(79, 70, 229, 0.3);
+      font-weight: 700;
     }
 
-    .nav-links a.active {
-      color: var(--primary);
-      font-weight: 700;
+    /* Distinct Prominent Filled Call-To-Action Button */
+    .btn-demo-nav-cta {
+      background: linear-gradient(135deg, #F59E0B, #EA580C) !important;
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
+      font-size: 0.92rem !important;
+      padding: 8px 20px !important;
+      border-radius: 999px !important;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.38) !important;
+      border: none !important;
+      transition: all 0.22s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .btn-demo-nav-cta:hover {
+      transform: translateY(-2px) scale(1.03) !important;
+      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.5) !important;
     }
 
     .nav-actions {
@@ -1879,9 +1896,9 @@
         <li><a href="#schools">For Schools</a></li>
       </ul>
 
-      <!-- Distinct Filled CTA Button & Sign Up -->
+      <!-- Distinct Prominent Filled Call-To-Action Button & Sign Up -->
       <div class="nav-actions">
-        <a href="#demo" class="btn btn-warm btn-sm" id="nav-demo-btn" style="box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); font-weight: 700;">⚡ Try AI Demo</a>
+        <a href="#demo" class="btn-demo-nav-cta" id="nav-demo-btn">⚡ Try AI Demo</a>
         <button class="btn btn-primary btn-sm" id="nav-signup-btn" onclick="openSignUpModal('School Plan (Whole School)')">Sign Up</button>
       </div>
     </div>
