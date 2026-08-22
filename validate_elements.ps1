@@ -1,11 +1,11 @@
-# Validation Script for Bodha Single Page App with Pricing & Modal
+# Validation Script for Bodha Single Page App with Whole-Site Language Switcher, Video Hero, Pricing & Modal
 $htmlContent = Get-Content -Path "c:\Users\naren\OneDrive\Documents\Desktop\BODHA\index.html" -Raw
 
 $requiredElements = @(
   # Section 0 Opening Animation
   "openingIntroOverlay", "introSkipBtn",
-  # Navbar & Brand
-  "nav-brand-link", "nav-demo-btn", "nav-signup-btn",
+  # Navbar & Brand & Language Switcher
+  "nav-brand-link", "nav-demo-btn", "nav-signup-btn", "siteLanguageSelect",
   # Hero CTAs & Video
   "hero-demo-cta", "hero-school-cta", "heroBackgroundVideo",
   # Simulator Controls
