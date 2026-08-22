@@ -1498,19 +1498,27 @@
       .b2b-grid { grid-template-columns: 1fr; }
     }
 
-    /* Section 0: Opening Animation Overlay */
+    /* Section 0: Opening Animation Overlay with Shifting Gradient */
     .intro-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 40%, #FFFFFF 0%, #EFF6FF 60%, #E0E7FF 100%);
+      background: linear-gradient(-45deg, #EEF2FF, #FAF5FF, #FEF3C7, #EFF6FF);
+      background-size: 400% 400%;
+      animation: gradientDrift 8s ease infinite;
       z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
       cursor: pointer;
+    }
+
+    @keyframes gradientDrift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .intro-overlay.fade-out {
@@ -1520,20 +1528,22 @@
     }
 
     .intro-card {
-      background: #FFFFFF;
-      border: 1.5px solid #C7D2FE;
-      box-shadow: 0 20px 50px -10px rgba(79, 70, 229, 0.2);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(199, 210, 254, 0.8);
+      box-shadow: 0 25px 60px -12px rgba(79, 70, 229, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
       border-radius: 28px;
-      padding: 44px 52px;
+      padding: 36px 44px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
-      max-width: 420px;
+      max-width: 460px;
       width: 90%;
       cursor: default;
-      animation: introCardPop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: introCardFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .intro-skip-btn {
@@ -1543,56 +1553,72 @@
       background: #F1F5F9;
       border: 1px solid #E2E8F0;
       border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 0.78rem;
+      padding: 5px 14px;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #64748B;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.2s ease;
     }
 
     .intro-skip-btn:hover {
       background: #E2E8F0;
       color: #0F172A;
+      transform: scale(1.04);
     }
 
-    .intro-mascot-anim {
-      width: 84px;
-      height: 84px;
-      margin-bottom: 16px;
-      animation: introMascotWalk 0.8s ease-out forwards, animeBounce 0.8s ease-in-out 0.8s infinite alternate;
+    /* Human Teacher & Student Illustration Container */
+    .intro-scene-wrapper {
+      width: 260px;
+      height: 160px;
+      margin-bottom: 12px;
+      animation: sceneDrawIn 0.8s ease-out 0.2s forwards;
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .teacher-arm-pat {
+      transform-origin: 105px 78px;
+      animation: subtleShoulderPat 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleShoulderPat {
+      0% { transform: rotate(0deg); }
+      40% { transform: rotate(-2.5deg) translateY(-1px); }
+      70% { transform: rotate(1.5deg) translateY(1px); }
+      100% { transform: rotate(0deg); }
     }
 
     .intro-brand-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 2.8rem;
+      font-size: 2.7rem;
       font-weight: 800;
       color: #1E1B4B;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       letter-spacing: -0.03em;
       opacity: 0;
-      transform: translateY(10px);
-      animation: introFadeSlideUp 0.6s ease 0.3s forwards;
+      transform: translateY(8px);
+      animation: introElementReveal 0.6s ease 0.7s forwards;
     }
 
     .intro-tagline {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       font-weight: 700;
       background: linear-gradient(135deg, #4F46E5 0%, #EA580C 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       opacity: 0;
-      transform: translateY(8px);
-      animation: introFadeSlideUp 0.6s ease 0.6s forwards;
+      transform: translateY(6px);
+      animation: introElementReveal 0.6s ease 1.1s forwards;
     }
 
     .intro-progress-bar {
-      width: 140px;
+      width: 150px;
       height: 4px;
       background: #E2E8F0;
       border-radius: 999px;
@@ -1605,22 +1631,21 @@
       background: linear-gradient(90deg, #4F46E5, #EA580C);
       width: 0%;
       border-radius: 999px;
-      animation: introProgress 1.6s ease-in-out 0.2s forwards;
+      animation: introProgress 2.1s ease-in-out 0.3s forwards;
     }
 
-    @keyframes introCardPop {
-      0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    @keyframes introCardFadeIn {
+      0% { opacity: 0; transform: scale(0.92) translateY(15px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    @keyframes introMascotWalk {
-      0% { opacity: 0; transform: translateY(-20px) scale(0.7); }
-      70% { transform: translateY(4px) scale(1.05); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes sceneDrawIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes introFadeSlideUp {
-      0% { opacity: 0; transform: translateY(10px); }
+    @keyframes introElementReveal {
+      0% { opacity: 0; transform: translateY(8px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -1631,9 +1656,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       .intro-overlay {
-        display: none !important;
+        animation: none !important;
+        background: #F8FAFC !important;
       }
-      .intro-card, .intro-mascot-anim, .intro-brand-title, .intro-tagline, .intro-progress-fill {
+      .intro-card, .intro-scene-wrapper, .teacher-arm-pat, .intro-brand-title, .intro-tagline, .intro-progress-fill {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
@@ -1650,34 +1676,121 @@
       .card-inputs-row { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       .speech-with-mascot { flex-direction: column; }
-      .intro-card { padding: 32px 24px; }
-      .intro-brand-title { font-size: 2.3rem; }
-      .intro-tagline { font-size: 0.98rem; }
+      .intro-card { padding: 28px 20px; }
+      .intro-scene-wrapper { width: 220px; height: 135px; }
+      .intro-brand-title { font-size: 2.2rem; }
+      .intro-tagline { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Section 0: Opening Animation (Plays once on load, ~2s, pure CSS keyframes, skippable) -->
+  <!-- Section 0: Opening Animation (Warm human teacher & student illustration, shifting gradient, skippable) -->
   <div id="openingIntroOverlay" class="intro-overlay" onclick="skipOpeningIntro()">
     <div class="intro-card" onclick="event.stopPropagation()">
       <button class="intro-skip-btn" id="introSkipBtn" onclick="skipOpeningIntro()">
         Skip <span>✕</span>
       </button>
-      <div class="intro-mascot-anim">
-        <svg width="84" height="84" viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="18" r="16" fill="#4F46E5"/>
-          <circle cx="13" cy="16" r="2.5" fill="#FFFFFF"/>
-          <circle cx="23" cy="16" r="2.5" fill="#FFFFFF"/>
-          <circle cx="13.8" cy="15.2" r="1" fill="#1E1B4B"/>
-          <circle cx="23.8" cy="15.2" r="1" fill="#1E1B4B"/>
-          <path d="M15 21 Q18 24 21 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-          <ellipse cx="10" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-          <ellipse cx="26" cy="18" rx="2" ry="1" fill="#FCA5A5"/>
-          <path d="M18 4 Q18 9 18 9" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="18" cy="4" r="2" fill="#F59E0B"/>
+
+      <!-- Warm Human Scene: Smiling Teacher Gently Encouraging Smiling Student -->
+      <div class="intro-scene-wrapper">
+        <svg viewBox="0 0 280 170" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+          <defs>
+            <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="teacherSuit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4F46E5"/>
+              <stop offset="100%" stop-color="#3730A3"/>
+            </linearGradient>
+            <linearGradient id="studentHoodie" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F59E0B"/>
+              <stop offset="100%" stop-color="#D97706"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Soft Warm Background Aura -->
+          <circle cx="140" cy="85" r="75" fill="url(#sunGlow)"/>
+
+          <!-- TEACHER (Left Figure: Warm, encouraging educator) -->
+          <g id="teacherGroup">
+            <!-- Teacher Body / Blazer -->
+            <path d="M 60 165 L 68 95 C 72 82 108 82 112 95 L 120 165 Z" fill="url(#teacherSuit)"/>
+            <!-- Teacher Collar / Shirt -->
+            <path d="M 84 90 L 90 108 L 96 90 Z" fill="#EEF2FF"/>
+            <path d="M 88 108 L 90 135 L 92 108 Z" fill="#0D9488"/>
+
+            <!-- Teacher Neck -->
+            <rect x="85" y="74" width="10" height="12" rx="3" fill="#FCD34D"/>
+
+            <!-- Teacher Head -->
+            <ellipse cx="90" cy="58" rx="16" ry="18" fill="#FDE68A"/>
+
+            <!-- Teacher Hair -->
+            <path d="M 72 58 C 72 38 108 38 108 58 C 108 44 98 40 90 40 C 80 40 72 46 72 58 Z" fill="#334155"/>
+
+            <!-- Teacher Smiling Eyes & Eyebrows -->
+            <path d="M 81 52 Q 85 49 88 52" stroke="#1E293B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M 94 52 Q 97 49 100 52" stroke="#1E293B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <circle cx="85" cy="55" r="1.8" fill="#1E293B"/>
+            <circle cx="97" cy="55" r="1.8" fill="#1E293B"/>
+
+            <!-- Teacher Kind Smile (Clearly Smiling) -->
+            <path d="M 84 64 Q 90 71 96 64" stroke="#B45309" stroke-width="2" stroke-linecap="round" fill="#EA580C"/>
+            <!-- Teacher Warm Cheeks -->
+            <ellipse cx="80" cy="61" rx="2.5" ry="1.5" fill="#FCA5A5" opacity="0.7"/>
+            <ellipse cx="100" cy="61" rx="2.5" ry="1.5" fill="#FCA5A5" opacity="0.7"/>
+          </g>
+
+          <!-- STUDENT (Right Figure: Happy young learner) -->
+          <g id="studentGroup">
+            <!-- Student Body / Hoodie -->
+            <path d="M 152 165 L 158 115 C 162 102 198 102 202 115 L 208 165 Z" fill="url(#studentHoodie)"/>
+            <!-- Student Backpack Strap -->
+            <path d="M 166 112 L 164 165" stroke="#1E293B" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+            <path d="M 194 112 L 196 165" stroke="#1E293B" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+
+            <!-- Student Neck -->
+            <rect x="175" y="94" width="10" height="12" rx="3" fill="#FCD34D"/>
+
+            <!-- Student Head -->
+            <ellipse cx="180" cy="78" rx="15" ry="16" fill="#FDE68A"/>
+
+            <!-- Student Cheerful Hair -->
+            <path d="M 164 76 C 164 56 196 56 196 76 C 196 62 188 58 180 58 C 172 58 164 64 164 76 Z" fill="#475569"/>
+
+            <!-- Student Smiling Eyes -->
+            <path d="M 172 73 Q 175 70 178 73" stroke="#1E293B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M 183 73 Q 186 70 189 73" stroke="#1E293B" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <circle cx="175" cy="76" r="1.6" fill="#1E293B"/>
+            <circle cx="186" cy="76" r="1.6" fill="#1E293B"/>
+
+            <!-- Student Bright Cheerful Smile (Clearly Smiling) -->
+            <path d="M 174 84 Q 180 91 186 84" stroke="#B45309" stroke-width="2.2" stroke-linecap="round" fill="#F43F5E"/>
+            <!-- Student Rosy Cheeks -->
+            <ellipse cx="170" cy="81" rx="2.5" ry="1.5" fill="#FCA5A5" opacity="0.8"/>
+            <ellipse cx="190" cy="81" rx="2.5" ry="1.5" fill="#FCA5A5" opacity="0.8"/>
+
+            <!-- Student Notebook under arm -->
+            <rect x="194" y="130" width="18" height="24" rx="2" fill="#EEF2FF" stroke="#4F46E5" stroke-width="1.5"/>
+            <line x1="198" y1="136" x2="208" y2="136" stroke="#4F46E5" stroke-width="1.5"/>
+            <line x1="198" y1="142" x2="206" y2="142" stroke="#4F46E5" stroke-width="1.5"/>
+          </g>
+
+          <!-- TEACHER'S ARM GENTLY PATTING STUDENT'S SHOULDER -->
+          <g class="teacher-arm-pat" id="teacherArmPat">
+            <!-- Upper Arm and Forearm reaching towards student -->
+            <path d="M 108 98 Q 132 94 158 112" stroke="#4F46E5" stroke-width="10" stroke-linecap="round" fill="none"/>
+            <!-- Teacher Hand resting gently on student's left shoulder -->
+            <ellipse cx="160" cy="112" rx="7" ry="5" fill="#FDE68A" transform="rotate(-15 160 112)"/>
+            <!-- Sparkles of Encouragement -->
+            <path d="M 152 90 L 154 94 L 158 96 L 154 98 L 152 102 L 150 98 L 146 96 L 150 94 Z" fill="#F59E0B"/>
+            <path d="M 170 88 L 171 90 L 173 91 L 171 92 L 170 94 L 169 92 L 167 91 L 169 90 Z" fill="#10B981"/>
+          </g>
         </svg>
       </div>
+
       <h2 class="intro-brand-title">Bodha</h2>
       <p class="intro-tagline">Learn Through Your World</p>
       <div class="intro-progress-bar">
@@ -3274,12 +3387,12 @@
         } else {
           setTimeout(() => {
             skipOpeningIntro();
-          }, 2200);
+          }, 2800);
         }
       } catch(e) {
         setTimeout(() => {
           skipOpeningIntro();
-        }, 2200);
+        }, 2800);
       }
     });
 
