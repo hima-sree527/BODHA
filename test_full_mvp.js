@@ -464,6 +464,91 @@ helpQueriesToTest.forEach(q => {
 });
 console.log("✓ Floating help chatbot delivers localized responses and action chips.");
 
+// ----------------------------------------------------
+// TEST 7: State Conflict & Feature Interaction Matrix
+// ----------------------------------------------------
+console.log("\n--- TEST 7: State Conflict & Feature Interaction Matrix ---");
+
+// Subtest 7A: Reset Demo Clears State
+console.log("Subtest 7A: Testing 'Reset Demo' button state clearance...");
+sandbox.handleTutorFollowup("Can you explain more?");
+sandbox.currentDiagnosticQData = sandbox.getDiagnosticQuestion("primary", "gaming", 1, [], "en");
+mockDoc.getElementById("checkOptionsContainer").children[0].click(); // Answer Q1
+
+// Diagnostic should be at step 2 and chatThread has follow-up bubbles
+if (sandbox.diagnosticStep !== 2) {
+  console.error("❌ TEST 7A FAILED: Diagnostic should be at step 2 before reset.");
+  process.exit(1);
+}
+
+mockDoc.getElementById("btnResetDemo").click(); // Click Reset
+if (sandbox.diagnosticStep !== 1) {
+  console.error("❌ TEST 7A FAILED: Reset did not restore diagnosticStep to 1.");
+  process.exit(1);
+}
+if (sandbox.currentAge !== 9 || sandbox.currentInterest !== "gaming") {
+  console.error("❌ TEST 7A FAILED: Reset did not restore Age 9 and Gaming interest.");
+  process.exit(1);
+}
+const remainingFollowupBubbles = chatThread.querySelectorAll(".chat-bubble");
+if (remainingFollowupBubbles.length > 0) {
+  console.error("❌ TEST 7A FAILED: Reset left follow-up bubbles in chat thread.");
+  process.exit(1);
+}
+console.log("✓ Subtest 7A (Reset clearance) verified 100%.");
+
+// Subtest 7B: Adaptive Diagnostic mid-way through chat conversation
+console.log("Subtest 7B: Testing Adaptive Diagnostic mid-way through chat...");
+sandbox.handleTutorFollowup("What is a numerator?");
+sandbox.handleTutorFollowup("Give another example");
+// Now interact with Diagnostic
+sandbox.renderDiagnosticStep(1);
+let curQ = sandbox.currentDiagnosticQData;
+mockDoc.getElementById("checkOptionsContainer").children[curQ.correctIndex].click();
+if (sandbox.diagnosticStep !== 2) {
+  console.error("❌ TEST 7B FAILED: Diagnostic failed to transition to Q2 mid-chat.");
+  process.exit(1);
+}
+curQ = sandbox.currentDiagnosticQData;
+mockDoc.getElementById("checkOptionsContainer").children[curQ.correctIndex].click();
+curQ = sandbox.currentDiagnosticQData;
+mockDoc.getElementById("checkOptionsContainer").children[curQ.correctIndex].click();
+if (sandbox.diagnosticStep !== 4) {
+  console.error("❌ TEST 7B FAILED: Diagnostic failed to show Summary mid-chat.");
+  process.exit(1);
+}
+console.log("✓ Subtest 7B (Diagnostic mid-chat) verified 100%.");
+
+// Subtest 7C: Switching language mid-chat/mid-diagnostic
+console.log("Subtest 7C: Testing Language Switch mid-chat/mid-diagnostic...");
+sandbox.handleTutorFollowup("Tell me more");
+sandbox.setSiteLanguage("hi");
+if (sandbox.currentSiteLang !== "hi") {
+  console.error("❌ TEST 7C FAILED: Language was not switched to Hindi.");
+  process.exit(1);
+}
+if (sandbox.diagnosticStep !== 1) {
+  console.error("❌ TEST 7C FAILED: Language switch did not cleanly reset diagnostic to Step 1 in Hindi.");
+  process.exit(1);
+}
+sandbox.setSiteLanguage("en"); // Reset back to English
+console.log("✓ Subtest 7C (Language switch mid-interaction) verified 100%.");
+
+// Subtest 7D: Surprise Me clears state
+console.log("Subtest 7D: Testing 'Surprise Me' button state clearance...");
+sandbox.handleTutorFollowup("Make it harder");
+mockDoc.getElementById("btnRandomize").click();
+if (sandbox.diagnosticStep !== 1) {
+  console.error("❌ TEST 7D FAILED: Surprise Me did not reset diagnostic to Step 1.");
+  process.exit(1);
+}
+const bubblesAfterRandomize = chatThread.querySelectorAll(".chat-bubble");
+if (bubblesAfterRandomize.length > 0) {
+  console.error("❌ TEST 7D FAILED: Surprise Me left follow-up bubbles in chat thread.");
+  process.exit(1);
+}
+console.log("✓ Subtest 7D (Surprise Me state reset) verified 100%.");
+
 console.log("\n==================================================");
-console.log("🎉 100% OF FULL MVP, ADAPTIVE DIAGNOSTIC & LOGO TESTS PASSED!");
+console.log("🎉 100% OF FULL MVP, MASTER QA, ADAPTIVE DIAGNOSTIC & LOGO TESTS PASSED!");
 console.log("==================================================");

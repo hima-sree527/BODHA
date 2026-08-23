@@ -6888,9 +6888,13 @@
         data = SIMULATION_MATRIX[bandKey][currentInterest];
       }
 
-      // 3. Clear Previous Chat Follow-up Thread
-      if (tutorChatThread) tutorChatThread.innerHTML = "";
+      // 3. Clear Previous Chat Follow-up Bubbles (Keep initialAiMsgRow intact)
+      if (tutorChatThread) {
+        const extraBubbles = tutorChatThread.querySelectorAll(".chat-bubble");
+        extraBubbles.forEach(b => b.remove());
+      }
       if (tutorFollowupInput) tutorFollowupInput.value = "";
+      resetDiagnostic(false);
 
       // 4. Update Meta Badges
       if (metaConceptBadge) metaConceptBadge.textContent = getConceptName(lang);
