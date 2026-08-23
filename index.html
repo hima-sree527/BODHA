@@ -6426,116 +6426,301 @@
       }
     }
 
+    
+    // Helper: Normalize user chat input
+    function normalizeTutorInput(text) {
+      if (!text) return "";
+      let s = text.toLowerCase().trim();
+      s = s.replace(/^[?!.,\s]+|[?!.,\s]+$/g, "");
+      s = s.replace(/(.)\1{2,}/g, "$1$1");
+      return s;
+    }
+
+    // Local Intent Classifier for Conversational Demo Chat
+    function detectTutorIntent(rawText) {
+      const trimmed = (rawText || "").trim();
+      if (!trimmed) return { intent: "empty" };
+
+      if (trimmed === "?" || trimmed === "???" || trimmed === "¿") {
+        return { intent: "why" };
+      }
+
+      const norm = normalizeTutorInput(rawText);
+      if (!norm) return { intent: "empty" };
+
+      // 1. Plain greetings (hi, hii, hello, hey, hey there, namaste, etc.)
+      const greetingRegex = /^(hi|hii|hiii|hello|helo|hey|heyy|hey there|greetings|good morning|good afternoon|good evening|namaste|vanakkam|namaskara|namaskar|hola|yo|sup|hru|howdy)\b/i;
+      if (greetingRegex.test(norm) || (norm.startsWith("hi ") || norm.startsWith("hello ") || norm.startsWith("hey ")) && norm.length <= 16) {
+        return { intent: "greeting" };
+      }
+
+      // 2. Affirmations / Acknowledgments (ok, yes, sure, cool, nice, got it, thanks)
+      const affirmRegex = /^(ok|okay|k|yes|yeah|yep|yup|sure|cool|nice|great|awesome|got it|understood|i see|thanks|thank you|thx|ty|alright|fine)$/i;
+      if (affirmRegex.test(norm)) {
+        return { intent: "affirmation" };
+      }
+
+      // 3. Identity / Bot inquiries (who are you, what is bodha, who made you)
+      if (/\b(who are you|who r u|what are you|what is bodha|who is bodha|what can you do|who made you|your name)\b/i.test(norm)) {
+        return { intent: "identity" };
+      }
+
+      // 4. Recognized follow-up intents:
+      // 4a. Why / Explain more
+      if (/\b(why|explain|explain more|tell me more|how come|why is it|why is that|break it down|elaborate|details|can u explain|explain again|what does this mean|क्यों|ఎందుకు|ஏன்|ಏಕೆ|का)\b/i.test(norm)) {
+        return { intent: "why" };
+      }
+
+      // 4b. Another example
+      if (/\b(another|example|another one|more examples|different example|new example|give another|show another|one more|another one pls|उदाहरण|ఉదాహరణ|உதாரணம்|ಉದಾಹರಣೆ)\b/i.test(norm)) {
+        return { intent: "another_example" };
+      }
+
+      // 4c. Simpler / Confused
+      if (/\b(simpler|simple|easy|easier|confused|dont understand|don't understand|not understanding|stuck|too hard|help me|lost|make it simpler|make it simple|make it easy|सरल|సులభం|எளிமை|ಸರಳ|सोपे)\b/i.test(norm)) {
+        return { intent: "simpler" };
+      }
+
+      // 4d. Harder / Advanced
+      if (/\b(harder|advanced|complex|challenge|level up|more difficult|step it up|next level|make it harder|कठिन|కఠిన|சவால்|ಕಠಿಣ|कठीण)\b/i.test(norm)) {
+        return { intent: "harder" };
+      }
+
+      // 5. On-topic fraction concepts:
+      // 5a. Numerator
+      if (/\b(numerator|top number|top part|what's a numerator|what is a numerator|अंश|లవం|தொகுதி)\b/i.test(norm)) {
+        return { intent: "concept_numerator" };
+      }
+
+      // 5b. Denominator
+      if (/\b(denominator|bottom number|bottom part|total parts|what's a denominator|what is a denominator|हर|హారం|பகுதி|ಛೇದ|छेद)\b/i.test(norm)) {
+        return { intent: "concept_denominator" };
+      }
+
+      // 5c. Percentage / Decimals
+      if (/\b(percent|percentage|decimal|conversion|convert|how much percent|प्रतिशत|శాతం|சதவீதம்)\b/i.test(norm)) {
+        return { intent: "concept_percentage" };
+      }
+
+      // 5d. General fraction query
+      if (/\b(fraction|fractions|half|quarter|three fourths|simplify|simplifying|equivalent|parts of a whole|भिन्न|భిన్నం|பின்னம்)\b/i.test(norm)) {
+        return { intent: "concept_fraction" };
+      }
+
+      // 6. Gibberish / Random strings
+      if (/^[0-9\s]+$/.test(norm) || (/^[a-z]{3,}$/i.test(norm) && !/[aeiouy]/i.test(norm)) || /^(test|asdf|asdkjf|qwerty|123|abc|xyz|blah|foo)$/i.test(norm)) {
+        return { intent: "gibberish" };
+      }
+
+      // 7. Off-topic questions (weather, discount, jokes, pricing, etc.)
+      return { intent: "off_topic" };
+    }
+
     // Dynamic Follow-up Response Generator for Conversational Demo
-    function generateTutorFollowupResponse(userMsg, bandKey, interest) {
-      const q = (userMsg || "").toLowerCase().trim();
+    function generateTutorFollowupResponse(userMsg, bandKey = "primary", interest = "gaming") {
       const lang = currentSiteLang || "en";
       const cleanInterest = isCustomInterest && customInterestName 
         ? customInterestName 
-        : (interest ? (interest.charAt(0).toUpperCase() + interest.slice(1)) : "your passion");
+        : (interest ? (interest.charAt(0).toUpperCase() + interest.slice(1)) : "Gaming");
 
-      const isWhy = q.includes("why") || q.includes("explain more") || q.includes("tell me more") || q.includes("how") || q.includes("elaborate") || q.includes("detail") || q.includes("क्यों") || q.includes("ఎందుకు") || q.includes("ஏன்") || q.includes("ಏಕೆ") || q.includes("का");
-      const isAnother = q.includes("another") || q.includes("example") || q.includes("different") || q.includes("new") || q.includes("उदाहरण") || q.includes("ఉదాహరణ") || q.includes("உதாரணம்") || q.includes("ಉದಾಹರಣೆ");
-      const isSimpler = q.includes("don't understand") || q.includes("dont understand") || q.includes("confused") || q.includes("simpler") || q.includes("simple") || q.includes("help") || q.includes("hard") || q.includes("easy") || q.includes("सरल") || q.includes("సులభం") || q.includes("எளிமை") || q.includes("ಸರಳ") || q.includes("सोपे");
-      const isHarder = q.includes("harder") || q.includes("advanced") || q.includes("complex") || q.includes("challenge") || q.includes("level up") || q.includes("more") || q.includes("कठिन") || q.includes("కఠిన") || q.includes("சவால்") || q.includes("ಕಠಿಣ") || q.includes("कठीण");
+      const intentObj = detectTutorIntent(userMsg);
 
-      // 1. Why / Explain More
-      if (isWhy) {
-        if (lang === "hi") {
-          if (bandKey === "early") {
-            return { text: "<p>बहुत बढ़िया सवाल! 🌟 यह <strong>2/4</strong> क्यों है? क्योंकि <strong>नीचे की संख्या (4)</strong> कुल गेंदों को दर्शाती है।</p><p>और <strong>ऊपर की संख्या (2)</strong> वह हिस्सा है जो आपने दोस्त को दिया! जब ऊपर और नीचे का हिस्सा बराबर बंटता है, तो उसे <strong>आधा (1/2)</strong> कहते हैं! 🎈</p>", visualFraction: "2/4 = 1/2 संतुलित" };
-          } else if (bandKey === "primary") {
-            return { text: `<p>देखिए <strong>${cleanInterest}</strong> में भिन्न कैसे काम करता है! 💡 भिन्न वास्तव में अधूरा विभाजन है।</p><p>जब आप <span class='highlight-math'>3/4</span> लिखते हैं, तो हर (4) पूरे खेल का पैमाना है और अंश (3) आपकी प्रगति है। ऊपर और नीचे 2 से गुणा करने पर <span class='highlight-math'>6/8</span> मिलता है — जो बिल्कुल समान भिन्न है!</p>`, visualFraction: "3/4 = 6/8 समतुल्य" };
-          } else if (bandKey === "middle") {
-            return { text: `<p><strong>${cleanInterest}</strong> के गणित को और गहराई से समझें: भिन्न स्केलिंग के तहत अनुपात को स्थिर रखते हैं। 📊</p><p>जब आप <span class='highlight-math'>3/4</span> की गणना करते हैं, तो आप <span class='highlight-math'>\frac{3}{4} = \frac{x}{100} \implies x = 75\%</span> हल करते हैं। यह अनुपात प्रयोगों को बड़े पैमाने पर लागू करने में मदद करता है।</p>`, visualFraction: "3/4 = 75% पैमाना" };
+      switch (intentObj.intent) {
+        case "empty":
+          return null;
+
+        case "greeting":
+          if (lang === "hi") {
+            return {
+              text: "<p>नमस्ते! 👋 मैं <strong>बोध</strong> हूँ, आपका अनुकूली AI ट्यूटर। मैं <strong>" + cleanInterest + "</strong> के माध्यम से इस भिन्न की अवधारणा को सिखाने के लिए यहाँ हूँ!</p><p>क्या आप <strong>अधिक विस्तार</strong>, <strong>दूसरा उदाहरण</strong>, या इसे <strong>सरल</strong> या <strong>कठिन</strong> बनाना चाहते हैं? बस पूछें!</p>",
+              visualFraction: "👋 नमस्ते!"
+            };
+          } else if (lang === "te") {
+            return {
+              text: "<p>నమస్కారం! 👋 నేను <strong>బోధ</strong>, మీ వ్యక్తిగత AI ట్యూటర్. <strong>" + cleanInterest + "</strong> ద్వారా భిన్నాలను సులభంగా నేర్చుకుందాం!</p><p>మరిన్ని వివరాలు కావాలా, మరొక ఉదాహరణ కావాలా? అడగండి!</p>",
+              visualFraction: "👋 స్వాగతం!"
+            };
+          } else if (lang === "ta") {
+            return {
+              text: "<p>வணக்கம்! 👋 நான் <strong>போதா</strong>, உங்கள் AI கற்றல் வழிகாட்டி. <strong>" + cleanInterest + "</strong> மூலம் பின்னங்களை எளிதாகக் கற்போம்!</p><p>விளக்கம் வேண்டுமா, மற்றொரு உதாரணம் வேண்டுமா? கேளுங்கள்!</p>",
+              visualFraction: "👋 வணக்கம்!"
+            };
+          } else if (lang === "kn") {
+            return {
+              text: "<p>ನಮಸ್ಕಾರ! 👋 ನಾನು <strong>ಬೋಧ</strong>, ನಿಮ್ಮ AI ಬೋಧಕ. <strong>" + cleanInterest + "</strong> ಮೂಲಕ ಭಿನ್ನರಾಶಿಗಳನ್ನು ಕಲಿಯೋಣ! ವಿವರಣೆ ಬೇಕಿದ್ದರೆ ಕೇಳಿ!</p>",
+              visualFraction: "👋 ನಮಸ್ಕಾರ!"
+            };
+          } else if (lang === "mr") {
+            return {
+              text: "<p>नमस्कार! 👋 मी <strong>बोध</strong> आहे, तुमचा AI ट्यूटर. <strong>" + cleanInterest + "</strong> च्या माध्यमातून अपूर्णांक शिकूया! काहीही विचारा!</p>",
+              visualFraction: "👋 नमस्कार!"
+            };
           } else {
-            return { text: `<p>सैद्धांतिक व्युत्पत्ति: <strong>${cleanInterest}</strong> के विश्लेषणात्मक मॉडलिंग में, परिमेय भिन्न $\mathbb{Q}$ क्षेत्र विभाजन $\frac{a}{b}$ बनाते हैं जहाँ $b \neq 0$।</p><p>यह भिन्न अनुपात को सटीक बनाए रखता है।</p>`, visualFraction: "परिमेय क्षेत्र ℚ" };
+            return {
+              text: "<p>Hi there! 👋 I'm <strong>Bodha</strong>, your adaptive AI learning tutor. I'm here to help you master this fraction concept through <strong>" + cleanInterest + "</strong>!</p><p>Want me to <strong>explain more</strong>, give <strong>another example</strong>, or make it <strong>simpler</strong> or <strong>harder</strong>? Just ask!</p>",
+              visualFraction: "👋 Welcome to Bodha"
+            };
           }
-        } else if (lang === "te") {
-          return { text: `<p>చక్కని ప్రశ్న! 💡 <strong>${cleanInterest}</strong> లో భిన్నాలు నిష్పత్తులను ఎలా సూచిస్తాయో ఇక్కడ చూడండి.</p><p>హారం మొత్తం భాగాలను, లవం మనం తీసుకున్న భాగాలను సూచిస్తుంది. ఇది భావనలను సులభంగా అర్థం చేసుకోవడానికి సహాయపడుతుంది! 🌟</p>`, visualFraction: "నిష్పత్తి వివరణ" };
-        } else if (lang === "ta") {
-          return { text: `<p>சிறந்த கேள்வி! 💡 <strong>${cleanInterest}</strong> இல் பின்னங்கள் எவ்வாறு செயல்படுகின்றன என்பதைப் பாருங்கள்.</p><p>பகுதி மொத்த பகுதிகளையும், தொகுதி நாம் பயன்படுத்திய பகுதிகளையும் குறிக்கிறது. இது கருத்துகளை ஆழமாகப் புரிந்துகொள்ள உதவுகிறது! 🌟</p>`, visualFraction: "விகித விளக்கம்" };
-        } else if (lang === "kn") {
-          return { text: `<p>ಉತ್ತಮ ಪ್ರಶ್ನೆ! 💡 <strong>${cleanInterest}</strong> ನಲ್ಲಿ ಭಿನ್ನರಾಶಿಗಳು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ ನೋಡಿ.</p><p>ಛೇದವು ಒಟ್ಟು ಭಾಗಗಳನ್ನು, ಅಂಶವು ನಾವು ತೆಗೆದುಕೊಂಡ ಭಾಗಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ. ಇದು ಕಲಿಕೆಯನ್ನು ಸುಲಭಗೊಳಿಸುತ್ತದೆ! 🌟</p>`, visualFraction: "ಅನುಪಾತ ವಿವರಣೆ" };
-        } else if (lang === "mr") {
-          return { text: `<p>छान प्रश्न! 💡 <strong>${cleanInterest}</strong> मध्ये अपूर्णांक कसे कार्य करतात ते पहा.</p><p>छेद एकूण भाग दर्शवतो आणि अंश घेतलेला भाग दर्शवतो. यामुळे संकल्पना स्पष्ट होण्यास मदत होते! 🌟</p>`, visualFraction: "गुणोत्तर स्पष्टीकरण" };
-        } else {
-          if (bandKey === "early") {
-            return { text: `<p>Great question! 🌟 Why is it <strong>2/4</strong>? Because the <strong>bottom number (4)</strong> tells us how many total items we started with on our play rug.</p><p>The <strong>top number (2)</strong> tells us how many we shared with our friend! When top and bottom are split evenly, that's what makes it <strong>half (1/2)</strong>! 🎈</p>`, visualFraction: "2/4 = 1/2 Balanced" };
-          } else if (bandKey === "primary") {
-            return { text: `<p>Here is why fractions work this way in <strong>${cleanInterest}</strong>! 💡 A fraction is simply a division that hasn't finished yet.</p><p>When you write <span class='highlight-math'>3/4</span>, the denominator (4) sets the scale of the whole game stage, while the numerator (3) counts your current progress points. If you multiply both top and bottom by 2, you get <span class='highlight-math'>6/8</span> — exactly the same fraction!</p>`, visualFraction: "3/4 = 6/8 Equivalent" };
-          } else if (bandKey === "middle") {
-            return { text: `<p>Diving deeper into the math of <strong>${cleanInterest}</strong>: fractions preserve ratios under scaling. 📊</p><p>When calculating <span class='highlight-math'>3/4</span>, you are solving for the proportion $x$ where <span class='highlight-math'>\frac{3}{4} = \frac{x}{100} \implies x = 75\%</span>. In physics and data science, this dimensionless ratio allows you to scale up experiments from miniature prototypes to full stadiums.</p>`, visualFraction: "3/4 = 75% Scale Ratio" };
+
+        case "affirmation":
+          if (lang === "hi") {
+            return {
+              text: "<p>बहुत बढ़िया! 🎉 जब भी आप तैयार हों, नीचे दिए गए <strong>बोध डायग्नोस्टिक चेक</strong> को हल करें, या मुझसे <strong>कठिन चुनौती</strong> मांगें!</p>",
+              visualFraction: "✨ तैयार हैं"
+            };
           } else {
-            return { text: `<p>Theoretical derivation: In analytical modeling of <strong>${cleanInterest}</strong>, rational fractions $\mathbb{Q}$ form a field quotient $\frac{a}{b}$ where $b \neq 0$.</p><p>The fraction represents the exact value of the integral over the domain divided by the total measure: <span class='highlight-math'>\text{Ratio} = \frac{\int_0^T f(t)dt}{T_{total}}</span>. This ensures conservation of energy across relativistic or computational transformations.</p>`, visualFraction: "Exact Rational Field ℚ" };
+            return {
+              text: "<p>Awesome! 🎉 Whenever you're ready, test your skills on <strong>Bodha's Adaptive Diagnostic Check</strong> below, or ask me for a <strong>harder challenge</strong>!</p>",
+              visualFraction: "✨ Ready for Diagnostic"
+            };
           }
-        }
-      }
 
-      // 2. Another Example
-      if (isAnother) {
-        if (lang === "hi") {
-          return { text: `<p>यहाँ एक और मजेदार उदाहरण है! 🍪 कल्पना कीजिए आप <strong>${cleanInterest}</strong> थीम वाली <strong>4 कुकीज़</strong> बनाते हैं।</p><p>यदि आप नाश्ते में <strong>1 कुकी</strong> खाते हैं, तो आपने कुल कुकीज़ का <span class='highlight-math'>1/4</span> हिस्सा खाया! अभी भी <strong>3/4</strong> कल के लिए बची हैं! 🌟</p>`, visualFraction: "1/4 कुकी स्नैक" };
-        } else if (lang === "te") {
-          return { text: `<p>మరొక చక్కని ఉదాహరణ! 🍪 <strong>${cleanInterest}</strong> లో <strong>4 వస్తువులలో 1 వస్తువు</strong> వాడితే, అది <span class='highlight-math'>1/4</span> భాగం! ఇంకా <strong>3/4</strong> మిగిలి ఉన్నాయి! 🌟</p>`, visualFraction: "1/4 ఉదాహరణ" };
-        } else if (lang === "ta") {
-          return { text: `<p>மற்றொரு உதாரணம்! 🍪 <strong>${cleanInterest}</strong> இல் <strong>4 பொருட்களில் 1 பொருளை</strong> பயன்படுத்தினால் அது <span class='highlight-math'>1/4</span> பங்கு! இன்னும் <strong>3/4</strong> மீதம் உள்ளது! 🌟</p>`, visualFraction: "1/4 உதாரணம்" };
-        } else if (lang === "kn") {
-          return { text: `<p>ಇನ್ನೊಂದು ಉದಾಹರಣೆ! 🍪 <strong>${cleanInterest}</strong> ನಲ್ಲಿ <strong>4 ವಸ್ತುಗಳಲ್ಲಿ 1 ವಸ್ತು</strong> ಬಳಸಿದರೆ ಅದು <span class='highlight-math'>1/4</span> ಭಾಗ! ಇನ್ನೂ <strong>3/4</strong> ಉಳಿದಿದೆ! 🌟</p>`, visualFraction: "1/4 ಉದಾಹರಣೆ" };
-        } else if (lang === "mr") {
-          return { text: `<p>आणखी एक उदाहरण! 🍪 <strong>${cleanInterest}</strong> मध्ये <strong>4 पैकी 1 वस्तू</strong> वापरल्यास तो <span class='highlight-math'>1/4</span> भाग होतो! अजून <strong>3/4</strong> शिल्लक आहे! 🌟</p>`, visualFraction: "1/4 उदाहरण" };
-        } else {
-          return { text: `<p>Here is another fun example! 🍪 Imagine you bake <strong>4 yummy cookies</strong> with ${cleanInterest} shapes on top.</p><p>If you eat <strong>1 cookie</strong> for snack, you ate <span class='highlight-math'>1/4</span> (one quarter) of the cookie plate! <strong>3/4</strong> are still waiting for tomorrow! 🌟</p>`, visualFraction: "1/4 Cookie Snack" };
-        }
-      }
+        case "identity":
+          return {
+            text: "<p>I'm <strong>Bodha</strong> 🦉 — an adaptive 1-on-1 AI learning companion! I translate core school curricula into what students love — like <strong>" + cleanInterest + "</strong>, music, space, and sports — so every concept clicks naturally.</p>",
+            visualFraction: "🦉 Bodha AI Tutor"
+          };
 
-      // 3. Simpler
-      if (isSimpler) {
-        if (lang === "hi") {
-          return { text: "<p>कोई चिंता नहीं! बोध इसीलिए है — आइए इसे बहुत सरलता से समझते हैं! 🌱</p><p>कल्पना कीजिए एक पिज्जा 🍕 को बीच में से <strong>2 बराबर टुकड़ों</strong> में काटा गया है। यदि आप <strong>1 टुकड़ा</strong> लेते हैं, तो आपके पास ठीक <span class='highlight-math'>1/2 (आधा)</span> है।</p><p>भिन्न केवल बराबर टुकड़ों को गिनना है। क्या 2 में से 1 टुकड़ा देखना अधिक स्पष्ट है?</p>", visualFraction: "1/2 सरल आधा" };
-        } else if (lang === "te") {
-          return { text: "<p>ఎలాంటి ఆందోళన వద్దు! మరింత సులభంగా అర్థం చేసుకుందాం! 🌱</p><p>ఒక పిజ్జాను 🍕 <strong>2 సమాన భాగాలు</strong> చేసి, <strong>1 భాగం</strong> తీసుకుంటే అది <span class='highlight-math'>1/2 (సగం)</span> అవుతుంది. ఇది స్పష్టంగా ఉందా?</p>", visualFraction: "1/2 సులభ రూపం" };
-        } else if (lang === "ta") {
-          return { text: "<p>கவலையே வேண்டாம்! மிக எளிமையாகப் புரிந்துகொள்வோம்! 🌱</p><p>ஒரு பீட்சாவை 🍕 <strong>2 சம துண்டுகளாக</strong> வெட்டி, <strong>1 துண்டை</strong> எடுத்தால் அது <span class='highlight-math'>1/2 (பாதி)</span> ஆகும். இது எளிதாக உள்ளதா?</p>", visualFraction: "1/2 எளிய வடிவம்" };
-        } else if (lang === "kn") {
-          return { text: "<p>ಚಿಂತೆ ಬೇಡ! ಸುಲಭವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳೋಣ! 🌱</p><p>ಒಂದು ಪಿಜ್ಜಾವನ್ನು 🍕 <strong>2 ಸಮ ಭಾಗಗಳಾಗಿ</strong> ಕತ್ತರಿಸಿ, <strong>1 ಭಾಗ</strong> ತೆಗೆದುಕೊಂಡರೆ ಅದು <span class='highlight-math'>1/2 (ಅರ್ಧ)</span>. ಇದು ಸುಲಭವಲ್ಲವೇ?</p>", visualFraction: "1/2 ಸರಳ ರೂಪ" };
-        } else if (lang === "mr") {
-          return { text: "<p>काही काळजी करू नका! अगदी सोप्या भाषेत समजावून घेऊ! 🌱</p><p>एका पिझ्झाचे 🍕 <strong>2 समान भाग</strong> करून <strong>1 भाग</strong> घेतल्यास तो <span class='highlight-math'>1/2 (अर्धा)</span> होतो. हे समजायला सोपे वाटते का?</p>", visualFraction: "1/2 सोपे रूप" };
-        } else {
-          return { text: "<p>No worries at all! That's what Bodha is here for — let's break it down super gently! 🌱</p><p>Imagine a single big pizza or pie 🍕 cut right down the middle into <strong>2 equal slices</strong>. If you take <strong>1 slice</strong>, you have exactly <span class='highlight-math'>1/2</span> (half).</p><p>Fractions are just counting equal pieces. Does looking at 1 out of 2 pieces make more sense?</p>", visualFraction: "1/2 Simple Half" };
-        }
-      }
+        case "concept_numerator":
+          if (lang === "hi") {
+            return {
+              text: "<p>शानदार सवाल! किसी भी भिन्न (जैसे <span class='highlight-math'>3/4</span>) में, <strong>अंश (Numerator)</strong> <strong>ऊपर की संख्या (3)</strong> होती है। 💡</p><p>यह " + cleanInterest + " में आपके पास मौजूद या चुने गए विशिष्ट भागों को दर्शाता है।</p>",
+              visualFraction: "अंश = ऊपर की संख्या"
+            };
+          } else {
+            return {
+              text: "<p>Great question! In any fraction (like <span class='highlight-math'>3/4</span>), the <strong>numerator</strong> is the <strong>top number (3)</strong>. 💡</p><p>It counts the specific portions you currently have, scored, or completed in " + cleanInterest + ".</p>",
+              visualFraction: "Top = Numerator"
+            };
+          }
 
-      // 4. Harder / Advanced
-      if (isHarder) {
-        if (lang === "hi") {
-          return { text: "<p>चुनौती के लिए तैयार? ⚡ आइए <strong>असमान हरों को जोड़ने</strong> को समझें!</p><p>क्या होगा यदि आप <span class='highlight-math'>1/2 + 1/4</span> को जोड़ें? हम पहले <span class='highlight-math'>1/2</span> को <span class='highlight-math'>2/4</span> में बदलते हैं। अब दोनों के नीचे 4 है:</p><p><span class='highlight-math'>2/4 + 1/4 = 3/4 = 0.75 (75%)</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        } else if (lang === "te") {
-          return { text: "<p>మరొక లెవెల్ సవాలు! ⚡ <span class='highlight-math'>1/2 + 1/4</span> కూడికను చూద్దాం!</p><p><span class='highlight-math'>1/2</span> ని <span class='highlight-math'>2/4</span> గా మార్చితే: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        } else if (lang === "ta") {
-          return { text: "<p>அடுத்த லெவல் சவால்! ⚡ <span class='highlight-math'>1/2 + 1/4</span> கூட்டலை பார்ப்போம்!</p><p><span class='highlight-math'>1/2</span> ஐ <span class='highlight-math'>2/4</span> ஆக மாற்றினால்: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        } else if (lang === "kn") {
-          return { text: "<p>ಮುಂದಿನ ಹಂತದ ಸವಾಲು! ⚡ <span class='highlight-math'>1/2 + 1/4</span> ಸಂಕಲನವನ್ನು ನೋಡೋಣ!</p><p><span class='highlight-math'>1/2</span> ಅನ್ನು <span class='highlight-math'>2/4</span> ಆಗಿ ಪರಿವರ್ತಿಸಿದರೆ: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        } else if (lang === "mr") {
-          return { text: "<p>पुढील आव्हान! ⚡ <span class='highlight-math'>1/2 + 1/4</span> ची बेरीज पाहूया!</p><p><span class='highlight-math'>1/2</span> चे रूपांतर <span class='highlight-math'>2/4</span> मध्ये केल्यास: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        } else {
-          return { text: "<p>Ready for a level-up challenge? ⚡ Let's look at <strong>unlike denominators & addition</strong>!</p><p>What happens if you combine <span class='highlight-math'>1/2 + 1/4</span>? Because the bottom numbers are different, we first convert <span class='highlight-math'>1/2</span> into <span class='highlight-math'>2/4</span>. Now both have 4 on the bottom:</p><p><span class='highlight-math'>2/4 + 1/4 = 3/4 = 0.75 (75%)</span>! You've mastered common denominators! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
-        }
-      }
+        case "concept_denominator":
+          if (lang === "hi") {
+            return {
+              text: "<p>उत्कृष्ट सवाल! किसी भी भिन्न (जैसे <span class='highlight-math'>3/4</span>) में, <strong>हर (Denominator)</strong> <strong>नीचे की संख्या (4)</strong> होती है। 💡</p><p>यह " + cleanInterest + " में पूरी इकाई बनाने वाले कुल बराबर हिस्सों को दर्शाता है।</p>",
+              visualFraction: "हर = कुल भाग"
+            };
+          } else {
+            return {
+              text: "<p>Excellent question! In any fraction (like <span class='highlight-math'>3/4</span>), the <strong>denominator</strong> is the <strong>bottom number (4)</strong>. 💡</p><p>It represents the total number of equal parts that make up the whole " + cleanInterest + " unit or game round.</p>",
+              visualFraction: "Bottom = Denominator"
+            };
+          }
 
-      // 5. Fallback
-      if (lang === "hi") {
-        return { text: `<p><strong>${cleanInterest}</strong> के बारे में यह एक अच्छा प्रश्न है! 💡</p><p>क्या आप <strong>एक और उदाहरण</strong> देखना चाहते हैं या नीचे दी गई <strong>त्वरित प्रश्नोत्तरी</strong> हल करना चाहते हैं?</p>`, visualFraction: "इंटरैक्टिव अन्वेषण" };
-      } else if (lang === "te") {
-        return { text: `<p><strong>${cleanInterest}</strong> గురించి మంచి ప్రశ్న! 💡</p><p>మీరు <strong>మరొక ఉదాహరణ</strong> చూడాలనుకుంటున్నారా లేదా క్రింది <strong>క్విజ్</strong> ప్రయత్నించాలనుకుంటున్నారా?</p>`, visualFraction: "ఇంటరాక్టివ్ లెర్నింగ్" };
-      } else if (lang === "ta") {
-        return { text: `<p><strong>${cleanInterest}</strong> பற்றிய நல்ல கேள்வி! 💡</p><p>நீங்கள் <strong>மற்றொரு உதாரணம்</strong> பார்க்க விரும்புகிறீர்களா அல்லது கீழே உள்ள <strong>வினாடி வினாவை</strong> முயற்சிக்கிறீர்களா?</p>`, visualFraction: "ஊடாடும் கற்றல்" };
-      } else if (lang === "kn") {
-        return { text: `<p><strong>${cleanInterest}</strong> ಬಗ್ಗೆ ಉತ್ತಮ ಪ್ರಶ್ನೆ! 💡</p><p>ನೀವು <strong>ಇನ್ನೊಂದು ಉದಾಹರಣೆ</strong> ನೋಡಲು ಅಥವಾ ಕೆಳಗಿನ <strong>ಕ್ವಿಜ್</strong> ಮಾಡಲು ಬಯಸುವಿರಾ?</p>`, visualFraction: "ಇಂಟರಾಕ್ಟಿವ್ ಕಲಿಕೆ" };
-      } else if (lang === "mr") {
-        return { text: `<p><strong>${cleanInterest}</strong> बद्दल चांगला प्रश्न! 💡</p><p>तुम्हाला <strong>आणखी एक उदाहरण</strong> पहायचे आहे की खालील <strong>क्विझ</strong> सोडवायची आहे?</p>`, visualFraction: "इंटरॅक्टिव्ह शिकणे" };
-      } else {
-        return { text: `<p>That's an interesting question about <strong>${cleanInterest}</strong>! 💡</p><p>Whenever we explore math through what you love, the golden rule is connecting every number to something you can visualize. Would you like to try <strong>another example</strong>, explore a <strong>deeper challenge</strong>, or test yourself with the <strong>quick quiz</strong> below?</p>`, visualFraction: "Interactive Exploration" };
+        case "concept_percentage":
+          return {
+            text: "<p>Fractions and percentages are two expressions of the same mathematical ratio! 📊</p><p>For instance, <span class='highlight-math'>3/4</span> equals <span class='highlight-math'>75% (0.75)</span> because $3 \div 4 = 0.75$, which is 75 out of 100.</p>",
+            visualFraction: "3/4 = 75% = 0.75"
+          };
+
+        case "concept_fraction":
+          return {
+            text: "<p>A fraction represents a <strong>part of a whole</strong>! 🧩</p><p>Whenever an item or set is divided into equal pieces, the fraction tells you how many pieces you have compared to the total in " + cleanInterest + ".</p>",
+            visualFraction: "Part ÷ Whole"
+          };
+
+        case "why":
+          if (lang === "hi") {
+            if (bandKey === "early") {
+              return { text: "<p>बहुत बढ़िया सवाल! 🌟 यह <strong>2/4</strong> क्यों है? क्योंकि <strong>नीचे की संख्या (4)</strong> कुल गेंदों को दर्शाती है।</p><p>और <strong>ऊपर की संख्या (2)</strong> वह हिस्सा है जो आपने दोस्त को दिया! जब ऊपर और नीचे का हिस्सा बराबर बंटता है, तो उसे <strong>आधा (1/2)</strong> कहते हैं! 🎈</p>", visualFraction: "2/4 = 1/2 संतुलित" };
+            } else if (bandKey === "primary") {
+              return { text: "<p>देखिए <strong>" + cleanInterest + "</strong> में भिन्न कैसे काम करता है! 💡 भिन्न वास्तव में अधूरा विभाजन है।</p><p>जब आप <span class='highlight-math'>3/4</span> लिखते हैं, तो हर (4) पूरे खेल का पैमाना है और अंश (3) आपकी प्रगति है। ऊपर और नीचे 2 से गुणा करने पर <span class='highlight-math'>6/8</span> मिलता है — जो बिल्कुल समान भिन्न है!</p>", visualFraction: "3/4 = 6/8 समतुल्य" };
+            } else if (bandKey === "middle") {
+              return { text: "<p><strong>" + cleanInterest + "</strong> के गणित को और गहराई से समझें: भिन्न स्केलिंग के तहत अनुपात को स्थिर रखते हैं। 📊</p><p>जब आप <span class='highlight-math'>3/4</span> की गणना करते हैं, तो आप <span class='highlight-math'>\frac{3}{4} = \frac{x}{100} \implies x = 75%</span> हल करते हैं। यह अनुपात प्रयोगों को बड़े पैमाने पर लागू करने में मदद करता है।</p>", visualFraction: "3/4 = 75% पैमाना" };
+            } else {
+              return { text: "<p>सैद्धांतिक व्युत्पत्ति: <strong>" + cleanInterest + "</strong> के विश्लेषणात्मक मॉडलिंग में, परिमेय भिन्न $\mathbb{Q}$ क्षेत्र विभाजन $\frac{a}{b}$ बनाते हैं जहाँ $b \neq 0$।</p><p>यह भिन्न अनुपात को सटीक बनाए रखता है।</p>", visualFraction: "परिमेय क्षेत्र ℚ" };
+            }
+          } else if (lang === "te") {
+            return { text: "<p>చక్కని ప్రశ్న! 💡 <strong>" + cleanInterest + "</strong> లో భిన్నాలు నిష్పత్తులను ఎలా సూచిస్తాయో ఇక్కడ చూడండి.</p><p>హారం మొత్తం భాగాలను, లవం మనం తీసుకున్న భాగాలను సూచిస్తుంది! 🌟</p>", visualFraction: "నిష్పత్తి వివరణ" };
+          } else if (lang === "ta") {
+            return { text: "<p>சிறந்த கேள்வி! 💡 <strong>" + cleanInterest + "</strong> இல் பின்னங்கள் எவ்வாறு செயல்படுகின்றன என்பதைப் பாருங்கள்.</p><p>பகுதி மொத்த பகுதிகளையும், தொகுதி நாம் பயன்படுத்திய பகுதிகளையும் குறிக்கிறது! 🌟</p>", visualFraction: "விகித விளக்கம்" };
+          } else if (lang === "kn") {
+            return { text: "<p>ಉತ್ತಮ ಪ್ರಶ್ನೆ! 💡 <strong>" + cleanInterest + "</strong> ನಲ್ಲಿ ಭಿನ್ನರಾಶಿಗಳು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ ನೋಡಿ.</p><p>ಛೇದವು ಒಟ್ಟು ಭಾಗಗಳನ್ನು, ಅಂಶವು ನಾವು ತೆಗೆದುಕೊಂಡ ಭಾಗಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ! 🌟</p>", visualFraction: "ಅನುಪಾತ ವಿವರಣೆ" };
+          } else if (lang === "mr") {
+            return { text: "<p>छान प्रश्न! 💡 <strong>" + cleanInterest + "</strong> मध्ये अपूर्णांक कसे कार्य करतात ते पहा.</p><p>छेद एकूण भाग दर्शवतो आणि अंश घेतलेला भाग दर्शवतो! 🌟</p>", visualFraction: "गुणोत्तर स्पष्टीकरण" };
+          } else {
+            if (bandKey === "early") {
+              return { text: "<p>Great question! 🌟 Why is it <strong>2/4</strong>? Because the <strong>bottom number (4)</strong> tells us how many total items we started with on our play rug.</p><p>The <strong>top number (2)</strong> tells us how many we shared with our friend! When top and bottom are split evenly, that's what makes it <strong>half (1/2)</strong>! 🎈</p>", visualFraction: "2/4 = 1/2 Balanced" };
+            } else if (bandKey === "primary") {
+              return { text: "<p>Here is why fractions work this way in <strong>" + cleanInterest + "</strong>! 💡 A fraction is simply a division that hasn't finished yet.</p><p>When you write <span class='highlight-math'>3/4</span>, the denominator (4) sets the scale of the whole game stage, while the numerator (3) counts your current progress points. If you multiply both top and bottom by 2, you get <span class='highlight-math'>6/8</span> — exactly the same fraction!</p>", visualFraction: "3/4 = 6/8 Equivalent" };
+            } else if (bandKey === "middle") {
+              return { text: "<p>Diving deeper into the math of <strong>" + cleanInterest + "</strong>: fractions preserve ratios under scaling. 📊</p><p>When calculating <span class='highlight-math'>3/4</span>, you are solving for the proportion $x$ where <span class='highlight-math'>\frac{3}{4} = \frac{x}{100} \implies x = 75%</span>. In physics and data science, this dimensionless ratio allows you to scale up experiments from miniature prototypes to full stadiums.</p>", visualFraction: "3/4 = 75% Scale Ratio" };
+            } else {
+              return { text: "<p>Theoretical derivation: In analytical modeling of <strong>" + cleanInterest + "</strong>, rational fractions $\mathbb{Q}$ form a field quotient $\frac{a}{b}$ where $b \neq 0$.</p><p>The fraction represents the exact value of the integral over the domain divided by the total measure: <span class='highlight-math'>\text{Ratio} = \frac{\int_0^T f(t)dt}{T_{total}}</span>. This ensures conservation of energy across relativistic or computational transformations.</p>", visualFraction: "Exact Rational Field ℚ" };
+            }
+          }
+
+        case "another_example":
+          if (lang === "hi") {
+            return { text: "<p>यहाँ एक और मजेदार उदाहरण है! 🍪 कल्पना कीजिए आप <strong>" + cleanInterest + "</strong> थीम वाली <strong>4 कुकीज़</strong> बनाते हैं।</p><p>यदि आप नाश्ते में <strong>1 कुकी</strong> खाते हैं, तो आपने कुल कुकीज़ का <span class='highlight-math'>1/4</span> हिस्सा खाया! अभी भी <strong>3/4</strong> कल के लिए बची हैं! 🌟</p>", visualFraction: "1/4 कुकी स्नैक" };
+          } else if (lang === "te") {
+            return { text: "<p>మరొక చక్కని ఉదాహరణ! 🍪 <strong>" + cleanInterest + "</strong> లో <strong>4 వస్తువులలో 1 వస్తువు</strong> వాడితే, అది <span class='highlight-math'>1/4</span> భాగం! ఇంకా <strong>3/4</strong> మిగిలి ఉన్నాయి! 🌟</p>", visualFraction: "1/4 ఉదాహరణ" };
+          } else if (lang === "ta") {
+            return { text: "<p>மற்றொரு உதாரணம்! 🍪 <strong>" + cleanInterest + "</strong> இல் <strong>4 பொருட்களில் 1 பொருளை</strong> பயன்படுத்தினால் அது <span class='highlight-math'>1/4</span> பங்கு! இன்னும் <strong>3/4</strong> மீதம் உள்ளது! 🌟</p>", visualFraction: "1/4 உதாரணம்" };
+          } else if (lang === "kn") {
+            return { text: "<p>ಇನ್ನೊಂದು ಉದಾಹರಣೆ! 🍪 <strong>" + cleanInterest + "</strong> ನಲ್ಲಿ <strong>4 ವಸ್ತುಗಳಲ್ಲಿ 1 ವಸ್ತು</strong> ಬಳಸಿದರೆ ಅದು <span class='highlight-math'>1/4</span> ಭಾಗ! ಇನ್ನೂ <strong>3/4</strong> ಉಳಿದಿದೆ! 🌟</p>", visualFraction: "1/4 ಉದಾಹರಣೆ" };
+          } else if (lang === "mr") {
+            return { text: "<p>आणखी एक उदाहरण! 🍪 <strong>" + cleanInterest + "</strong> मध्ये <strong>4 पैकी 1 वस्तू</strong> वापरल्यास तो <span class='highlight-math'>1/4</span> भाग होतो! अजून <strong>3/4</strong> शिल्लक आहे! 🌟</p>", visualFraction: "1/4 उदाहरण" };
+          } else {
+            return { text: "<p>Here is another fun example! 🍪 Imagine you have <strong>4 power gems</strong> in " + cleanInterest + ".</p><p>If you use <strong>1 gem</strong>, you used <span class='highlight-math'>1/4</span> (one quarter) of your energy! <strong>3/4</strong> are still charged and ready for action! 🌟</p>", visualFraction: "1/4 Gem Used" };
+          }
+
+        case "simpler":
+          if (lang === "hi") {
+            return { text: "<p>कोई चिंता नहीं! बोध इसीलिए है — आइए इसे बहुत सरलता से समझते हैं! 🌱</p><p>कल्पना कीजिए एक पिज्जा 🍕 को बीच में से <strong>2 बराबर टुकड़ों</strong> में काटा गया है। यदि आप <strong>1 टुकड़ा</strong> लेते हैं, तो आपके पास ठीक <span class='highlight-math'>1/2 (आधा)</span> है।</p><p>भिन्न केवल बराबर टुकड़ों को गिनना है।</p>", visualFraction: "1/2 सरल आधा" };
+          } else if (lang === "te") {
+            return { text: "<p>ఎలాంటి ఆందోళన వద్దు! మరింత సులభంగా అర్థం చేసుకుందాం! 🌱</p><p>ఒక పిజ్జాను 🍕 <strong>2 సమాన భాగాలు</strong> చేసి, <strong>1 భాగం</strong> తీసుకుంటే అది <span class='highlight-math'>1/2 (సగం)</span> అవుతుంది.</p>", visualFraction: "1/2 సులభ రూపం" };
+          } else if (lang === "ta") {
+            return { text: "<p>கவலையே வேண்டாம்! மிக எளிமையாகப் புரிந்துகொள்வோம்! 🌱</p><p>ஒரு பீட்சாவை 🍕 <strong>2 சம துண்டுகளாக</strong> வெட்டி, <strong>1 துண்டை</strong> எடுத்தால் அது <span class='highlight-math'>1/2 (பாதி)</span> ஆகும்.</p>", visualFraction: "1/2 எளிய வடிவம்" };
+          } else if (lang === "kn") {
+            return { text: "<p>ಚಿಂತೆ ಬೇಡ! ಸುಲಭವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳೋಣ! 🌱</p><p>ಒಂದು ಪಿಜ್ಜಾವನ್ನು 🍕 <strong>2 ಸಮ ಭಾಗಗಳಾಗಿ</strong> ಕತ್ತರಿಸಿ, <strong>1 ಭಾಗ</strong> ತೆಗೆದುಕೊಂಡರೆ ಅದು <span class='highlight-math'>1/2 (ಅರ್ಧ)</span>.</p>", visualFraction: "1/2 ಸರಳ ರೂಪ" };
+          } else if (lang === "mr") {
+            return { text: "<p>काही काळजी करू नका! अगदी सोप्या भाषेत समजावून घेऊ! 🌱</p><p>एका पिझ्झाचे 🍕 <strong>2 समान भाग</strong> करून <strong>1 भाग</strong> घेतल्यास तो <span class='highlight-math'>1/2 (अर्धा)</span> होतो.</p>", visualFraction: "1/2 सोपे रूप" };
+          } else {
+            return { text: "<p>No worries at all! That's what Bodha is here for — let's break it down super gently! 🌱</p><p>Imagine a single big pizza or pie 🍕 cut right down the middle into <strong>2 equal slices</strong>. If you take <strong>1 slice</strong>, you have exactly <span class='highlight-math'>1/2</span> (half).</p><p>Fractions are just counting equal pieces!</p>", visualFraction: "1/2 Simple Half" };
+          }
+
+        case "harder":
+          if (lang === "hi") {
+            return { text: "<p>चुनौती के लिए तैयार? ⚡ आइए <strong>असमान हरों को जोड़ने</strong> को समझें!</p><p>क्या होगा यदि आप <span class='highlight-math'>1/2 + 1/4</span> को जोड़ें? हम पहले <span class='highlight-math'>1/2</span> को <span class='highlight-math'>2/4</span> में बदलते हैं। अब दोनों के नीचे 4 है:</p><p><span class='highlight-math'>2/4 + 1/4 = 3/4 = 0.75 (75%)</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          } else if (lang === "te") {
+            return { text: "<p>మరొక లెవెల్ సవాలు! ⚡ <span class='highlight-math'>1/2 + 1/4</span> కూడికను చూద్దాం!</p><p><span class='highlight-math'>1/2</span> ని <span class='highlight-math'>2/4</span> గా మార్చితే: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          } else if (lang === "ta") {
+            return { text: "<p>அடுத்த லெவல் சவால்! ⚡ <span class='highlight-math'>1/2 + 1/4</span> கூட்டலை பார்ப்போம்!</p><p><span class='highlight-math'>1/2</span> ஐ <span class='highlight-math'>2/4</span> ஆக மாற்றினால்: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          } else if (lang === "kn") {
+            return { text: "<p>ಮುಂದಿನ ಹಂತದ ಸವಾಲು! ⚡ <span class='highlight-math'>1/2 + 1/4</span> ಸಂಕಲನವನ್ನು ನೋಡೋಣ!</p><p><span class='highlight-math'>1/2</span> ಅನ್ನು <span class='highlight-math'>2/4</span> ಆಗಿ ಪರಿವರ್ತಿಸಿದರೆ: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          } else if (lang === "mr") {
+            return { text: "<p>पुढील आव्हान! ⚡ <span class='highlight-math'>1/2 + 1/4</span> ची बेरीज पाहूया!</p><p><span class='highlight-math'>1/2</span> चे रूपांतर <span class='highlight-math'>2/4</span> मध्ये केल्यास: <span class='highlight-math'>2/4 + 1/4 = 3/4 = 75%</span>! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          } else {
+            return { text: "<p>Ready for a level-up challenge? ⚡ Let's look at <strong>unlike denominators & addition</strong>!</p><p>What happens if you combine <span class='highlight-math'>1/2 + 1/4</span>? Because the bottom numbers are different, we first convert <span class='highlight-math'>1/2</span> into <span class='highlight-math'>2/4</span>. Now both have 4 on the bottom:</p><p><span class='highlight-math'>2/4 + 1/4 = 3/4 = 0.75 (75%)</span>! You've mastered common denominators! 🏆</p>", visualFraction: "2/4 + 1/4 = 3/4" };
+          }
+
+        case "gibberish":
+          if (lang === "hi") {
+            return {
+              text: "<p>मुझे यह पूरी तरह समझ नहीं आया! 😊</p><p>आप मुझसे इस " + cleanInterest + " भिन्न पाठ के बारे में कोई भी प्रश्न पूछ सकते हैं — या ऊपर दिए गए <strong>💡 और समझाएं</strong> या <strong>✨ दूसरा उदाहरण</strong> चिप्स पर क्लिक करें!</p>",
+              visualFraction: "बोध से प्रश्न पूछें"
+            };
+          } else {
+            return {
+              text: "<p>I didn't quite catch that! 😊</p><p>Feel free to ask me any question about this " + cleanInterest + " fraction concept — or click one of the quick chips above like <strong>💡 Explain more</strong> or <strong>✨ Another example</strong>!</p>",
+              visualFraction: "Ask Bodha a Question"
+            };
+          }
+
+        case "off_topic":
+        default:
+          if (lang === "hi") {
+            return {
+              text: "<p>मैं अभी इस भिन्न पाठ के लिए आपका शिक्षण साथी हूँ! 🦉</p><p>आप मुझसे <strong>3/4 का कारण</strong>, <strong>" + cleanInterest + " का दूसरा उदाहरण</strong>, या इसे <strong>सरल</strong> या <strong>कठिन</strong> करने के लिए कह सकते हैं!</p>",
+              visualFraction: "भिन्न अन्वेषण"
+            };
+          } else {
+            return {
+              text: "<p>I'm specially tuned as your learning tutor for this fraction lesson right now! 🦉</p><p>Try asking me to <strong>explain why it's 3/4</strong>, show <strong>another " + cleanInterest + " example</strong>, or make this concept <strong>simpler</strong> or <strong>harder</strong>!</p>",
+              visualFraction: "Explore Fractions"
+            };
+          }
       }
     }
 

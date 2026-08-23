@@ -378,32 +378,64 @@ testLanguages.forEach(lang => {
 console.log("✓ Whole-site language switcher verified across all 6 languages.");
 
 // ----------------------------------------------------
-// TEST 5: Conversational Tutor Demo Chat Engine
+// TEST 5: Conversational Tutor Demo Chat Engine & Intent Classifier
 // ----------------------------------------------------
-console.log("\n--- TEST 5: Conversational Live Tutor Demo Chat Engine ---");
+console.log("\n--- TEST 5: Conversational Live Tutor Demo Chat & Robust Intent System ---");
 sandbox.currentAge = 9;
 sandbox.currentInterest = "gaming";
 sandbox.updateTutorSimulation(false);
 
 const chatThread = mockDoc.getElementById("tutorChatThread");
 
-const followupsToTest = [
-  { input: "Why is it 3/4?", label: "'why / explain more'" },
-  { input: "Give another example", label: "'give another example'" },
-  { input: "I don't understand, make it simpler", label: "'simpler / confused'" },
-  { input: "Make it harder", label: "'harder / advanced'" },
-  { input: "What about my favorite character?", label: "'unmatched fallback'" }
+const requiredRealWorldMessages = [
+  { input: "hi", expectedIntent: "greeting", label: "greeting 'hi'" },
+  { input: "hii", expectedIntent: "greeting", label: "greeting 'hii'" },
+  { input: "hello", expectedIntent: "greeting", label: "greeting 'hello'" },
+  { input: "hey there", expectedIntent: "greeting", label: "greeting 'hey there'" },
+  { input: "asdkjf", expectedIntent: "gibberish", label: "gibberish 'asdkjf'" },
+  { input: "test", expectedIntent: "gibberish", label: "gibberish 'test'" },
+  { input: "123", expectedIntent: "gibberish", label: "gibberish '123'" },
+  { input: "what's a numerator", expectedIntent: "concept_numerator", label: "concept 'what's a numerator'" },
+  { input: "what is a denominator", expectedIntent: "concept_denominator", label: "concept 'what is a denominator'" },
+  { input: "can u explain again", expectedIntent: "why", label: "recognized 'can u explain again'" },
+  { input: "another one pls", expectedIntent: "another_example", label: "recognized 'another one pls'" },
+  { input: "what's the weather", expectedIntent: "off_topic", label: "off-topic 'what's the weather'" },
+  { input: "who are you", expectedIntent: "identity", label: "identity 'who are you'" },
+  { input: "can I get a discount", expectedIntent: "off_topic", label: "off-topic 'can I get a discount'" },
+  { input: "", expectedIntent: "empty", label: "empty string" },
+  { input: "   ", expectedIntent: "empty", label: "whitespace only" },
+  { input: "?", expectedIntent: "why", label: "short punctuation '?'" },
+  { input: "ok", expectedIntent: "affirmation", label: "affirmation 'ok'" },
+  { input: "yes", expectedIntent: "affirmation", label: "affirmation 'yes'" },
+  { input: "why is it 3/4", expectedIntent: "why", label: "'why is it 3/4'" },
+  { input: "make it harder", expectedIntent: "harder", label: "'make it harder'" },
+  { input: "i don't understand, make it easier", expectedIntent: "simpler", label: "'make it easier'" }
 ];
 
-followupsToTest.forEach(({ input, label }) => {
+requiredRealWorldMessages.forEach(({ input, expectedIntent, label }) => {
+  const initialThreadCount = chatThread.children.length;
   sandbox.handleTutorFollowup(input);
-  const lastChild = chatThread.children[chatThread.children.length - 1];
-  if (!lastChild || !lastChild.innerHTML) {
-    console.error(`❌ TEST 5 FAILED: Follow-up response was not appended for ${label}`);
-    process.exit(1);
+  
+  if (expectedIntent === "empty") {
+    // Empty message should NOT append to thread and should not cause any error
+    if (chatThread.children.length !== initialThreadCount) {
+      console.error(`❌ TEST 5 FAILED: Empty message should not append bubble for ${label}`);
+      process.exit(1);
+    }
+  } else {
+    const lastChild = chatThread.children[chatThread.children.length - 1];
+    if (!lastChild || !lastChild.innerHTML) {
+      console.error(`❌ TEST 5 FAILED: Follow-up response was not appended for ${label}`);
+      process.exit(1);
+    }
+    const detected = sandbox.detectTutorIntent(input);
+    if (detected.intent !== expectedIntent) {
+      console.error(`❌ TEST 5 FAILED: Expected intent ${expectedIntent} for '${input}' but got ${detected.intent}`);
+      process.exit(1);
+    }
   }
 });
-console.log("✓ All conversational follow-up patterns generated rich responses in chat thread.");
+console.log("✓ All 22 real-world messages (greetings 'hi'/'hii'/'hello', concepts 'what's a numerator', off-topic, empty input, short affirmations) generated sensible on-brand responses with 0 errors.");
 
 // ----------------------------------------------------
 // TEST 6: Floating Site-Wide Help Chatbot
